@@ -292,7 +292,7 @@ export function HeroSection() {
               <div className="absolute top-1/2 left-1/2 h-[12%] w-[12%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zinc-800 shadow-inner dark:bg-zinc-200"></div>
             </motion.div>
 
-            {/* Music notes remain hidden on mobile */}
+            {/* Music notes with varying styles and animations */}
             <motion.div
               className="text-primary absolute top-10 -right-4 hidden text-4xl drop-shadow-lg sm:block"
               initial={{ opacity: 0, scale: 0 }}
@@ -310,6 +310,110 @@ export function HeroSection() {
               }}
             >
               ♪
+            </motion.div>
+
+            {/* Higher intensity eighth note */}
+            <motion.div
+              className="text-secondary absolute top-16 -left-8 hidden text-5xl drop-shadow-lg sm:block"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{
+                opacity: [0, 1, 0],
+                y: [0, -70],
+                x: [0, -30],
+                scale: [0, 1.2, 0.7],
+                rotate: [0, -15, 15],
+              }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                repeatDelay: 1,
+                ease: 'easeOut',
+              }}
+            >
+              ♫
+            </motion.div>
+
+            {/* Bouncy beamed sixteenth notes */}
+            <motion.div
+              className="from-primary to-secondary absolute -right-6 bottom-8 hidden bg-gradient-to-r bg-clip-text text-6xl font-bold text-transparent drop-shadow-xl sm:block"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{
+                opacity: [0, 1, 0],
+                y: [0, -50, -20, -60, -30],
+                x: [0, 10, 25, 15, 40],
+                scale: [0, 1.3, 1, 1.2, 0.6],
+                rotate: [0, 10, -5, 15, -10],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                repeatDelay: 0.5,
+                times: [0, 0.2, 0.4, 0.6, 1],
+                ease: 'easeInOut',
+              }}
+            >
+              ♬
+            </motion.div>
+
+            {/* Fast-flying music flat */}
+            <motion.div
+              className="text-accent absolute -top-4 left-1/4 hidden text-3xl font-bold drop-shadow-md sm:block"
+              initial={{ opacity: 0, y: 50, scale: 0.2 }}
+              animate={{
+                opacity: [0, 1, 1, 0],
+                y: [50, 0, -80, -120],
+                scale: [0.2, 1, 0.8, 0.4],
+                x: [0, 10, 30, 50],
+                rotate: [0, 45, 90, 180],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatDelay: 3.5,
+              }}
+            >
+              ♭
+            </motion.div>
+
+            {/* Pulsing G clef */}
+            <motion.div
+              className="from-secondary to-primary absolute bottom-20 -left-10 hidden bg-gradient-to-r bg-clip-text text-4xl font-bold text-transparent drop-shadow-lg md:block"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{
+                opacity: [0, 0.8, 0],
+                scale: [0.5, 1.4, 0.8],
+                y: [0, -30, -60],
+                rotate: [0, -10, -20],
+              }}
+              transition={{
+                duration: 3.5,
+                repeat: Infinity,
+                repeatType: 'loop',
+                ease: 'easeInOut',
+              }}
+            >
+              𝄞
+            </motion.div>
+
+            {/* Rapidly moving sharp symbol */}
+            <motion.div
+              className="text-primary/80 absolute top-1/3 -right-12 hidden text-4xl font-bold drop-shadow-lg md:block"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{
+                opacity: [0, 1, 0],
+                x: [-20, 20, 60],
+                y: [0, -30, -10],
+                rotate: [0, 20, 0, -20, 0],
+                scale: [0.8, 1.3, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatDelay: 1,
+                ease: 'backOut',
+              }}
+            >
+              ♯
             </motion.div>
 
             {/* Other notes remain the same */}

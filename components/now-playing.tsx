@@ -214,7 +214,7 @@ export default function NowPlaying() {
         </div>
       </div>
 
-      <div className="mt-4 flex max-w-[280px] items-center gap-3">
+      <div className="mt-4 flex w-full max-w-[280px] items-center gap-3">
         {/* Spotify icon */}
         <svg
           viewBox="0 0 24 24"
