@@ -63,7 +63,7 @@ export function BeamsBackground({
   children,
   intensity = 'strong',
 }: AnimatedGradientBackgroundProps) {
-  const { theme, systemTheme } = useTheme()
+  const { theme, resolvedTheme, setTheme } = useTheme()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const beamsRef = useRef<Beam[]>([])
   const animationFrameRef = useRef<number>(0)
@@ -72,10 +72,14 @@ export function BeamsBackground({
   // Fix hydration mismatch by using client-side only state
   const [mounted, setMounted] = useState(false)
 
-  // Wait until component is mounted to determine theme
-  const resolvedTheme = mounted ? theme : undefined
-  const isDarkMode =
-    resolvedTheme === 'dark' || (!resolvedTheme && systemTheme === 'dark')
+  useEffect(() => {
+    if (mounted && resolvedTheme !== 'dark') {
+      setTheme('dark')
+    }
+  }, [mounted, resolvedTheme, setTheme])
+
+  // This ensures dark mode is used regardless of the theme state
+  const isDarkMode = true
 
   const opacityMap = {
     subtle: isDarkMode ? 0.7 : 0.5,
@@ -230,7 +234,7 @@ export function BeamsBackground({
     <div
       className={cn(
         'relative min-h-screen w-full overflow-hidden',
-        !mounted || isDarkMode ? 'bg-zinc-950' : 'bg-white',
+        isDarkMode ? 'bg-zinc-950' : 'bg-white',
         className,
       )}
     >

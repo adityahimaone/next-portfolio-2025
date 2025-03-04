@@ -43,6 +43,7 @@ export default function RootLayout({
           attribute="class"
           storageKey="theme"
           defaultTheme="system"
+          forcedTheme="dark"
         >
           {/* <CustomCursor /> */}
           <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-geist)]">
