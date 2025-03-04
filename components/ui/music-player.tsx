@@ -9,17 +9,20 @@ import {
   Volume2Icon,
   Disc3,
 } from 'lucide-react'
+import { Slider } from './slider'
 
 export function MusicPlayer() {
   // Start as NOT playing until user interacts
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
   const [volume, setVolume] = useState(0.5)
   const [audioError, setAudioError] = useState(false)
   const [audioLoaded, setAudioLoaded] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const audioSourceRef = useRef<string>('/music/attention.mp3')
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Initialize audio element
   useEffect(() => {
@@ -72,6 +75,7 @@ export function MusicPlayer() {
       }
 
       clearTimeout(timer)
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
     }
   }, [])
 
@@ -125,8 +129,8 @@ export function MusicPlayer() {
   }
 
   // Handle volume change
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value)
+  const handleVolumeChange = (newValue: number[]) => {
+    const newVolume = newValue[0]
     setVolume(newVolume)
     setIsMuted(newVolume === 0)
   }
@@ -134,6 +138,19 @@ export function MusicPlayer() {
   // Handle mute toggle
   const toggleMute = () => {
     setIsMuted(!isMuted)
+  }
+
+  // Handle hover states with delay for better UX
+  const handleMouseEnter = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsHovered(false)
+    }, 1000) // 1 second delay before hiding controls
   }
 
   // Show a minimal player even if there's an error (to allow retry)
@@ -146,10 +163,17 @@ export function MusicPlayer() {
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
           className="fixed right-6 bottom-24 z-50"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <motion.div
-            className={`flex items-center space-x-2 rounded-full ${audioError ? 'bg-red-100/80 dark:bg-red-900/50' : 'bg-zinc-100/80 dark:bg-zinc-800/80'} p-2 backdrop-blur-md`}
+            className={`flex items-center space-x-2 rounded-full ${
+              audioError
+                ? 'bg-red-100/80 dark:bg-red-900/50'
+                : 'bg-zinc-100/80 dark:bg-zinc-800/80'
+            } p-2 backdrop-blur-md`}
             whileHover={{ scale: 1.05 }}
+            layout // This enables layout animations
           >
             <motion.button
               onClick={togglePlay}
@@ -169,44 +193,76 @@ export function MusicPlayer() {
               {isPlaying ? <PauseIcon size={18} /> : <PlayIcon size={18} />}
             </motion.button>
 
-            {!audioError && (
-              <>
-                <div className="flex items-center space-x-2 px-2">
-                  <motion.button
-                    onClick={toggleMute}
-                    whileTap={{ scale: 0.95 }}
-                    className="text-zinc-700 dark:text-zinc-300"
+            <AnimatePresence>
+              {!audioError && isHovered && (
+                <motion.div
+                  className="flex items-center space-x-3"
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: 'auto', opacity: 1 }}
+                  exit={{ width: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <motion.div
+                    className="flex items-center space-x-2 px-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                   >
-                    {isMuted ? (
-                      <VolumeIcon size={18} />
-                    ) : (
-                      <Volume2Icon size={18} />
-                    )}
-                  </motion.button>
+                    <motion.button
+                      onClick={toggleMute}
+                      whileTap={{ scale: 0.95 }}
+                      className="text-zinc-700 dark:text-zinc-300"
+                    >
+                      {isMuted ? (
+                        <VolumeIcon size={18} />
+                      ) : (
+                        <Volume2Icon size={18} />
+                      )}
+                    </motion.button>
 
-                  <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value={volume}
-                    onChange={handleVolumeChange}
-                    className="h-2 w-20 cursor-pointer appearance-none rounded-full bg-zinc-300 dark:bg-zinc-600"
-                    style={{
-                      background: `linear-gradient(to right, var(--primary) 0%, var(--primary) ${volume * 100}%, var(--zinc-300) ${volume * 100}%, var(--zinc-300) 100%)`,
-                    }}
-                  />
-                </div>
+                    {/* Shadcn Slider for volume */}
+                    {/* <Slider.Root
+                      className="relative flex h-5 w-24 touch-none items-center"
+                      value={[volume]}
+                      onValueChange={handleVolumeChange}
+                      max={1}
+                      step={0.01}
+                      aria-label="Volume"
+                    >
+                      <Slider.Track className="relative h-1.5 grow rounded-full bg-zinc-300 dark:bg-zinc-600">
+                        <Slider.Range className="bg-primary absolute h-full rounded-full" />
+                      </Slider.Track>
+                      <Slider.Thumb
+                        className="bg-primary hover:bg-primary/80 block h-3.5 w-3.5 rounded-full shadow-lg focus:outline-none"
+                        aria-label="Volume"
+                      />
+                    </Slider.Root> */}
+                    <Slider
+                      defaultValue={[0.5]}
+                      value={[volume]}
+                      onValueChange={handleVolumeChange}
+                      max={1}
+                      step={0.01}
+                      className="w-24"
+                    />
+                  </motion.div>
 
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-200 dark:bg-zinc-700">
-                  <div
-                    className={`vinyl-record vinyl-lines h-6 w-6 rounded-full bg-zinc-900 dark:bg-zinc-300 ${isPlaying ? 'animate-spin' : ''}`}
+                  <motion.div
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-200 dark:bg-zinc-700"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0 }}
                   >
-                    <Disc3 size={24} className="text-primary" />
-                  </div>
-                </div>
-              </>
-            )}
+                    <div
+                      className={`vinyl-record flex h-6 w-6 items-center justify-center overflow-hidden rounded-full ${isPlaying ? 'animate-spin' : ''}`}
+                      style={{ animationDuration: '4s' }}
+                    >
+                      <Disc3 size={24} className="text-primary" />
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {audioError && (
               <span className="px-2 text-xs text-red-600 dark:text-red-400">

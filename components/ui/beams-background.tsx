@@ -230,7 +230,7 @@ export function BeamsBackground({
     <div
       className={cn(
         'relative min-h-screen w-full overflow-hidden',
-        mounted && isDarkMode ? 'bg-zinc-950' : 'bg-white',
+        !mounted || isDarkMode ? 'bg-zinc-950' : 'bg-white',
         className,
       )}
     >
