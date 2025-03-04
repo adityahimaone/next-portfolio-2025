@@ -12,6 +12,7 @@ const nextConfig = {
       'camo.githubusercontent.com',
       'cdn.sanity.io',
       'res.cloudinary.com',
+      'i.scdn.co',
     ],
   },
 }

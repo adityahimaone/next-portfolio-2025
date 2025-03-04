@@ -162,7 +162,7 @@ export function MusicPlayer() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
-          className="fixed right-6 bottom-24 z-50"
+          className="fixed right-5 bottom-5 z-50"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -222,7 +222,7 @@ export function MusicPlayer() {
 
                     {/* Shadcn Slider for volume */}
                     {/* <Slider.Root
-                      className="relative flex h-5 w-24 touch-none items-center"
+                      className="relative flex items-center w-24 h-5 touch-none"
                       value={[volume]}
                       onValueChange={handleVolumeChange}
                       max={1}
@@ -230,7 +230,7 @@ export function MusicPlayer() {
                       aria-label="Volume"
                     >
                       <Slider.Track className="relative h-1.5 grow rounded-full bg-zinc-300 dark:bg-zinc-600">
-                        <Slider.Range className="bg-primary absolute h-full rounded-full" />
+                        <Slider.Range className="absolute h-full rounded-full bg-primary" />
                       </Slider.Track>
                       <Slider.Thumb
                         className="bg-primary hover:bg-primary/80 block h-3.5 w-3.5 rounded-full shadow-lg focus:outline-none"

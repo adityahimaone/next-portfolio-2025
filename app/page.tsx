@@ -21,6 +21,9 @@ import { ChevronUp } from 'lucide-react'
 import { initCursorGlow } from '@/lib/utils'
 import { BeamsBackground } from '@/components/ui/beams-background'
 import { MusicPlayer } from '@/components/ui/music-player'
+import { MusicBackground } from '@/components/ui/music-background'
+import { MusicMarquee } from '@/components/ui/music-marquee'
+import { About2Section } from '@/components/sections/about-2'
 
 export default function Home() {
   const { scrollYProgress } = useScroll()
@@ -43,15 +46,15 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  useEffect(() => {
-    // Initialize the music-themed cursor
-    const cleanupCursor = initCursorGlow()
+  // useEffect(() => {
+  //   // Initialize the music-themed cursor
+  //   const cleanupCursor = initCursorGlow()
 
-    // Return cleanup function
-    return () => {
-      if (cleanupCursor) cleanupCursor()
-    }
-  }, [])
+  //   // Return cleanup function
+  //   return () => {
+  //     if (cleanupCursor) cleanupCursor()
+  //   }
+  // }, [])
 
   useEffect(() => {
     // Preload any assets or initialize animations
@@ -165,14 +168,15 @@ export default function Home() {
           <div className="snap-y snap-mandatory">
             {/* Hero Section with Aurora Background */}
             <section className="relative h-screen snap-start">
-              <BeamsBackground>
+              <MusicBackground intensity="strong">
                 <Header />
                 <div className="mx-auto w-full max-w-screen-xl px-4 pt-20">
                   <HeroSection />
                 </div>
-              </BeamsBackground>
+              </MusicBackground>
             </section>
-
+            {/* Music-themed marquee divider */}
+            <MusicMarquee speed="normal" direction="left" />
             {/* Main Content Sections */}
             <div className="mx-auto w-full max-w-screen-xl space-y-32 px-4 py-20">
               <section id="about" className="snap-start scroll-mt-20">
@@ -211,7 +215,7 @@ export default function Home() {
       {/* Scroll to top button */}
       <motion.button
         onClick={handleScrollToTop}
-        className="from-primary to-secondary fixed right-6 bottom-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br text-white shadow-lg transition-transform"
+        className="from-primary to-secondary fixed right-7 bottom-24 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br text-white shadow-lg transition-transform"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{
           opacity: showScrollTop ? 1 : 0,
@@ -226,14 +230,14 @@ export default function Home() {
       </motion.button>
 
       {/* Cursor follower effect for musical theme */}
-      <div
+      {/* <div
         id="cursor-glow"
-        className="bg-gradient-radial from-primary/30 pointer-events-none fixed top-0 left-0 z-50 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full to-transparent opacity-0 blur-md transition-all duration-200"
+        className="fixed top-0 left-0 z-50 w-16 h-16 transition-all duration-200 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 pointer-events-none bg-gradient-radial from-primary/30 to-transparent blur-md"
         style={{
           willChange: 'transform',
           boxShadow: '0 0 15px 3px rgba(39, 50, 129, 0.15)',
         }}
-      />
+      /> */}
 
       {/* Music */}
       <MusicPlayer />

@@ -21,7 +21,7 @@ const FlipLink = ({ children, href, icon }: FlipLinkProps) => {
       whileTap="hovered"
       target="_blank"
       href={href}
-      className="group relative block overflow-hidden text-4xl font-black whitespace-nowrap uppercase sm:text-5xl md:text-6xl lg:text-7xl"
+      className="group relative block overflow-hidden text-7xl font-black whitespace-nowrap uppercase sm:text-5xl md:text-6xl lg:text-7xl"
       style={{
         lineHeight: 0.85,
       }}

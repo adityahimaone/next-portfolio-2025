@@ -8,9 +8,8 @@ import {
   BookOpenIcon,
   SparklesIcon,
 } from 'lucide-react'
-import NowPlaying from '../now-playing'
 
-export function AboutSection() {
+export function About2Section() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: false, amount: 0.2 })
 
@@ -52,18 +51,16 @@ export function AboutSection() {
           <span className="bg-primary/10 text-primary mb-4 inline-block rounded-full px-4 py-1.5 text-sm font-medium">
             About Me
           </span>
-          <h2 className="text-gradient mb-2 text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+          <h2 className="section-heading text-center">
             The Symphony Behind The Code
           </h2>
           <div className="from-primary to-secondary mt-3 h-1 w-24 rounded-full bg-gradient-to-r"></div>
         </motion.div>
 
-        {/* Two Column Layout */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
-          {/* Developer Column */}
           <motion.div
             variants={itemVariants}
-            className="col-span-1 md:col-span-8"
+            className="col-span-1 md:col-span-7"
           >
             <div className="group relative overflow-hidden rounded-3xl">
               <div className="from-primary/20 to-secondary/20 absolute inset-0 bg-gradient-to-br via-purple-500/10 opacity-70 backdrop-blur-[2px] transition-all duration-500 group-hover:opacity-80"></div>
@@ -78,87 +75,24 @@ export function AboutSection() {
                   </h3>
                 </div>
 
-                <div className="space-y-4 text-zinc-700 dark:text-zinc-300">
-                  <p>
-                    I'm a passionate frontend developer with a love for creating
-                    intuitive, high-performance web applications. With expertise
-                    in React, Next.js, and TypeScript, I build digital
-                    experiences that are both functional and aesthetically
-                    pleasing.
-                  </p>
-                  <p>
-                    My approach to development combines technical precision with
-                    creative problem-solving. I'm constantly exploring new
-                    technologies and techniques to enhance user experiences and
-                    optimize performance.
-                  </p>
-                  <p>
-                    When I'm not coding, you'll find me diving into design
-                    systems, contributing to open-source projects, or exploring
-                    new frameworks that push the boundaries of what's possible
-                    on the web.
-                  </p>
-                </div>
+                <p className="mb-4 text-lg text-zinc-700 dark:text-zinc-300">
+                  Frontend Developer who finds rhythm in both code and music.
+                  With 2+ years of crafting user interfaces, I transform
+                  creative inspiration into clean, efficient web experiences.
+                </p>
+
+                <p className="text-zinc-700 dark:text-zinc-300">
+                  Driven by the perfect harmony of technical precision and
+                  artistic design, I create digital experiences that resonate
+                  with users like a well-composed melody.
+                </p>
               </div>
             </div>
-            {/* Three Column Traits */}
-            <motion.div
-              className="my-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3"
-              variants={itemVariants}
-            >
-              {/* Problem Solver */}
-              <div className="group relative overflow-hidden rounded-3xl">
-                <div className="from-primary/10 to-secondary/10 absolute inset-0 bg-gradient-to-br opacity-60 transition-all duration-500 group-hover:opacity-70"></div>
-                <div className="absolute inset-[1px] rounded-3xl bg-white/90 backdrop-blur-sm dark:bg-zinc-900/90"></div>
-                <div className="relative z-10 p-6">
-                  <h3 className="mb-2 text-center text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-                    Problem Solver
-                  </h3>
-                  <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
-                    Approaching challenges with creative solutions and
-                    analytical thinking. I enjoy breaking down complex problems
-                    into manageable pieces.
-                  </p>
-                </div>
-              </div>
-
-              {/* Continuous Learner */}
-              <div className="group relative overflow-hidden rounded-3xl">
-                <div className="from-primary/10 to-secondary/10 absolute inset-0 bg-gradient-to-br opacity-60 transition-all duration-500 group-hover:opacity-70"></div>
-                <div className="absolute inset-[1px] rounded-3xl bg-white/90 backdrop-blur-sm dark:bg-zinc-900/90"></div>
-                <div className="relative z-10 p-6">
-                  <h3 className="mb-2 text-center text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-                    Continuous Learner
-                  </h3>
-                  <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
-                    Always exploring new technologies and expanding my skillset.
-                    The web evolves continuously, and so do I.
-                  </p>
-                </div>
-              </div>
-
-              {/* Detail Oriented */}
-              <div className="group relative overflow-hidden rounded-3xl">
-                <div className="from-primary/10 to-secondary/10 absolute inset-0 bg-gradient-to-br opacity-60 transition-all duration-500 group-hover:opacity-70"></div>
-                <div className="absolute inset-[1px] rounded-3xl bg-white/90 backdrop-blur-sm dark:bg-zinc-900/90"></div>
-                <div className="relative z-10 p-6">
-                  <h3 className="mb-2 text-center text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-                    Detail Oriented
-                  </h3>
-                  <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
-                    Finding harmony in the smallest details to create polished
-                    experiences that stand out and provide excellent user
-                    experiences.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
           </motion.div>
 
-          {/* Spotify Now Playing Column */}
           <motion.div
             variants={itemVariants}
-            className="col-span-1 md:col-span-4"
+            className="col-span-1 md:col-span-5"
           >
             <div className="group relative overflow-hidden rounded-3xl">
               <div className="from-primary/20 to-secondary/20 absolute inset-0 bg-gradient-to-tl via-blue-500/10 opacity-70 backdrop-blur-[2px] transition-all duration-500 group-hover:opacity-80"></div>
@@ -169,24 +103,88 @@ export function AboutSection() {
                     <MusicIcon size={24} />
                   </div>
                   <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-                    Currently Playing
+                    The Musician
                   </h3>
                 </div>
 
-                <div className="flex flex-col items-center">
-                  <NowPlaying />
-                  <p className="mt-4 text-center text-sm text-zinc-600 dark:text-zinc-400">
-                    Music fuels my creativity and coding sessions. This is
-                    what's playing right now on my Spotify.
-                  </p>
-                </div>
+                <p className="mb-4 text-zinc-700 dark:text-zinc-300">
+                  My passion for music influences my approach to development.
+                  Just as a musician finds the perfect notes, I seek the optimal
+                  balance of functionality and aesthetics.
+                </p>
+
+                <p className="text-zinc-700 dark:text-zinc-300">
+                  The discipline of practice, the joy of improvisation, and the
+                  satisfaction of creating something that moves people - these
+                  musical principles guide my work as a developer.
+                </p>
               </div>
             </div>
           </motion.div>
         </div>
 
-        {/* My Philosophy */}
-        <motion.div className="mt-12 rounded-3xl" variants={itemVariants}>
+        <motion.div
+          className="my-8 grid grid-cols-1 gap-8 md:grid-cols-3"
+          variants={itemVariants}
+        >
+          <div className="group relative overflow-hidden rounded-3xl">
+            <div className="from-primary/10 to-secondary/10 absolute inset-0 bg-gradient-to-br opacity-60 transition-all duration-500 group-hover:opacity-70"></div>
+            <div className="absolute inset-[1px] rounded-3xl bg-white/90 backdrop-blur-sm dark:bg-zinc-900/90"></div>
+            <div className="relative z-10 p-6">
+              <div className="mb-4 flex justify-center">
+                <div className="from-primary/20 to-secondary/20 rounded-full bg-gradient-to-br p-3">
+                  <LightbulbIcon className="from-primary to-secondary text-gradient h-8 w-8" />
+                </div>
+              </div>
+              <h3 className="mb-2 text-center text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                Problem Solver
+              </h3>
+              <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+                Approaching challenges with creative solutions and analytical
+                thinking
+              </p>
+            </div>
+          </div>
+
+          <div className="group relative overflow-hidden rounded-3xl">
+            <div className="from-primary/10 to-secondary/10 absolute inset-0 bg-gradient-to-br opacity-60 transition-all duration-500 group-hover:opacity-70"></div>
+            <div className="absolute inset-[1px] rounded-3xl bg-white/90 backdrop-blur-sm dark:bg-zinc-900/90"></div>
+            <div className="relative z-10 p-6">
+              <div className="mb-4 flex justify-center">
+                <div className="from-primary/20 to-secondary/20 rounded-full bg-gradient-to-br p-3">
+                  <BookOpenIcon className="from-primary to-secondary text-gradient h-8 w-8" />
+                </div>
+              </div>
+              <h3 className="mb-2 text-center text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                Continuous Learner
+              </h3>
+              <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+                Always exploring new technologies and expanding my skillset
+              </p>
+            </div>
+          </div>
+
+          <div className="group relative overflow-hidden rounded-3xl">
+            <div className="from-primary/10 to-secondary/10 absolute inset-0 bg-gradient-to-br opacity-60 transition-all duration-500 group-hover:opacity-70"></div>
+            <div className="absolute inset-[1px] rounded-3xl bg-white/90 backdrop-blur-sm dark:bg-zinc-900/90"></div>
+            <div className="relative z-10 p-6">
+              <div className="mb-4 flex justify-center">
+                <div className="from-primary/20 to-secondary/20 rounded-full bg-gradient-to-br p-3">
+                  <SparklesIcon className="from-primary to-secondary text-gradient h-8 w-8" />
+                </div>
+              </div>
+              <h3 className="mb-2 text-center text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                Detail Oriented
+              </h3>
+              <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+                Finding harmony in the smallest details to create polished
+                experiences
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div className="mt-8 rounded-3xl" variants={itemVariants}>
           <div className="group relative overflow-hidden rounded-3xl bg-zinc-100 dark:bg-zinc-800/50">
             <div className="from-primary/5 to-secondary/5 absolute inset-0 bg-gradient-to-r opacity-80"></div>
             <div className="relative z-10 p-8">
@@ -208,7 +206,6 @@ export function AboutSection() {
           </div>
         </motion.div>
 
-        {/* Tags */}
         <motion.div
           className="mt-16 flex flex-wrap justify-center gap-3"
           variants={itemVariants}
