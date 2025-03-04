@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { Header } from './header'
-import { Footer } from './footer'
 import { ThemeProvider } from 'next-themes'
+import { CustomCursor } from '@/components/ui/custom-cursor'
+import { MusicPlayer } from '@/components/ui/music-player'
+import { initCursorGlow } from '@/lib/utils'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -12,9 +13,9 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Nim - Personal website template',
+  title: 'adityahimaone - frontend developer',
   description:
-    'Nim is a free and open-source personal website template built with Next.js 15, React 19 and Motion-Primitives.',
+    'I am a frontend developer who loves to craft beautiful and performant websites.',
 }
 
 const geist = Geist({
@@ -43,12 +44,9 @@ export default function RootLayout({
           storageKey="theme"
           defaultTheme="system"
         >
-          <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
-            <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
-              <Header />
-              {children}
-              <Footer />
-            </div>
+          {/* <CustomCursor /> */}
+          <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-geist)]">
+            <div className="relative flex-1">{children}</div>
           </div>
         </ThemeProvider>
       </body>
