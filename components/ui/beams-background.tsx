@@ -73,13 +73,14 @@ export function BeamsBackground({
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    if (mounted && resolvedTheme !== 'dark') {
+    // On first mount, default to dark mode if no theme is set
+    if (mounted && !localStorage.getItem('theme')) {
       setTheme('dark')
     }
-  }, [mounted, resolvedTheme, setTheme])
+  }, [mounted, setTheme])
 
-  // This ensures dark mode is used regardless of the theme state
-  const isDarkMode = true
+  // Calculate isDarkMode properly from theme state
+  const isDarkMode = !mounted || resolvedTheme === 'dark'
 
   const opacityMap = {
     subtle: isDarkMode ? 0.7 : 0.5,
