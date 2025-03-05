@@ -44,11 +44,6 @@ export function HeroSection() {
       className="relative flex min-h-[100vh] items-center py-4 pb-4 sm:min-h-[90vh] sm:py-20 sm:pb-20 md:py-24"
       ref={ref}
     >
-      {/* Background Elements remain unchanged */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.015] dark:opacity-[0.03]"></div>
-      </div>
-
       {/* Main Content - improved spacing */}
       <motion.div
         className="mx-auto grid max-w-screen-xl grid-cols-1 gap-6 px-4 sm:gap-12 sm:px-6 md:grid-cols-2 md:items-center lg:px-8"
@@ -248,6 +243,7 @@ export function HeroSection() {
               className="relative h-full w-full rounded-full bg-zinc-100/80 p-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-sm dark:bg-zinc-800/80"
               initial={{ rotate: 0 }}
               whileHover="spinning"
+              whileTap="spinning"
               variants={{
                 spinning: {
                   scale: 1.05,
@@ -294,7 +290,7 @@ export function HeroSection() {
 
             {/* Music notes with varying styles and animations */}
             <motion.div
-              className="text-primary absolute top-10 -right-4 hidden text-4xl drop-shadow-lg sm:block"
+              className="text-primary absolute top-10 -right-4 block text-4xl drop-shadow-lg"
               initial={{ opacity: 0, scale: 0 }}
               animate={{
                 opacity: [0, 1, 0],
@@ -314,7 +310,7 @@ export function HeroSection() {
 
             {/* Higher intensity eighth note */}
             <motion.div
-              className="text-secondary absolute top-16 -left-8 hidden text-5xl drop-shadow-lg sm:block"
+              className="text-secondary absolute top-16 -left-8 block text-5xl drop-shadow-lg"
               initial={{ opacity: 0, scale: 0 }}
               animate={{
                 opacity: [0, 1, 0],
@@ -335,7 +331,7 @@ export function HeroSection() {
 
             {/* Bouncy beamed sixteenth notes */}
             <motion.div
-              className="from-primary to-secondary absolute -right-6 bottom-8 hidden bg-gradient-to-r bg-clip-text text-6xl font-bold text-transparent drop-shadow-xl sm:block"
+              className="from-primary to-secondary absolute -right-6 bottom-8 block bg-gradient-to-r bg-clip-text text-6xl font-bold text-transparent drop-shadow-xl"
               initial={{ opacity: 0, scale: 0 }}
               animate={{
                 opacity: [0, 1, 0],
@@ -357,7 +353,7 @@ export function HeroSection() {
 
             {/* Fast-flying music flat */}
             <motion.div
-              className="text-accent absolute -top-4 left-1/4 hidden text-3xl font-bold drop-shadow-md sm:block"
+              className="text-accent absolute -top-4 left-1/4 block text-3xl font-bold drop-shadow-md"
               initial={{ opacity: 0, y: 50, scale: 0.2 }}
               animate={{
                 opacity: [0, 1, 1, 0],

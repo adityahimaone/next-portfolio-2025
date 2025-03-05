@@ -305,7 +305,7 @@ export function MusicBackground({
       />
 
       {/* Equalizer bars at bottom */}
-      <div className="absolute right-0 bottom-0 left-0 flex h-16 items-end justify-center space-x-1 overflow-hidden opacity-20">
+      <div className="absolute right-0 bottom-0 left-0 hidden h-16 items-end justify-center space-x-1 overflow-hidden opacity-20 sm:flex">
         {Array.from({ length: 40 }).map((_, i) => (
           <motion.div
             key={i}
@@ -329,7 +329,13 @@ export function MusicBackground({
       </div>
 
       {/* Content container */}
-      <div className="relative z-10 h-screen w-full">{children}</div>
+      <div className="relative z-10 h-screen w-full">
+        {/* Background Elements remain unchanged */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.05] dark:opacity-[1]"></div>
+        </div>
+        {children}
+      </div>
     </div>
   )
 }

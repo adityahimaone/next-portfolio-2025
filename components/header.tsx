@@ -18,9 +18,24 @@ export function Header() {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     setMounted(true)
+
+    // Add scroll event listener
+    const handleScroll = () => {
+      // Change state based on scroll position (50px threshold)
+      setScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    // Initial check in case page loads scrolled down
+    handleScroll()
+
+    // Cleanup
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const toggleMenu = () => {
@@ -33,7 +48,7 @@ export function Header() {
 
   return (
     <motion.header
-      className="fixed top-0 left-0 z-50 w-full backdrop-blur-md"
+      className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ease-in-out ${scrolled ? 'bg-white/80 shadow-sm backdrop-blur-md dark:bg-zinc-900/80' : 'bg-transparent'} `}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -44,7 +59,9 @@ export function Header() {
             className="flex items-center"
             whileHover={{ scale: 1.05 }}
           >
-            <span className="text-gradient text-xl font-bold">
+            <span
+              className={`text-gradient text-xl font-bold ${!scrolled && 'drop-shadow-md'}`}
+            >
               adityahimaone
             </span>
             <div className="ml-2 flex h-4 items-end">
@@ -63,7 +80,7 @@ export function Header() {
               <motion.li key={item.name} whileHover={{ y: -2 }}>
                 <Link
                   href={item.href}
-                  className="hover:text-primary dark:hover:text-primary-light text-zinc-700 transition-colors dark:text-zinc-300"
+                  className={`hover:text-primary dark:hover:text-primary-light transition-colors ${scrolled ? 'text-zinc-700 dark:text-zinc-300' : 'text-zinc-800 dark:text-zinc-100'} ${!scrolled && 'drop-shadow-sm'}`}
                 >
                   {item.name}
                 </Link>
@@ -76,7 +93,11 @@ export function Header() {
           {mounted && (
             <motion.button
               onClick={toggleTheme}
-              className="relative z-50 rounded-full p-2 text-zinc-700 transition-colors hover:bg-zinc-200 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              className={`relative z-50 rounded-full p-2 transition-colors ${
+                scrolled
+                  ? 'text-zinc-700 hover:bg-zinc-200 dark:text-zinc-300 dark:hover:bg-zinc-800'
+                  : 'text-zinc-800 hover:bg-white/10 dark:text-zinc-100 dark:hover:bg-zinc-800/30'
+              }`}
               whileHover={{ scale: 1.1, rotate: 15 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -90,7 +111,7 @@ export function Header() {
 
           {/* Mobile menu button */}
           <motion.button
-            className="block md:hidden"
+            className={`block md:hidden ${!scrolled && 'drop-shadow-sm'}`}
             onClick={toggleMenu}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
