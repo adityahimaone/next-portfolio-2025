@@ -76,7 +76,7 @@ export function Header() {
           {mounted && (
             <motion.button
               onClick={toggleTheme}
-              className="rounded-full p-2 text-zinc-700 transition-colors hover:bg-zinc-200 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              className="relative z-50 rounded-full p-2 text-zinc-700 transition-colors hover:bg-zinc-200 dark:text-zinc-300 dark:hover:bg-zinc-800"
               whileHover={{ scale: 1.1, rotate: 15 }}
               whileTap={{ scale: 0.9 }}
             >

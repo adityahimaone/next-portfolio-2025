@@ -30,7 +30,7 @@ export function Footer() {
 
           <div className="text-center text-sm text-zinc-500 md:text-right dark:text-zinc-400">
             <TextLoop className="inline-block">
-              <span>© {currentYear} Code Virtuoso.</span>
+              <span>© {currentYear} adityahimaone</span>
               <span>Where code meets rhythm.</span>
               <span>Crafting digital symphonies.</span>
             </TextLoop>

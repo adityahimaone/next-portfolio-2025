@@ -32,7 +32,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   return (
     <div className="w-full font-sans" ref={containerRef}>
-      <div className="mx-auto max-w-7xl px-4 py-16 md:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl px-2 py-16 md:px-8 lg:px-10">
         <h2 className="section-heading mb-6 text-center">
           Professional Compositions
         </h2>
@@ -53,7 +53,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             viewport={{ once: true, margin: '-100px' }}
           >
             <div className="sticky top-40 z-40 flex max-w-xs flex-col items-center self-start md:w-full md:flex-row lg:max-w-sm">
-              <div className="absolute left-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 shadow-lg md:left-3 dark:bg-zinc-900/80">
+              <div className="absolute left-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 shadow-lg md:left-3 dark:bg-zinc-900/80">
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{
@@ -70,7 +70,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               </h3>
             </div>
 
-            <div className="relative w-full pr-4 pl-20 md:pl-4">
+            <div className="relative w-full pr-2 pl-14 md:pr-4 md:pl-4">
               <h3 className="mb-4 block text-left text-2xl font-bold text-zinc-800 md:hidden dark:text-zinc-200">
                 {item.title}
               </h3>
@@ -78,7 +78,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               {/* Enhanced Card Design */}
               <motion.div
                 className={cn(
-                  'group relative overflow-hidden rounded-xl bg-white p-6 shadow-md transition-all duration-300',
+                  'group relative overflow-hidden rounded-xl bg-white p-3 shadow-md transition-all duration-300 md:p-6',
                   'hover:shadow-xl dark:bg-zinc-800/90 dark:backdrop-blur-sm',
                   'border border-zinc-100 dark:border-zinc-700/50',
                 )}
@@ -119,7 +119,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           style={{
             height: height + 'px',
           }}
-          className="absolute top-0 left-8 w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] md:left-8 dark:via-zinc-700"
+          className="absolute top-0 left-6 w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] md:left-8 dark:via-zinc-700"
         >
           <motion.div
             style={{
