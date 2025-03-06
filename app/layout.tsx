@@ -13,9 +13,39 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'adityahimaone - frontend developer',
+  title: 'adit - frontend developer',
   description:
     'I am a frontend developer who loves to craft beautiful and performant websites.',
+  icons: {
+    icon: [
+      {
+        media: '(prefers-color-scheme: light)',
+        url: '/memoji-1.png',
+        href: '/memoji-1.png',
+      },
+      {
+        media: '(prefers-color-scheme: dark)',
+        url: '/memoji-1.png',
+        href: '/memoji-1.png',
+      },
+    ],
+  },
+  openGraph: {
+    title: 'adit — frontend developer',
+    type: 'website',
+    images:
+      'https://ucarecdn.com/b624aa7d-978f-44ef-8e45-bf3c12f1e846/memojilaptop1.png', // Same image as above
+    url: 'https://adityahimaone.tech/',
+    description: "adit's personal website",
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@adityahimaone',
+    title: 'adit — frontend developer',
+    description: "adit's personal website",
+    images:
+      'https://ucarecdn.com/b624aa7d-978f-44ef-8e45-bf3c12f1e846/memojilaptop1.png', // Same image as above
+  },
 }
 
 const geist = Geist({

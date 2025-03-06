@@ -11,7 +11,7 @@ export function ExperienceSection() {
           <h3 className="mb-1 flex flex-col text-2xl font-medium text-zinc-800 md:flex-row md:items-baseline md:gap-2 dark:text-zinc-200">
             Frontend Developer
             <span className="text-base font-light text-zinc-400 md:text-lg">
-              Part Time
+              Part Time/Freelance
             </span>
           </h3>
           <p className="text-secondary mb-3 text-lg">
@@ -20,9 +20,9 @@ export function ExperienceSection() {
           <ul className="space-y-3">
             <li className="inline-flex items-start gap-2">
               <div className="bg-secondary mt-2 h-2 w-2 flex-none" />
-              Spearheaded the development of a next-generation Human Resources
-              Management System incorporating blockchain technology to ensure
-              enhanced data security and decentralization.
+              Spearheaded the development of a innovative Workforce Management
+              System incorporating blockchain technology to ensure enhanced data
+              security and decentralization.
             </li>
             <li className="inline-flex items-start gap-2">
               <div className="bg-secondary mt-2 h-2 w-2 flex-none" />
@@ -67,7 +67,7 @@ export function ExperienceSection() {
               and modern codebases
             </li>
           </ul>
-          <div className="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="mt-2 grid hidden grid-cols-1 gap-4 md:grid-cols-2">
             <div className="h-40 w-full rounded-lg bg-zinc-200 object-center shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60 dark:bg-zinc-800"></div>
             <div className="h-40 w-full rounded-lg bg-zinc-200 object-center shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60 dark:bg-zinc-800"></div>
           </div>
@@ -157,7 +157,7 @@ export function ExperienceSection() {
                 functionalities.
               </li>
             </ul>
-            <div className="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="mt-2 grid hidden grid-cols-1 gap-4 md:grid-cols-2">
               <div className="h-40 w-full rounded-lg bg-zinc-200 object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60 dark:bg-zinc-800"></div>
               <div className="h-40 w-full rounded-lg bg-zinc-200 object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60 dark:bg-zinc-800"></div>
             </div>

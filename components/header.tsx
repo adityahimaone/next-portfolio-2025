@@ -62,7 +62,7 @@ export function Header() {
             <span
               className={`text-gradient text-xl font-bold ${!scrolled && 'drop-shadow-md'}`}
             >
-              adityahimaone
+              adit
             </span>
             <div className="ml-2 flex h-4 items-end">
               <div className="music-bar"></div>

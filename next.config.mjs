@@ -13,6 +13,7 @@ const nextConfig = {
       'cdn.sanity.io',
       'res.cloudinary.com',
       'i.scdn.co',
+      'ucarecdn.com',
     ],
   },
 }
