@@ -141,7 +141,7 @@ const timelineData = [
             </span>
           </h3>
           <p className="text-secondary mb-3 text-lg">
-            Bootcamp Frontend Developer By Alterra Academy
+            Bootcamp Fullstack Developer By Alterra Academy
           </p>
           <ul className="space-y-3">
             <li className="inline-flex items-start gap-2">
