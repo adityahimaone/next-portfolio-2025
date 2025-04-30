@@ -14,17 +14,41 @@ interface IProjectData {
 }
 
 const projectsData: IProjectData[] = [
+  // {
+  //   id: 1,
+  //   title: 'Portfolio Bento',
+  //   description:
+  //     'Landing page for SeaPhantom, an NFT project focusing on innovative and sustainable technologies. Explore the world of NFTs and peer-to-peer trading on the SeaPhantom platform.',
+  //   image:
+  //     'https://res.cloudinary.com/deselamak/image/upload/v1731132621/portofolio/rjwnyaeifqmneuflt3it.png',
+  //   url: 'https://seaphantom.com',
+  // },
   {
     id: 1,
-    title: 'Portfolio Bento',
+    title: 'Primarindo Asia Infrastructure Tbk Company Profile',
     description:
-      'Landing page for SeaPhantom, an NFT project focusing on innovative and sustainable technologies. Explore the world of NFTs and peer-to-peer trading on the SeaPhantom platform.',
-    image:
-      'https://res.cloudinary.com/deselamak/image/upload/v1731132621/portofolio/rjwnyaeifqmneuflt3it.png',
-    url: 'https://seaphantom.com',
+      'Company profile for Primarindo Asia Infrastructure Tbk, a manufacturer specializing in shoe production. The website showcases their manufacturing capabilities, product lines, and corporate information.',
+    image: '/assets/primarindo.png',
+    url: 'https://primarindo.niqcode.com/',
   },
   {
     id: 2,
+    title: 'Frontend Resources',
+    description:
+      'A curated collection of the best frontend development tools, libraries, and inspiration sources to supercharge your web development workflow.',
+    image: '/assets/frontend-resources.png',
+    url: 'https://frontend-resources-rouge.vercel.app/',
+  },
+  {
+    id: 3,
+    title: 'Quick Chat Whatsapp',
+    description:
+      "A utility app that lets users send WhatsApp messages without saving the recipient's phone number. Simplifies communication by eliminating the need to create contacts for one-time conversations.",
+    image: '/assets/quick-chat-wa.png',
+    url: 'http://quick-chat-whatsapp.vercel.app/',
+  },
+  {
+    id: 4,
     title: 'SeaPhantom Landing Page',
     description:
       'Landing page for SeaPhantom, an NFT project focusing on innovative and sustainable technologies. Explore the world of NFTs and peer-to-peer trading on the SeaPhantom platform.',
@@ -33,7 +57,7 @@ const projectsData: IProjectData[] = [
     url: 'https://seaphantom.com',
   },
   {
-    id: 3,
+    id: 5,
     title: 'SeaPhantom P2P Rum Token Escrow Trading',
     description:
       'Engage in NFT trading with the P2P Rum Token Escrow Trading project. This platform facilitates secure and transparent NFT transactions.',
@@ -42,7 +66,7 @@ const projectsData: IProjectData[] = [
     url: 'https://auth.seaphantom.com/',
   },
   {
-    id: 4,
+    id: 6,
     title: 'Labgrownbeasts Company Profile',
     description:
       'Explore the Labgrownbeasts Company Profile, showcasing innovation and excellence in the field. Learn about our vision, mission, and the cutting-edge work we do.',
@@ -50,24 +74,24 @@ const projectsData: IProjectData[] = [
       'https://res.cloudinary.com/deselamak/image/upload/v1699777135/portofolio/mqprcb6todunicq4cg0a.webp',
     url: 'https://labgrownbeasts.com/',
   },
-  {
-    id: 5,
-    title: 'Gold Apple Token',
-    description:
-      'Explore the Labgrownbeasts Company Profile, showcasing innovation and excellence in the field. Learn about our vision, mission, and the cutting-edge work we do.',
-    image:
-      'https://res.cloudinary.com/deselamak/image/upload/v1731218154/portofolio/btj1gqvxgej1cgbqm6zf.png',
-    url: 'https://labgrownbeasts.com/',
-  },
-  {
-    id: 6,
-    title: 'Daily Calories Apps',
-    description:
-      'Explore the Labgrownbeasts Company Profile, showcasing innovation and excellence in the field. Learn about our vision, mission, and the cutting-edge work we do.',
-    image:
-      'https://res.cloudinary.com/deselamak/image/upload/v1731218151/portofolio/irby71t9knqrf3y5jogn.png',
-    url: 'https://labgrownbeasts.com/',
-  },
+  // {
+  //   id: 5,
+  //   title: 'Gold Apple Token Landing Page',
+  //   description:
+  //     'Explore the Labgrownbeasts Company Profile, showcasing innovation and excellence in the field. Learn about our vision, mission, and the cutting-edge work we do.',
+  //   image:
+  //     'https://res.cloudinary.com/deselamak/image/upload/v1731218154/portofolio/btj1gqvxgej1cgbqm6zf.png',
+  //   url: 'https://labgrownbeasts.com/',
+  // },
+  // {
+  //   id: 6,
+  //   title: 'Daily Calories Apps',
+  //   description:
+  //     'Explore the Labgrownbeasts Company Profile, showcasing innovation and excellence in the field. Learn about our vision, mission, and the cutting-edge work we do.',
+  //   image:
+  //     'https://res.cloudinary.com/deselamak/image/upload/v1731218151/portofolio/irby71t9knqrf3y5jogn.png',
+  //   url: 'https://labgrownbeasts.com/',
+  // },
 ]
 
 export function ProjectsSection() {

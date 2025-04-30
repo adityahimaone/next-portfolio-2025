@@ -429,109 +429,13 @@ export function AboutSection() {
             </div>
           </div>
         </motion.div>
-        {/* My Philosophy - Modern Design */}
-        <motion.div
-          className="mt-16"
-          variants={itemVariants}
-          style={{ zIndex: 1 }}
-        >
-          <div className="group relative overflow-hidden rounded-3xl">
-            {/* Lower z-indexes for background elements */}
-            <div
-              className="from-primary/5 to-secondary/5 absolute inset-0 bg-gradient-to-br via-purple-500/10 opacity-60"
-              style={{ zIndex: 0 }}
-            ></div>
-
-            {/* Animated circles with lower z-indexes */}
-            <motion.div
-              className="from-primary/20 to-secondary/20 absolute top-20 -left-20 h-40 w-40 rounded-full bg-gradient-to-r blur-3xl"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.4, 0.6, 0.4],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              style={{ zIndex: 1 }}
-            />
-
-            <motion.div
-              className="from-secondary/20 to-primary/20 absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-gradient-to-br blur-3xl"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.5, 0.7, 0.5],
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 2,
-              }}
-              style={{ zIndex: 1 }}
-            />
-
-            {/* Content container with glass effect - lower z-index */}
-            <div className="relative z-5">
-              {/* Music note decorative element */}
-              <div className="text-primary/5 dark:text-primary/10 absolute top-10 right-10 text-8xl font-bold">
-                ♫
-              </div>
-
-              {/* Horizontal divider with gradient */}
-              <div className="from-primary/30 absolute top-24 right-0 h-px w-1/3 bg-gradient-to-l to-transparent"></div>
-
-              <div className="p-12 backdrop-blur-[2px]">
-                <div className="mb-6 flex items-center gap-4">
-                  <div className="from-primary to-secondary h-10 w-2 rounded-full bg-gradient-to-b"></div>
-                  <h3 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
-                    My Philosophy
-                  </h3>
-                </div>
-
-                <div className="relative">
-                  {/* Decorative quote marks */}
-                  <div className="text-primary/20 absolute -top-4 -left-2 font-serif text-4xl">
-                    "
-                  </div>
-                  <div className="text-primary/20 absolute -right-2 -bottom-4 font-serif text-4xl">
-                    "
-                  </div>
-
-                  <p className="px-3 text-lg leading-relaxed text-zinc-700 md:text-xl md:leading-relaxed dark:text-zinc-300">
-                    I believe great digital experiences are like well-composed
-                    music - they have{' '}
-                    <span className="text-primary font-medium">rhythm</span>,{' '}
-                    <span className="text-secondary font-medium">harmony</span>,
-                    and{' '}
-                    <span className="from-primary to-secondary bg-gradient-to-r bg-clip-text font-medium text-transparent">
-                      resonance
-                    </span>
-                    . Every project is an opportunity to create something that
-                    not only functions flawlessly but also connects emotionally
-                    with users. By blending technical expertise with creative
-                    intuition, I craft interfaces that are both powerful and
-                    intuitive - digital compositions that users want to
-                    experience again and again.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Interactive hover effect on the whole container */}
-            <div
-              className="group-hover:ring-primary/20 dark:group-hover:ring-primary/20 absolute inset-0 rounded-3xl ring-1 ring-zinc-200/30 transition-all duration-300 ring-inset dark:ring-zinc-700/30"
-              style={{ zIndex: 2 }}
-            ></div>
-          </div>
-        </motion.div>
 
         {/* Tags */}
-        {/* Tags - Modern Look */}
+        {/* Tags - Enhanced Hover Effects */}
         <motion.div
           className="mt-16 flex flex-wrap justify-center gap-4"
           variants={itemVariants}
+          style={{ position: 'relative', zIndex: 1 }}
         >
           {/* Problem Solver */}
           <motion.div
@@ -539,12 +443,12 @@ export function AboutSection() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
           >
-            <div className="from-primary to-secondary absolute inset-0 rounded-full bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
+            <div className="from-primary to-secondary absolute inset-0 rounded-full bg-gradient-to-r opacity-0 transition-all duration-300 group-hover:opacity-95" />
+            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:bg-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
               <LightbulbIcon className="h-4 w-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12" />
               <span className="text-sm font-medium">Problem Solver</span>
             </div>
-            <div className="from-primary/20 to-secondary/20 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-primary/30 to-secondary/30 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </motion.div>
 
           {/* Creative Thinker */}
@@ -553,12 +457,12 @@ export function AboutSection() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
           >
-            <div className="from-primary to-secondary absolute inset-0 rounded-full bg-gradient-to-r via-purple-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
+            <div className="from-primary to-secondary absolute inset-0 rounded-full bg-gradient-to-r via-purple-500 opacity-0 transition-all duration-300 group-hover:opacity-95" />
+            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:bg-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
               <SparklesIcon className="h-4 w-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12" />
               <span className="text-sm font-medium">Creative Thinker</span>
             </div>
-            <div className="from-primary/20 to-secondary/20 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r via-purple-500/20 opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-primary/30 to-secondary/30 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r via-purple-500/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </motion.div>
 
           {/* Detail Oriented */}
@@ -567,8 +471,8 @@ export function AboutSection() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
           >
-            <div className="from-secondary to-accent absolute inset-0 rounded-full bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
+            <div className="from-secondary to-accent absolute inset-0 rounded-full bg-gradient-to-r opacity-0 transition-all duration-300 group-hover:opacity-95" />
+            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:bg-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
               <svg
                 className="h-4 w-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12"
                 viewBox="0 0 24 24"
@@ -585,7 +489,7 @@ export function AboutSection() {
               </svg>
               <span className="text-sm font-medium">Detail Oriented</span>
             </div>
-            <div className="from-secondary/20 to-accent/20 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-secondary/30 to-accent/30 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </motion.div>
 
           {/* Continuous Learner */}
@@ -594,12 +498,12 @@ export function AboutSection() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
           >
-            <div className="to-primary absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
+            <div className="to-primary absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 opacity-0 transition-all duration-300 group-hover:opacity-95" />
+            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:bg-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
               <BookOpenIcon className="h-4 w-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12" />
               <span className="text-sm font-medium">Continuous Learner</span>
             </div>
-            <div className="to-primary/20 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r from-blue-500/20 opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="to-primary/30 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r from-blue-500/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </motion.div>
 
           {/* Music Enthusiast */}
@@ -608,12 +512,12 @@ export function AboutSection() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
           >
-            <div className="from-accent via-primary to-secondary absolute inset-0 rounded-full bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
+            <div className="from-accent via-primary to-secondary absolute inset-0 rounded-full bg-gradient-to-r opacity-0 transition-all duration-300 group-hover:opacity-95" />
+            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:bg-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
               <MusicIcon className="h-4 w-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12" />
               <span className="text-sm font-medium">Music Enthusiast</span>
             </div>
-            <div className="from-accent/20 via-primary/20 to-secondary/20 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-accent/30 via-primary/30 to-secondary/30 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </motion.div>
 
           {/* Film Lover */}
@@ -622,8 +526,8 @@ export function AboutSection() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
           >
-            <div className="to-accent absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
+            <div className="to-accent absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 opacity-0 transition-all duration-300 group-hover:opacity-95" />
+            <div className="relative z-10 flex items-center gap-2 rounded-full border border-zinc-200/80 bg-white/80 px-5 py-3 text-zinc-800 backdrop-blur-sm transition-all duration-300 group-hover:border-transparent group-hover:bg-transparent group-hover:text-white dark:border-zinc-700/80 dark:bg-zinc-800/80 dark:text-zinc-200">
               <svg
                 className="h-4 w-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12"
                 viewBox="0 0 24 24"
@@ -640,7 +544,7 @@ export function AboutSection() {
               </svg>
               <span className="text-sm font-medium">Film Lover</span>
             </div>
-            <div className="to-accent/20 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r from-purple-500/20 opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="to-accent/30 absolute -inset-[0.5px] -z-10 rounded-full bg-gradient-to-r from-purple-500/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </motion.div>
         </motion.div>
       </motion.div>

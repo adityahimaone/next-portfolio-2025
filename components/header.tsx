@@ -48,7 +48,7 @@ export function Header() {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ease-in-out ${scrolled ? 'bg-white/80 shadow-sm backdrop-blur-md dark:bg-zinc-900/80' : 'bg-transparent'} `}
+      className={`fixed top-0 left-0 z-[9999] w-full transition-all duration-300 ease-in-out ${scrolled ? 'bg-white/80 shadow-sm backdrop-blur-md dark:bg-zinc-900/80' : 'bg-transparent'} `}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -62,7 +62,7 @@ export function Header() {
             <span
               className={`text-gradient text-xl font-bold ${!scrolled && 'drop-shadow-md'}`}
             >
-              adit
+              adityahimaone
             </span>
             <div className="ml-2 flex h-4 items-end">
               <div className="music-bar"></div>

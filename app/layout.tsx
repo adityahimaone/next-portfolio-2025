@@ -13,7 +13,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'adit - frontend developer',
+  title: 'adityahimaone - frontend developer',
   description:
     'I am a frontend developer who loves to craft beautiful and performant websites.',
   icons: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: 'adit — frontend developer',
+    title: 'adityahimaone — frontend developer',
     type: 'website',
     images:
       'https://ucarecdn.com/b624aa7d-978f-44ef-8e45-bf3c12f1e846/memojilaptop1.png', // Same image as above

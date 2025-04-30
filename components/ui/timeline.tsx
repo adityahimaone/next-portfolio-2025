@@ -52,7 +52,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true, margin: '-100px' }}
           >
-            <div className="sticky top-40 z-40 flex max-w-xs flex-col items-center self-start md:w-full md:flex-row lg:max-w-sm">
+            <div className="sticky top-40 z-1 flex max-w-xs flex-col items-center self-start md:w-full md:flex-row lg:max-w-sm">
               <div className="absolute left-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 shadow-lg md:left-3 dark:bg-zinc-900/80">
                 <motion.div
                   animate={{ rotate: 360 }}
@@ -93,7 +93,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
                 </div>
 
                 {/* Card content */}
-                <div className="relative z-10">{item.content}</div>
+                <div className="relative z-1">{item.content}</div>
 
                 {/* Optional tags */}
                 {item.tags && item.tags.length > 0 && (

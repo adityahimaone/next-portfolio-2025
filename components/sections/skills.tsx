@@ -13,6 +13,7 @@ import {
   PenTool,
   GitBranch,
   Braces,
+  Cpu,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -46,6 +47,12 @@ const dataSkills = [
     skills: 'Trello • Taiga',
     icon: <ClipboardList className="h-10 w-10" />,
     color: 'from-amber-500/20 to-orange-500/20 text-amber-500',
+  },
+  {
+    category: 'OS & AI',
+    skills: 'Windows • Linux • macOS • OpenAI',
+    icon: <Cpu className="h-10 w-10" />,
+    color: 'from-violet-500/20 to-indigo-400/20 text-violet-500',
   },
 ]
 
