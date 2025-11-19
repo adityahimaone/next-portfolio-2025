@@ -14,7 +14,7 @@ import { AboutSection2025 } from '@/components/sections/about-2025'
 import { SkillsSection } from '@/components/sections/skills'
 import { ExperienceSection2025 } from '@/components/sections/experience-2025'
 import { ProjectsSection2025 } from '@/components/sections/projects-2025'
-import { ContactSection2025 } from '@/components/sections/contact-2025'
+import { ContactLaunchpad } from '@/components/sections/contact-launchpad'
 import { SectionDivider } from '@/components/ui/section-divider'
 import { AuroraBackground } from '@/components/ui/aurora-background'
 import { ChevronUp } from 'lucide-react'
@@ -24,7 +24,7 @@ import { MusicPlayer } from '@/components/ui/music-player'
 import { MusicBackground } from '@/components/ui/music-background'
 import { MusicMarquee } from '@/components/ui/music-marquee'
 import { About2Section } from '@/components/sections/about-2'
-import { SkillsSection2025 } from '@/components/sections/skills-2025'
+import { SkillsMixer } from '@/components/sections/skills-mixer'
 
 export default function Home() {
   const { scrollYProgress } = useScroll()
@@ -191,7 +191,7 @@ export default function Home() {
 
               <SectionDivider />
               <section id="skills" className="snap-start scroll-mt-0">
-                <SkillsSection2025 />
+                <SkillsMixer />
               </section>
 
               <SectionDivider />
@@ -211,7 +211,7 @@ export default function Home() {
               <SectionDivider />
             </div>
             <section id="contact" className="snap-start">
-              <ContactSection2025 />
+              <ContactLaunchpad />
             </section>
           </div>
         </main>
