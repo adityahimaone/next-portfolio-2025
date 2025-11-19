@@ -5,6 +5,7 @@ import { ThemeProvider } from 'next-themes'
 import { CustomCursor } from '@/components/ui/custom-cursor'
 import { MusicPlayer } from '@/components/ui/music-player'
 import { initCursorGlow } from '@/lib/utils'
+import { AudioProvider } from '@/lib/audio-context'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -74,10 +75,12 @@ export default function RootLayout({
           storageKey="theme"
           defaultTheme="dark"
         >
-          {/* <CustomCursor /> */}
-          <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-geist)]">
-            <div className="relative flex-1">{children}</div>
-          </div>
+          <AudioProvider>
+            {/* <CustomCursor /> */}
+            <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-geist)]">
+              <div className="relative flex-1">{children}</div>
+            </div>
+          </AudioProvider>
         </ThemeProvider>
       </body>
     </html>

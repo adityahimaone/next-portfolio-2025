@@ -3,9 +3,33 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const code = searchParams.get('code')
+  const error = searchParams.get('error')
+
+  // Check if user denied authorization
+  if (error) {
+    return NextResponse.json(
+      {
+        error: 'Authorization denied',
+        message: 'You need to authorize the app to use Spotify integration',
+      },
+      { status: 400 },
+    )
+  }
 
   if (!code) {
     return NextResponse.json({ error: 'Code is required' }, { status: 400 })
+  }
+
+  // Validate environment variables
+  if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
+    return NextResponse.json(
+      {
+        error: 'Spotify credentials not configured',
+        message:
+          'Please add SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET to your .env.local file',
+      },
+      { status: 500 },
+    )
   }
 
   try {

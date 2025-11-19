@@ -7,14 +7,14 @@ import {
   useInView,
   useSpring,
 } from 'motion/react'
-import { Header } from '@/components/header'
-import { Footer } from '@/components/footer'
-import { HeroSection } from '@/components/sections/hero'
-import { AboutSection } from '@/components/sections/about'
+import { Header2025 } from '@/components/header-2025'
+import { Footer2025 } from '@/components/footer-2025'
+import { HeroSection2025 } from '@/components/sections/hero-2025'
+import { AboutSection2025 } from '@/components/sections/about-2025'
 import { SkillsSection } from '@/components/sections/skills'
-import { ExperienceSection } from '@/components/sections/experience'
-import { ProjectsSection } from '@/components/sections/projects'
-import { ContactSection } from '@/components/sections/contact'
+import { ExperienceSection2025 } from '@/components/sections/experience-2025'
+import { ProjectsSection2025 } from '@/components/sections/projects-2025'
+import { ContactSection2025 } from '@/components/sections/contact-2025'
 import { SectionDivider } from '@/components/ui/section-divider'
 import { AuroraBackground } from '@/components/ui/aurora-background'
 import { ChevronUp } from 'lucide-react'
@@ -24,6 +24,7 @@ import { MusicPlayer } from '@/components/ui/music-player'
 import { MusicBackground } from '@/components/ui/music-background'
 import { MusicMarquee } from '@/components/ui/music-marquee'
 import { About2Section } from '@/components/sections/about-2'
+import { SkillsSection2025 } from '@/components/sections/skills-2025'
 
 export default function Home() {
   const { scrollYProgress } = useScroll()
@@ -76,7 +77,7 @@ export default function Home() {
     <>
       {/* Scroll Progress Indicator */}
       <motion.div
-        className="from-primary via-secondary to-accent fixed top-0 right-0 left-0 z-[100] h-1 bg-gradient-to-r"
+        className="from-primary via-secondary to-accent fixed top-0 right-0 left-0 z-100 h-1 bg-linear-to-r"
         style={{ scaleX: smoothProgress, transformOrigin: '0%' }}
       />
 
@@ -166,56 +167,63 @@ export default function Home() {
         {/* Main content */}
         <main className="relative">
           <div className="snap-y snap-mandatory">
-            {/* Hero Section with Aurora Background */}
-            <section className="relative h-screen snap-start">
-              <MusicBackground intensity="strong">
-                <Header />
-                <div className="mx-auto w-full max-w-screen-xl px-4 pt-20">
-                  <HeroSection />
+            {/* Hero Section with Beams Background */}
+            <section className="relative h-screen snap-start overflow-hidden">
+              <BeamsBackground
+                intensity="medium"
+                className="absolute inset-0 z-0"
+              />
+              <div className="relative">
+                <Header2025 />
+                <div className="mx-auto w-full max-w-7xl px-4 pt-20">
+                  <HeroSection2025 />
                 </div>
-              </MusicBackground>
+              </div>
             </section>
             {/* Music-themed marquee divider */}
             <MusicMarquee speed="normal" direction="left" />
             {/* Main Content Sections */}
-            <div className="mx-auto w-full max-w-screen-xl space-y-32 px-4 py-20">
-              <section id="about" className="snap-start scroll-mt-20">
-                <SectionDivider />
-                <AboutSection />
+            <div className="mx-auto w-full max-w-7xl space-y-2 py-20">
+              <SectionDivider />
+              <section id="about" className="snap-start scroll-mt-0">
+                <AboutSection2025 />
               </section>
 
-              <section id="skills" className="snap-start scroll-mt-20">
-                <SectionDivider />
-                <SkillsSection />
+              <SectionDivider />
+              <section id="skills" className="snap-start scroll-mt-0">
+                <SkillsSection2025 />
               </section>
 
-              <section id="experience" className="snap-start scroll-mt-20">
-                <SectionDivider />
-                <ExperienceSection />
+              <SectionDivider />
+              <section id="experience" className="snap-start scroll-mt-0">
+                <ExperienceSection2025 />
               </section>
 
-              <section id="projects" className="snap-start scroll-mt-20">
-                <SectionDivider />
-                <ProjectsSection />
-              </section>
+              <SectionDivider />
             </div>
-            <section id="contact" className="snap-start scroll-mt-20">
-              <div className="mb-5">
-                <SectionDivider />
-              </div>
-              <ContactSection />
+            <section
+              id="projects"
+              className="dark:bg-accent snap-start scroll-mt-0"
+            >
+              <ProjectsSection2025 />
+            </section>
+            <div className="mb-5">
+              <SectionDivider />
+            </div>
+            <section id="contact" className="snap-start">
+              <ContactSection2025 />
             </section>
           </div>
         </main>
       </motion.div>
 
       {/* Footer */}
-      <Footer />
+      <Footer2025 />
 
       {/* Scroll to top button */}
       <motion.button
         onClick={handleScrollToTop}
-        className="from-primary to-secondary fixed right-7 bottom-24 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br text-white shadow-lg transition-transform"
+        className="from-primary to-secondary fixed right-7 bottom-24 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br text-white shadow-lg transition-transform"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{
           opacity: showScrollTop ? 1 : 0,

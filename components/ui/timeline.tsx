@@ -1,5 +1,5 @@
 'use client'
-import { useScroll, useTransform, motion } from 'framer-motion'
+import { useScroll, useTransform, motion } from 'motion/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { Disc3 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -110,7 +110,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
                 )}
 
                 {/* Music-themed decorative line */}
-                <div className="via-primary/30 absolute right-0 bottom-0 left-0 h-1 bg-gradient-to-r from-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                <div className="via-primary/30 absolute right-0 bottom-0 left-0 h-1 bg-linear-to-r from-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
               </motion.div>
             </div>
           </motion.div>
@@ -119,14 +119,14 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           style={{
             height: height + 'px',
           }}
-          className="absolute top-0 left-6 w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] md:left-8 dark:via-zinc-700"
+          className="absolute top-0 left-6 w-0.5 overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-0% via-neutral-200 to-transparent to-99% mask-[linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] md:left-8 dark:via-zinc-700"
         >
           <motion.div
             style={{
               height: heightTransform,
               opacity: opacityTransform,
             }}
-            className="from-primary via-secondary absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-[0%] via-[10%] to-transparent"
+            className="from-primary via-secondary absolute inset-x-0 top-0 w-0.5 rounded-full bg-linear-to-t from-0% via-10% to-transparent"
           />
         </div>
       </div>
