@@ -1,49 +1,150 @@
 'use client'
-import { useEffect, useRef } from 'react'
-import { motion, useInView, useAnimation } from 'motion/react'
+import { useEffect, useRef, useState } from 'react'
+import { motion, useInView, useAnimation, useMotionValue, useTransform } from 'motion/react'
 import Image from 'next/image'
 
 export function HeroSection() {
   const controls = useAnimation()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: false, amount: 0.2 })
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  
+  const rotateX = useTransform(mouseY, [-300, 300], [10, -10])
+  const rotateY = useTransform(mouseX, [-300, 300], [-10, 10])
 
   useEffect(() => {
     if (isInView) {
       controls.start('visible')
     }
   }, [controls, isInView])
+  
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = ref.current?.getBoundingClientRect()
+      if (rect) {
+        const x = e.clientX - rect.left - rect.width / 2
+        const y = e.clientY - rect.top - rect.height / 2
+        setMousePosition({ x, y })
+        mouseX.set(x)
+        mouseY.set(y)
+      }
+    }
+    
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [mouseX, mouseY])
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
         type: 'spring',
-        stiffness: 100,
-        damping: 10,
+        stiffness: 80,
+        damping: 12,
       },
     },
   }
 
+  // Floating particles positions - code and music symbols
+  const particles = [
+    { symbol: '</>', x: 15, y: 20, delay: 0 },
+    { symbol: '♪', x: 85, y: 30, delay: 1 },
+    { symbol: '{}', x: 10, y: 70, delay: 2 },
+    { symbol: '♫', x: 90, y: 60, delay: 1.5 },
+    { symbol: '<>', x: 25, y: 85, delay: 0.5 },
+    { symbol: '♬', x: 75, y: 15, delay: 2.5 },
+  ]
+
   return (
     <section
       id="home"
-      className="relative flex min-h-[100vh] items-center py-4 pb-4 sm:min-h-[90vh] sm:py-20 sm:pb-20 md:py-24"
+      className="relative flex min-h-[100vh] items-center overflow-hidden py-4 pb-4 sm:min-h-[90vh] sm:py-20 sm:pb-20 md:py-24"
       ref={ref}
     >
+      {/* Gradient Mesh Background - Modern 2025 aesthetic */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <motion.div
+          className="absolute top-0 -left-1/4 h-[600px] w-[600px] rounded-full bg-primary/30 blur-[120px]"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+        />
+        <motion.div
+          className="absolute top-1/4 -right-1/4 h-[500px] w-[500px] rounded-full bg-secondary/30 blur-[120px]"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.4, 0.3, 0.4],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+        />
+        <motion.div
+          className="absolute bottom-0 left-1/3 h-[400px] w-[400px] rounded-full bg-purple-500/20 blur-[100px]"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+        />
+      </div>
+
+      {/* Floating Particles - Code & Music Symbols */}
+      {particles.map((particle, index) => (
+        <motion.div
+          key={index}
+          className="pointer-events-none absolute text-2xl font-bold opacity-20 dark:opacity-10"
+          style={{
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+          }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{
+            opacity: [0, 0.3, 0],
+            scale: [0.5, 1, 0.5],
+            y: [0, -50, -100],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            delay: particle.delay,
+            ease: 'easeInOut',
+          }}
+        >
+          <span className="bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
+            {particle.symbol}
+          </span>
+        </motion.div>
+      ))}
+
       {/* Main Content - improved spacing */}
       <motion.div
         className="mx-auto grid max-w-screen-xl grid-cols-1 gap-6 px-4 sm:gap-12 sm:px-6 md:grid-cols-2 md:items-center lg:px-8"
@@ -53,24 +154,37 @@ export function HeroSection() {
       >
         {/* Text Content - Push to bottom on mobile, left on desktop */}
         <div className="order-2 mt-3 sm:mt-8 md:order-1 md:mt-0">
-          {/* Badge and heading remain unchanged */}
+          {/* Badge with glassmorphism effect */}
           <motion.div
-            className="bg-primary/10 text-primary mb-4 inline-block rounded-full px-4 py-1.5 text-sm font-medium"
+            className="mb-4 inline-block rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium backdrop-blur-xl"
             variants={itemVariants}
           >
-            Frontend Developer & Music Enthusiast
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Frontend Developer & Music Enthusiast
+            </span>
           </motion.div>
 
           <motion.h1
             className="mb-5 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl"
             variants={itemVariants}
           >
-            {/* Heading content remains the same */}
-            <span className="text-gradient from-primary to-secondary">
+            {/* Enhanced heading with split text animation */}
+            <motion.span
+              className="inline-block bg-gradient-to-r from-primary via-purple-500 to-secondary bg-clip-text text-transparent"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
               Code
-            </span>{' '}
+            </motion.span>{' '}
             <span className="relative inline-block">
-              Meets
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.6 }}
+              >
+                Meets
+              </motion.span>
               <motion.svg
                 className="absolute -bottom-0 left-0 w-full"
                 width="100%"
@@ -78,15 +192,18 @@ export function HeroSection() {
                 viewBox="0 0 100 8"
                 fill="none"
                 preserveAspectRatio="none"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ delay: 1, duration: 1.5, ease: 'easeInOut' }}
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ delay: 1.2, duration: 1.5, ease: 'easeInOut' }}
               >
-                <path
+                <motion.path
                   d="M0,5 C25,0 75,10 100,5"
                   stroke="url(#paint0_linear)"
                   strokeWidth="3"
                   strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ delay: 1.2, duration: 1.5 }}
                 />
                 <defs>
                   <linearGradient
@@ -103,9 +220,14 @@ export function HeroSection() {
                 </defs>
               </motion.svg>
             </span>{' '}
-            <span className="text-gradient from-secondary to-primary">
+            <motion.span
+              className="inline-block bg-gradient-to-r from-secondary via-purple-500 to-primary bg-clip-text text-transparent"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.6 }}
+            >
               Rhythm
-            </span>
+            </motion.span>
           </motion.h1>
 
           {/* Description - adjusted for mobile */}
@@ -220,17 +342,52 @@ export function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Image Content - Adjusted size for better mobile fit */}
+        {/* Image Content - Enhanced 3D Vinyl with better depth */}
         <motion.div
           className="relative order-1 flex justify-center pb-0 sm:pb-3 md:order-2 md:pb-8"
           variants={itemVariants}
+          style={{
+            perspective: '1000px',
+          }}
         >
-          <div className="xs:h-[250px] xs:w-[250px] relative h-[270px] w-[270px] sm:h-[320px] sm:w-[320px] md:h-[380px] md:w-[380px]">
-            {/* Rest of vinyl record remains the same */}
+          <motion.div
+            className="xs:h-[250px] xs:w-[250px] relative h-[270px] w-[270px] sm:h-[320px] sm:w-[320px] md:h-[380px] md:w-[380px]"
+            style={{
+              rotateX,
+              rotateY,
+              transformStyle: 'preserve-3d',
+            }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            {/* Enhanced glow effect with multiple layers */}
             <motion.div
-              className="bg-gradient-conic from-primary to-secondary absolute inset-0 rounded-full via-purple-500 opacity-25 blur-3xl"
+              className="absolute inset-0 rounded-full opacity-30 blur-3xl"
+              style={{
+                background:
+                  'radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(139, 92, 246, 0.3) 50%, transparent 70%)',
+              }}
               animate={{
-                rotate: [0, 360],
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                repeatType: 'reverse',
+              }}
+            />
+
+            {/* Rotating gradient ring */}
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              style={{
+                background:
+                  'conic-gradient(from 0deg, var(--primary), var(--secondary), var(--primary))',
+                opacity: 0.15,
+              }}
+              animate={{
+                rotate: 360,
               }}
               transition={{
                 duration: 20,
@@ -239,17 +396,26 @@ export function HeroSection() {
               }}
             />
 
+            {/* Main vinyl container with enhanced shadows */}
             <motion.div
-              className="relative h-full w-full rounded-full bg-zinc-100/80 p-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-sm dark:bg-zinc-800/80"
+              className="relative h-full w-full rounded-full p-3 backdrop-blur-sm"
+              style={{
+                background:
+                  'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)',
+                boxShadow:
+                  '0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.8)',
+                transformStyle: 'preserve-3d',
+              }}
+              className="dark:bg-zinc-800/80"
               initial={{ rotate: 0 }}
               whileHover="spinning"
               whileTap="spinning"
               variants={{
                 spinning: {
-                  scale: 1.05,
+                  scale: 1.08,
                   rotate: 360,
                   transition: {
-                    scale: { duration: 0.3 },
+                    scale: { duration: 0.4, ease: 'easeOut' },
                     rotate: {
                       duration: 2.5,
                       ease: 'linear',
@@ -260,12 +426,13 @@ export function HeroSection() {
                 },
               }}
             >
-              <div className="vinyl-record vinyl-modern h-full w-full rounded-full bg-zinc-900 p-[12%] dark:bg-zinc-300">
+              {/* Vinyl grooves effect */}
+              <div className="vinyl-record vinyl-modern absolute inset-3 rounded-full bg-zinc-900 p-[12%] shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)] dark:bg-zinc-300">
                 <motion.div
-                  className="h-full w-full rounded-full bg-zinc-100 p-4 shadow-inner dark:bg-zinc-800"
+                  className="relative h-full w-full rounded-full bg-zinc-100 p-4 shadow-[inset_0_4px_12px_rgba(0,0,0,0.3)] dark:bg-zinc-800"
                   variants={{
                     spinning: {
-                      rotate: 0, // This ensures the inner part doesn't rotate with the record
+                      rotate: 0,
                     },
                   }}
                 >
@@ -279,140 +446,182 @@ export function HeroSection() {
                         className="h-full w-full object-cover"
                         priority
                       />
-                      <div className="from-primary/30 absolute inset-0 bg-gradient-to-tr to-transparent opacity-60"></div>
+                      {/* Gradient overlay with better blending */}
+                      <div
+                        className="absolute inset-0 opacity-60"
+                        style={{
+                          background:
+                            'linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, transparent 50%)',
+                        }}
+                      ></div>
                     </div>
                   </div>
                 </motion.div>
               </div>
 
-              <div className="absolute top-1/2 left-1/2 h-[12%] w-[12%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zinc-800 shadow-inner dark:bg-zinc-200"></div>
+              {/* Center spindle with metallic effect */}
+              <div
+                className="absolute top-1/2 left-1/2 h-[12%] w-[12%] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[inset_0_2px_4px_rgba(0,0,0,0.3),0_2px_4px_rgba(0,0,0,0.2)]"
+                style={{
+                  background:
+                    'radial-gradient(circle, #1f2937 0%, #111827 100%)',
+                }}
+              ></div>
             </motion.div>
 
-            {/* Music notes with varying styles and animations */}
+            {/* Enhanced floating music notes with trail effects */}
             <motion.div
-              className="text-primary absolute top-10 -right-4 block text-4xl drop-shadow-lg"
+              className="absolute top-10 -right-4 block text-4xl drop-shadow-lg"
               initial={{ opacity: 0, scale: 0 }}
               animate={{
-                opacity: [0, 1, 0],
-                y: [0, -40],
-                x: [0, 20],
-                scale: [0, 1, 0.5],
-                rotate: [0, 20],
+                opacity: [0, 1, 0.8, 0],
+                y: [0, -20, -50],
+                x: [0, 10, 25],
+                scale: [0, 1.2, 1, 0.5],
+                rotate: [0, 15, 30],
               }}
               transition={{
                 duration: 3,
                 repeat: Infinity,
-                repeatDelay: 2,
+                repeatDelay: 1.5,
+                ease: 'easeOut',
               }}
             >
-              ♪
+              <span className="bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
+                ♪
+              </span>
             </motion.div>
 
-            {/* Higher intensity eighth note */}
             <motion.div
-              className="text-secondary absolute top-16 -left-8 block text-5xl drop-shadow-lg"
+              className="absolute top-16 -left-8 block text-5xl drop-shadow-lg"
               initial={{ opacity: 0, scale: 0 }}
               animate={{
-                opacity: [0, 1, 0],
-                y: [0, -70],
-                x: [0, -30],
-                scale: [0, 1.2, 0.7],
-                rotate: [0, -15, 15],
+                opacity: [0, 1, 0.8, 0],
+                y: [0, -30, -80],
+                x: [0, -15, -40],
+                scale: [0, 1.3, 1.1, 0.6],
+                rotate: [0, -10, -25],
               }}
               transition={{
-                duration: 2.5,
+                duration: 2.8,
                 repeat: Infinity,
                 repeatDelay: 1,
                 ease: 'easeOut',
               }}
             >
-              ♫
+              <span className="bg-gradient-to-br from-secondary via-purple-500 to-primary bg-clip-text text-transparent">
+                ♫
+              </span>
             </motion.div>
 
-            {/* Bouncy beamed sixteenth notes */}
             <motion.div
-              className="from-primary to-secondary absolute -right-6 bottom-8 block bg-gradient-to-r bg-clip-text text-6xl font-bold text-transparent drop-shadow-xl"
+              className="absolute -right-6 bottom-8 block text-6xl font-bold drop-shadow-xl"
               initial={{ opacity: 0, scale: 0 }}
               animate={{
-                opacity: [0, 1, 0],
-                y: [0, -50, -20, -60, -30],
-                x: [0, 10, 25, 15, 40],
-                scale: [0, 1.3, 1, 1.2, 0.6],
-                rotate: [0, 10, -5, 15, -10],
+                opacity: [0, 1, 0.9, 0],
+                y: [0, -25, -60, -40],
+                x: [0, 15, 35, 50],
+                scale: [0, 1.4, 1.2, 0.7],
+                rotate: [0, 10, 20, 15],
               }}
               transition={{
                 duration: 4,
                 repeat: Infinity,
-                repeatDelay: 0.5,
-                times: [0, 0.2, 0.4, 0.6, 1],
+                repeatDelay: 0.8,
+                times: [0, 0.3, 0.7, 1],
                 ease: 'easeInOut',
               }}
             >
-              ♬
+              <span className="bg-gradient-to-br from-primary via-purple-500 to-secondary bg-clip-text text-transparent">
+                ♬
+              </span>
             </motion.div>
 
-            {/* Fast-flying music flat */}
             <motion.div
-              className="text-accent absolute -top-4 left-1/4 block text-3xl font-bold drop-shadow-md"
+              className="absolute -top-4 left-1/4 block text-3xl font-bold drop-shadow-md"
               initial={{ opacity: 0, y: 50, scale: 0.2 }}
               animate={{
-                opacity: [0, 1, 1, 0],
-                y: [50, 0, -80, -120],
-                scale: [0.2, 1, 0.8, 0.4],
-                x: [0, 10, 30, 50],
-                rotate: [0, 45, 90, 180],
+                opacity: [0, 1, 0.9, 0],
+                y: [50, 10, -70, -130],
+                scale: [0.2, 1.1, 0.9, 0.4],
+                x: [0, 15, 40, 60],
+                rotate: [0, 60, 120, 200],
               }}
               transition={{
-                duration: 2,
+                duration: 2.5,
                 repeat: Infinity,
-                repeatDelay: 3.5,
+                repeatDelay: 3,
+                ease: 'easeOut',
               }}
             >
-              ♭
+              <span className="bg-gradient-to-br from-accent to-purple-500 bg-clip-text text-transparent">
+                ♭
+              </span>
             </motion.div>
 
-            {/* Pulsing G clef */}
+            {/* Code symbols mixed with music */}
             <motion.div
-              className="from-secondary to-primary absolute bottom-20 -left-10 hidden bg-gradient-to-r bg-clip-text text-4xl font-bold text-transparent drop-shadow-lg md:block"
+              className="absolute bottom-20 -left-10 hidden text-4xl font-bold drop-shadow-lg md:block"
               initial={{ opacity: 0, scale: 0 }}
               animate={{
-                opacity: [0, 0.8, 0],
-                scale: [0.5, 1.4, 0.8],
-                y: [0, -30, -60],
-                rotate: [0, -10, -20],
+                opacity: [0, 0.9, 0.7, 0],
+                scale: [0.5, 1.5, 1.2, 0.8],
+                y: [0, -35, -70],
+                rotate: [0, -15, -30],
               }}
               transition={{
-                duration: 3.5,
+                duration: 3.8,
                 repeat: Infinity,
                 repeatType: 'loop',
                 ease: 'easeInOut',
               }}
             >
-              𝄞
+              <span className="bg-gradient-to-br from-secondary via-purple-500 to-primary bg-clip-text text-transparent">
+                &lt;/&gt;
+              </span>
             </motion.div>
 
-            {/* Rapidly moving sharp symbol */}
             <motion.div
-              className="text-primary/80 absolute top-1/3 -right-12 hidden text-4xl font-bold drop-shadow-lg md:block"
+              className="absolute top-1/3 -right-12 hidden text-4xl font-bold drop-shadow-lg md:block"
               initial={{ opacity: 0, x: -20 }}
               animate={{
-                opacity: [0, 1, 0],
-                x: [-20, 20, 60],
-                y: [0, -30, -10],
-                rotate: [0, 20, 0, -20, 0],
-                scale: [0.8, 1.3, 1],
+                opacity: [0, 1, 0.8, 0],
+                x: [-20, 30, 70],
+                y: [0, -35, -15],
+                rotate: [0, 25, 15, -25, 0],
+                scale: [0.8, 1.4, 1.1, 0.9],
               }}
               transition={{
-                duration: 2,
+                duration: 2.3,
                 repeat: Infinity,
-                repeatDelay: 1,
+                repeatDelay: 1.2,
                 ease: 'backOut',
               }}
             >
-              ♯
+              <span className="bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent">
+                {'{'}'}
+              </span>
             </motion.div>
 
-            {/* Other notes remain the same */}
+            {/* Additional particle effects */}
+            <motion.div
+              className="absolute top-1/2 left-0 hidden text-2xl font-bold drop-shadow-md md:block"
+              animate={{
+                opacity: [0, 0.6, 0],
+                x: [-30, 0, 30],
+                y: [0, -40, -80],
+                scale: [0.5, 1, 0.5],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                repeatDelay: 2,
+              }}
+            >
+              <span className="bg-gradient-to-br from-secondary to-primary bg-clip-text text-transparent">
+                ♩
+              </span>
+            </motion.div>
           </div>
         </motion.div>
       </motion.div>
