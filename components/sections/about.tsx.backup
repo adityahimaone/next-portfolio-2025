@@ -46,35 +46,17 @@ export function AboutSection() {
         animate={isInView ? 'visible' : 'hidden'}
         style={{ zIndex: 1 }}
       >
-        {/* Section Header - Enhanced */}
         <motion.div
           className="mb-16 flex flex-col items-center"
           variants={itemVariants}
         >
-          <motion.span
-            className="mb-4 inline-block rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium backdrop-blur-xl"
-            whileHover={{ scale: 1.05 }}
-          >
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              About Me
-            </span>
-          </motion.span>
-          <motion.h2
-            className="mb-2 text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ delay: 0.2 }}
-          >
-            <span className="bg-gradient-to-r from-primary via-purple-500 to-secondary bg-clip-text text-transparent">
-              The Symphony Behind The Code
-            </span>
-          </motion.h2>
-          <motion.div
-            className="mt-3 h-1 w-24 rounded-full bg-gradient-to-r from-primary to-secondary"
-            initial={{ width: 0 }}
-            animate={isInView ? { width: 96 } : { width: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          ></motion.div>
+          <span className="bg-primary/10 text-primary mb-4 inline-block rounded-full px-4 py-1.5 text-sm font-medium">
+            About Me
+          </span>
+          <h2 className="text-gradient mb-2 text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            The Symphony Behind The Code
+          </h2>
+          <div className="from-primary to-secondary mt-3 h-1 w-24 rounded-full bg-gradient-to-r"></div>
         </motion.div>
 
         {/* Two Column Layout */}
@@ -323,75 +305,127 @@ export function AboutSection() {
           </motion.div>
         </div>
 
-        {/* Three Column Traits - Simplified Modern Cards */}
+        {/* Three Column Traits - Modernized */}
         <motion.div
-          className="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3"
+          className="my-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3"
           variants={itemVariants}
           style={{ zIndex: 1 }}
         >
           {/* Problem Solver - Modern Card */}
           <div className="group relative overflow-hidden rounded-3xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-80 transition-opacity duration-500 group-hover:opacity-100"></div>
-            <div className="absolute inset-[1px] rounded-3xl bg-white/80 backdrop-blur-sm dark:bg-zinc-900/80"></div>
-            
-            <div className="relative z-10 flex flex-col items-center p-8 text-center">
-              <motion.div
-                className="mb-4 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 p-3"
-                whileHover={{ scale: 1.2, rotate: 10 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-              >
-                <LightbulbIcon className="h-8 w-8 text-primary" />
-              </motion.div>
-              <h3 className="mb-2 text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+            {/* Animated gradient background - lower z-index */}
+            <div
+              className="from-primary/5 to-secondary/5 absolute inset-0 bg-gradient-to-br via-purple-500/10 opacity-0 transition-all duration-700 group-hover:opacity-100"
+              style={{ zIndex: 0 }}
+            ></div>
+
+            {/* Base gradient background - lower z-index */}
+            <div
+              className="from-primary/10 to-secondary/10 absolute inset-0 bg-gradient-to-br opacity-60 transition-all duration-500"
+              style={{ zIndex: 1 }}
+            ></div>
+
+            {/* Card body - lower z-index */}
+            <div
+              className="absolute inset-[1px] rounded-3xl bg-white/90 backdrop-blur-sm transition-all duration-500 group-hover:inset-[3px] dark:bg-zinc-900/90"
+              style={{ zIndex: 2 }}
+            ></div>
+
+            {/* Content container - moderate z-index */}
+            <div className="relative z-5 flex flex-col items-center p-8">
+              {/* Icon with gradient background and hover effect */}
+              <div className="from-primary/10 to-secondary/10 mb-5 transform rounded-2xl bg-gradient-to-br p-3 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
+                <LightbulbIcon className="text-primary group-hover:text-secondary h-8 w-8 transition-colors duration-300" />
+              </div>
+
+              <h3 className="mb-3 text-center text-xl font-semibold text-zinc-900 dark:text-zinc-100">
                 Problem Solver
               </h3>
-              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-                Creative solutions with analytical thinking
+
+              <p className="text-center text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                Approaching challenges with creative solutions and analytical
+                thinking. I enjoy breaking down complex problems into manageable
+                pieces.
               </p>
+
+              {/* Decorative element - lower z-index */}
+              <div
+                className="from-primary/40 to-secondary/0 absolute right-0 bottom-0 left-0 h-1 bg-gradient-to-r opacity-0 transition-all duration-300 group-hover:opacity-100"
+                style={{ zIndex: 3 }}
+              ></div>
             </div>
           </div>
 
           {/* Continuous Learner - Modern Card */}
           <div className="group relative overflow-hidden rounded-3xl">
-            <div className="absolute inset-0 bg-gradient-to-tl from-secondary/10 to-blue-500/10 opacity-80 transition-opacity duration-500 group-hover:opacity-100"></div>
-            <div className="absolute inset-[1px] rounded-3xl bg-white/80 backdrop-blur-sm dark:bg-zinc-900/80"></div>
-            
-            <div className="relative z-10 flex flex-col items-center p-8 text-center">
-              <motion.div
-                className="mb-4 rounded-2xl bg-gradient-to-br from-secondary/10 to-blue-500/10 p-3"
-                whileHover={{ scale: 1.2, rotate: -10 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-              >
-                <BookOpenIcon className="h-8 w-8 text-secondary" />
-              </motion.div>
-              <h3 className="mb-2 text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+            {/* Lower z-indexes for all background elements */}
+            <div
+              className="from-secondary/5 to-primary/5 absolute inset-0 bg-gradient-to-tl via-blue-500/10 opacity-0 transition-all duration-700 group-hover:opacity-100"
+              style={{ zIndex: 0 }}
+            ></div>
+            <div
+              className="from-secondary/10 to-primary/10 absolute inset-0 bg-gradient-to-tl opacity-60 transition-all duration-500"
+              style={{ zIndex: 1 }}
+            ></div>
+            <div
+              className="absolute inset-[1px] rounded-3xl bg-white/90 backdrop-blur-sm transition-all duration-500 group-hover:inset-[3px] dark:bg-zinc-900/90"
+              style={{ zIndex: 2 }}
+            ></div>
+            <div className="relative z-5 flex flex-col items-center p-8">
+              <div className="from-secondary/10 to-primary/10 mb-5 transform rounded-2xl bg-gradient-to-br p-3 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
+                <BookOpenIcon className="text-secondary group-hover:text-primary h-8 w-8 transition-colors duration-300" />
+              </div>
+
+              <h3 className="mb-3 text-center text-xl font-semibold text-zinc-900 dark:text-zinc-100">
                 Continuous Learner
               </h3>
-              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-                Always exploring new technologies
+
+              <p className="text-center text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                Always exploring new technologies and expanding my skillset. The
+                web evolves continuously, and so do I.
               </p>
+
+              <div
+                className="from-secondary/40 to-primary/0 absolute right-0 bottom-0 left-0 h-1 bg-gradient-to-r opacity-0 transition-all duration-300 group-hover:opacity-100"
+                style={{ zIndex: 3 }}
+              ></div>
             </div>
           </div>
 
           {/* Detail Oriented - Modern Card */}
           <div className="group relative overflow-hidden rounded-3xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-accent/10 opacity-80 transition-opacity duration-500 group-hover:opacity-100"></div>
-            <div className="absolute inset-[1px] rounded-3xl bg-white/80 backdrop-blur-sm dark:bg-zinc-900/80"></div>
-            
-            <div className="relative z-10 flex flex-col items-center p-8 text-center">
-              <motion.div
-                className="mb-4 rounded-2xl bg-gradient-to-br from-purple-500/10 to-accent/10 p-3"
-                whileHover={{ scale: 1.2, rotate: 10 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-              >
-                <SparklesIcon className="h-8 w-8 text-purple-500" />
-              </motion.div>
-              <h3 className="mb-2 text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+            {/* Lower z-indexes for all background elements */}
+            <div
+              className="via-primary/10 to-accent/5 absolute inset-0 bg-gradient-to-br from-purple-500/5 opacity-0 transition-all duration-700 group-hover:opacity-100"
+              style={{ zIndex: 0 }}
+            ></div>
+            <div
+              className="to-accent/10 absolute inset-0 bg-gradient-to-br from-purple-500/10 opacity-60 transition-all duration-500"
+              style={{ zIndex: 1 }}
+            ></div>
+            <div
+              className="absolute inset-[1px] rounded-3xl bg-white/90 backdrop-blur-sm transition-all duration-500 group-hover:inset-[3px] dark:bg-zinc-900/90"
+              style={{ zIndex: 2 }}
+            ></div>
+            <div className="relative z-5 flex flex-col items-center p-8">
+              <div className="to-accent/10 mb-5 transform rounded-2xl bg-gradient-to-br from-purple-500/10 p-3 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
+                <SparklesIcon className="text-accent h-8 w-8 transition-colors duration-300 group-hover:text-purple-500" />
+              </div>
+
+              <h3 className="mb-3 text-center text-xl font-semibold text-zinc-900 dark:text-zinc-100">
                 Detail Oriented
               </h3>
-              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-                Harmony in the smallest details
+
+              <p className="text-center text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                Finding harmony in the smallest details to create polished
+                experiences that stand out and provide excellent user
+                experiences.
               </p>
+
+              <div
+                className="from-accent/40 absolute right-0 bottom-0 left-0 h-1 bg-gradient-to-r to-purple-500/0 opacity-0 transition-all duration-300 group-hover:opacity-100"
+                style={{ zIndex: 3 }}
+              ></div>
             </div>
           </div>
         </motion.div>
