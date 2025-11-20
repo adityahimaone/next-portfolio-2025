@@ -117,7 +117,7 @@ export function Footer2025() {
               onClick={scrollToTop}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group hover:border-primary hover:text-primary dark:hover:border-primary flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-medium shadow-sm transition-all dark:border-zinc-800 dark:bg-zinc-900"
+              className="group hover:border-primary hover:text-primary dark:hover:border-primary hidden items-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-medium shadow-sm transition-all sm:flex dark:border-zinc-800 dark:bg-zinc-900"
             >
               <Rewind className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
               <span>Rewind to Top</span>
