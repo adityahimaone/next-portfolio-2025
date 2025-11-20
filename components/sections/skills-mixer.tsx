@@ -395,7 +395,7 @@ export function SkillsMixer() {
             {/* Bottom Label */}
             <div className="mt-12 border-t border-zinc-400/30 pt-4 text-center dark:border-zinc-800">
               <p className="font-mono text-[10px] tracking-[0.2em] text-zinc-500 uppercase">
-                Designed & Engineered by Aditya Himaone
+                Designed & Engineered by One
               </p>
             </div>
           </div>
