@@ -346,7 +346,7 @@ export function AboutSection2025v2() {
                     Aditya Himawan
                   </h3>
                   <p className="font-mono text-blue-500 dark:text-blue-400">
-                    Frontend Engineer
+                    Frontend Developer
                   </p>
                 </div>
               </div>
