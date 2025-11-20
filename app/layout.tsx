@@ -70,10 +70,11 @@ export default function RootLayout({
         className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}
       >
         <ThemeProvider
-          enableSystem={true}
+          enableSystem={false}
           attribute="class"
           storageKey="theme"
-          defaultTheme="dark"
+          defaultTheme="light"
+          themes={['light', 'dark']}
         >
           <AudioProvider>
             {/* <CustomCursor /> */}

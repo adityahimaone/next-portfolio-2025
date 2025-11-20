@@ -28,9 +28,9 @@ export const KeyboardIllustration = () => {
         whileHover={{ scale: 1.05, rotate: 10 }}
       >
         {/* --- MIDI KEYBOARD --- */}
-        <div className="relative z-10 flex h-24 w-72 flex-col overflow-hidden rounded-xl border-b-4 border-zinc-700 bg-zinc-800 shadow-2xl dark:border-zinc-600 dark:bg-zinc-800">
+        <div className="relative z-10 flex h-24 w-72 flex-col overflow-hidden rounded-xl border border-white/10 bg-zinc-900/60 shadow-2xl backdrop-blur-3xl">
           {/* Top Control Bar */}
-          <div className="flex h-6 w-full items-center gap-2 border-b border-zinc-700 bg-zinc-900 px-3">
+          <div className="flex h-6 w-full items-center gap-2 border-b border-white/5 bg-zinc-800/50 px-3 backdrop-blur-xl">
             <div className="h-2 w-2 animate-pulse rounded-full bg-red-500 shadow-[0_0_5px_rgba(239,68,68,0.5)]"></div>
             <div className="h-2 w-2 rounded-full bg-yellow-500"></div>
             <div className="ml-auto flex gap-1">
@@ -68,7 +68,11 @@ export const KeyboardIllustration = () => {
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute -top-4 -left-4 -z-10 h-24 w-24 rounded-full bg-blue-500/20 blur-2xl"></div>
+        <div className="bg-primary/40 absolute -top-6 -left-6 -z-10 h-32 w-32 animate-pulse rounded-full blur-3xl"></div>
+        <div
+          className="bg-accent/40 absolute -right-6 -bottom-6 -z-10 h-28 w-28 animate-pulse rounded-full blur-3xl"
+          style={{ animationDelay: '1s' }}
+        ></div>
       </motion.div>
     </div>
   )

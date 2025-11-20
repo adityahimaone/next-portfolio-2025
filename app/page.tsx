@@ -10,7 +10,7 @@ import {
 } from 'motion/react'
 import { Preloader } from '@/components/ui/preloader'
 import { Header2025 } from '@/components/header-2025'
-import { Footer2025 } from '@/components/footer-2025'
+import { Footer2025V2 } from '@/components/footer-2025-v2'
 import { HeroSection2025 } from '@/components/sections/hero-2025'
 import { AboutSection2025v2 } from '@/components/sections/about-2025-v2'
 import { SkillsSection } from '@/components/sections/skills'
@@ -272,7 +272,7 @@ export default function Home() {
       </motion.div>
 
       {/* Footer */}
-      <Footer2025 />
+      <Footer2025V2 />
 
       {/* Scroll to top button */}
       <motion.button

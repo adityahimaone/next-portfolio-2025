@@ -21,20 +21,6 @@ const experiences = [
   {
     id: 1,
     role: 'Frontend Developer',
-    type: 'Part Time',
-    company: '80&Company',
-    location: 'Kyoto, Japan',
-    period: 'APR 2024 - SEP 2024',
-    color: 'bg-blue-500',
-    description: [
-      'Spearheaded the development of a innovative Workforce Management System incorporating blockchain technology.',
-      'Maintained the application, resolving critical bugs to improve system reliability.',
-      'Collaborated with the design team to create a user-friendly interface.',
-    ],
-  },
-  {
-    id: 2,
-    role: 'Frontend Developer',
     type: 'Full Time',
     company: 'Fast 8 People Hub',
     location: 'Jakarta, Indonesia',
@@ -44,6 +30,20 @@ const experiences = [
       'Led the development of "Bisadaya" job-seeking platform serving thousands of users.',
       'Architected an automated KPI tracking system with interactive dashboards.',
       'Executed critical maintenance tasks and bug fixes across legacy and modern codebases.',
+    ],
+  },
+  {
+    id: 2,
+    role: 'Frontend Developer',
+    type: 'Part Time',
+    company: '80&Company',
+    location: 'Kyoto, Japan (Remote)',
+    period: 'APR 2024 - SEP 2024',
+    color: 'bg-blue-500',
+    description: [
+      'Spearheaded the development of a innovative Workforce Management System incorporating blockchain technology.',
+      'Maintained the application, resolving critical bugs to improve system reliability.',
+      'Collaborated with the design team to create a user-friendly interface.',
     ],
   },
   {
