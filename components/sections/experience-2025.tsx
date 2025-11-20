@@ -307,7 +307,7 @@ export function ExperienceSection2025() {
                       {/* Description */}
                       <div className="prose prose-zinc dark:prose-invert max-w-none">
                         {selectedJob.isGroup ? (
-                          <div className="space-y-8">
+                          <div className="space-y-4">
                             {selectedJob.items?.map((item, i) => (
                               <div
                                 key={i}
@@ -326,7 +326,7 @@ export function ExperienceSection2025() {
                                     </span>
                                     <span>{item.period}</span>
                                   </div>
-                                  <p className="text-base leading-relaxed text-zinc-900 dark:text-zinc-200">
+                                  <p className="my-0! text-base leading-relaxed text-zinc-900 dark:text-zinc-200">
                                     {item.description}
                                   </p>
                                 </div>

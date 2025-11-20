@@ -108,8 +108,8 @@ export function HeroSection2025() {
           className="mb-12 max-w-2xl text-sm font-light text-zinc-600 sm:text-xl md:text-lg dark:text-zinc-400"
         >
           Orchestrating code and rhythm into immersive digital experiences.
-          <br className="hidden sm:block" />
-          Frontend Developer & Audio Enthusiast.
+          <br className="hidden sm:block" /> Frontend Developer & Audio
+          Enthusiast.
         </motion.p>
 
         {/* Player Controls / CTA */}

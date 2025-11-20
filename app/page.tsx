@@ -10,7 +10,7 @@ import {
 import { Header2025 } from '@/components/header-2025'
 import { Footer2025 } from '@/components/footer-2025'
 import { HeroSection2025 } from '@/components/sections/hero-2025'
-import { AboutSection2025 } from '@/components/sections/about-2025'
+import { AboutSection2025v2 } from '@/components/sections/about-2025-v2'
 import { SkillsSection } from '@/components/sections/skills'
 import { ExperienceSection2025 } from '@/components/sections/experience-2025'
 import { ProjectsSection2025 } from '@/components/sections/projects-2025'
@@ -186,7 +186,7 @@ export default function Home() {
             <div className="mx-auto w-full max-w-7xl space-y-2 py-20">
               <SectionDivider />
               <section id="about" className="snap-start scroll-mt-0">
-                <AboutSection2025 />
+                <AboutSection2025v2 />
               </section>
 
               <SectionDivider />

@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { Mail, Github, Linkedin, Music, Copy, Radio } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import * as Tone from 'tone'
 
 // --- Components ---
 
@@ -99,26 +100,113 @@ const dummyColors = [
 
 export function ContactLaunchpad() {
   const [activePad, setActivePad] = useState<string | null>(null)
+  const [activeLoops, setActiveLoops] = useState<Set<string>>(new Set())
   const [copied, setCopied] = useState(false)
+  const [isAudioStarted, setIsAudioStarted] = useState(false)
 
-  const handlePadClick = (pad: any) => {
+  // Audio Refs
+  const synths = useRef<any[]>([])
+  const loops = useRef<Map<string, Tone.Loop>>(new Map())
+
+  useEffect(() => {
+    // Initialize Synths
+    const polySynth = new Tone.PolySynth(Tone.Synth).toDestination()
+    const membrane = new Tone.MembraneSynth().toDestination()
+    const metal = new Tone.MetalSynth({
+      envelope: { attack: 0.001, decay: 0.1, release: 0.01 },
+      harmonicity: 5.1,
+      modulationIndex: 32,
+      resonance: 4000,
+      octaves: 1.5,
+    }).toDestination()
+
+    synths.current = [polySynth, membrane, metal]
+
+    return () => {
+      // Cleanup
+      loops.current.forEach((loop) => loop.dispose())
+      synths.current.forEach((synth) => synth.dispose())
+    }
+  }, [])
+
+  const startAudio = async () => {
+    if (!isAudioStarted) {
+      await Tone.start()
+      Tone.Transport.start()
+      setIsAudioStarted(true)
+    }
+  }
+
+  const toggleLoop = (padId: string, x: number, y: number) => {
+    if (activeLoops.has(padId)) {
+      // Stop Loop
+      const loop = loops.current.get(padId)
+      if (loop) {
+        loop.stop()
+        loop.dispose()
+        loops.current.delete(padId)
+      }
+      const newLoops = new Set(activeLoops)
+      newLoops.delete(padId)
+      setActiveLoops(newLoops)
+    } else {
+      // Start Loop
+      const newLoops = new Set(activeLoops)
+      newLoops.add(padId)
+      setActiveLoops(newLoops)
+
+      // Create a unique pattern based on coordinates
+      const notes = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']
+      const note = notes[(x + y) % notes.length]
+      const rhythm = (x % 4) + 1 // 1/4, 1/8, etc.
+
+      let loop: Tone.Loop
+
+      if (y % 3 === 0) {
+        // Drums (Membrane)
+        loop = new Tone.Loop((time) => {
+          synths.current[1].triggerAttackRelease(note, '8n', time)
+        }, `${rhythm}n`).start(0)
+      } else if (y % 3 === 1) {
+        // Chords/Melody (Poly)
+        loop = new Tone.Loop(
+          (time) => {
+            synths.current[0].triggerAttackRelease(note, '8n', time)
+          },
+          `${rhythm * 2}n`,
+        ).start(0)
+      } else {
+        // Percussion (Metal)
+        loop = new Tone.Loop((time) => {
+          synths.current[2].triggerAttackRelease('32n', time, 0.3)
+        }, `${rhythm}n`).start(0)
+      }
+
+      loops.current.set(padId, loop)
+    }
+  }
+
+  const handlePadClick = async (pad: any) => {
+    await startAudio()
+
+    // Toggle Loop State
+    toggleLoop(pad.id, pad.x, pad.y)
+
+    // Visual Flash
+    setActivePad(pad.id)
+    setTimeout(() => setActivePad(null), 200)
+
+    // Functional Actions
     if (!pad.id.startsWith('dummy')) {
-      setActivePad(pad.id)
-      setTimeout(() => setActivePad(null), 200)
-
       if (pad.action === 'copy' && pad.value) {
         navigator.clipboard.writeText(pad.value)
         setCopied(true)
         setTimeout(() => setCopied(false), 2000)
       } else if (pad.href) {
-        setTimeout(() => {
-          window.open(pad.href, '_blank')
-        }, 300)
+        // Optional: Delay opening link to let sound play
+        // setTimeout(() => window.open(pad.href, '_blank'), 300)
+        window.open(pad.href, '_blank')
       }
-    } else {
-      // Dummy pad click effect
-      setActivePad(pad.id)
-      setTimeout(() => setActivePad(null), 150)
     }
   }
 
@@ -210,7 +298,7 @@ export function ContactLaunchpad() {
             className={cn(
               'absolute inset-0 z-0 transition-opacity duration-200',
               pad.color,
-              activePad === pad.id
+              activePad === pad.id || activeLoops.has(pad.id)
                 ? 'opacity-100'
                 : 'opacity-0 group-hover:opacity-100',
             )}
@@ -222,7 +310,9 @@ export function ContactLaunchpad() {
               <pad.icon
                 className={cn(
                   'h-5 w-5 transition-colors duration-200 sm:h-8 sm:w-8',
-                  activePad === pad.id || 'group-hover:text-white'
+                  activePad === pad.id ||
+                    activeLoops.has(pad.id) ||
+                    'group-hover:text-white'
                     ? 'text-white'
                     : 'text-zinc-500',
                   pad.id === 'copy' && copied ? 'text-green-500' : '',
@@ -232,7 +322,9 @@ export function ContactLaunchpad() {
                 <span
                   className={cn(
                     'text-[10px] font-bold tracking-wider transition-colors duration-200 sm:text-xs',
-                    activePad === pad.id || 'group-hover:text-white'
+                    activePad === pad.id ||
+                      activeLoops.has(pad.id) ||
+                      'group-hover:text-white'
                       ? 'text-white'
                       : 'text-zinc-400',
                   )}
@@ -243,7 +335,9 @@ export function ContactLaunchpad() {
                   <span
                     className={cn(
                       'font-mono text-[8px] transition-colors duration-200 sm:text-[10px]',
-                      activePad === pad.id || 'group-hover:text-white/80'
+                      activePad === pad.id ||
+                        activeLoops.has(pad.id) ||
+                        'group-hover:text-white/80'
                         ? 'text-white/80'
                         : 'text-zinc-600',
                     )}
@@ -259,7 +353,9 @@ export function ContactLaunchpad() {
           <div
             className={cn(
               'absolute top-1 right-1 h-1 w-1 rounded-full transition-colors duration-200 sm:top-2 sm:right-2 sm:h-1.5 sm:w-1.5',
-              activePad === pad.id || 'group-hover:bg-white'
+              activePad === pad.id ||
+                activeLoops.has(pad.id) ||
+                'group-hover:bg-white'
                 ? 'bg-white'
                 : 'bg-zinc-900',
             )}
