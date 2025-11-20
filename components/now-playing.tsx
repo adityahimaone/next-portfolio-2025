@@ -1,44 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { AudioLines, PauseIcon } from 'lucide-react'
+import { AudioLines, PauseIcon, Disc3, Radio } from 'lucide-react'
 import { NowPlayingResponse } from '@/lib/types'
 import Image from 'next/image'
 import { motion } from 'motion/react'
-
-// Properly type the BorderTrail component props
-interface BorderTrailProps {
-  className?: string
-  size?: number
-}
-
-export function BorderTrail({ className, size = 100 }: BorderTrailProps) {
-  return (
-    <div
-      className="absolute inset-0 overflow-hidden rounded-xl"
-      style={{ zIndex: 1 }}
-    >
-      <div
-        className={`absolute inset-0 rounded-xl ${className}`}
-        style={{
-          background: `conic-gradient(
-            from 0deg at 50% 50%,
-            rgba(0, 0, 0, 0) 0deg,
-            currentColor 285deg,
-            rgba(0, 0, 0, 0) 360deg
-          )`,
-          zIndex: -1,
-        }}
-      >
-        <motion.div
-          className="absolute inset-0"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 2, ease: 'linear', repeat: Infinity }}
-        />
-      </div>
-    </div>
-  )
-}
+import { cn } from '@/lib/utils'
 
 export default function NowPlaying() {
   const [data, setData] = useState<NowPlayingResponse | null>(null)
@@ -67,197 +34,105 @@ export default function NowPlaying() {
   // Loading state
   if (loading || !data) {
     return (
-      <div className="flex flex-col items-center">
-        <div className="relative aspect-square w-full max-w-[280px] overflow-hidden rounded-xl">
-          <div className="absolute inset-0 flex items-center justify-center bg-zinc-200/30 backdrop-blur-sm dark:bg-zinc-800/30">
-            <motion.div
-              className="flex items-center justify-center"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              <AudioLines className="text-primary h-16 w-16" />
-            </motion.div>
-          </div>
-          <BorderTrail
-            className="from-primary/40 via-primary/60 to-primary/40 bg-gradient-to-l"
-            size={150}
-          />
-        </div>
-
-        <div className="mt-4 flex w-full items-center gap-3">
-          {/* Spotify icon */}
-          <svg
-            viewBox="0 0 24 24"
-            className="h-6 w-6 flex-none text-[#1DB954]"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.66.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path>
-          </svg>
-
-          <div className="flex flex-grow flex-col">
-            <motion.div
-              className="h-5 w-3/4 rounded-md bg-zinc-200 dark:bg-zinc-700"
-              animate={{ opacity: [0.6, 0.9, 0.6] }}
-              transition={{ duration: 1.8, repeat: Infinity }}
-            />
-            <motion.div
-              className="mt-1.5 h-4 w-1/2 rounded-md bg-zinc-200 dark:bg-zinc-700"
-              animate={{ opacity: [0.4, 0.7, 0.4] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
+      <div className="relative w-full max-w-md overflow-hidden rounded-xl border border-zinc-200 bg-white p-4 shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
+        <div className="flex animate-pulse gap-4">
+          <div className="h-24 w-24 rounded-full bg-zinc-100 dark:bg-zinc-900" />
+          <div className="flex-1 space-y-2 py-2">
+            <div className="h-4 w-3/4 rounded bg-zinc-100 dark:bg-zinc-900" />
+            <div className="h-3 w-1/2 rounded bg-zinc-100 dark:bg-zinc-900" />
           </div>
         </div>
       </div>
     )
   }
 
-  // Not playing state
-  if (!data.isPlaying) {
-    return (
-      <div className="flex flex-col items-center">
-        <div className="relative aspect-square w-full max-w-[280px] overflow-hidden rounded-xl">
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-zinc-200/30 backdrop-blur-sm dark:bg-zinc-800/30">
-            <PauseIcon className="mb-2 h-16 w-16 text-zinc-500 opacity-60 dark:text-zinc-400" />
-            <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-              Playback Paused
-            </p>
-          </div>
-          <BorderTrail
-            className="bg-gradient-to-l from-zinc-400/20 via-zinc-400/40 to-zinc-400/20 opacity-50"
-            size={150}
-          />
-        </div>
+  const isPlaying = data.isPlaying
 
-        <div className="mt-4 flex w-full items-center gap-3">
-          {/* Spotify icon */}
-          <svg
-            viewBox="0 0 24 24"
-            className="h-6 w-6 flex-none text-zinc-400"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.66.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path>
-          </svg>
-
-          <div className="flex flex-grow flex-col">
-            <p className="font-medium text-zinc-600 dark:text-zinc-300">
-              Not Currently Playing
-            </p>
-            <p className="text-sm text-zinc-500">Spotify is idle</p>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Playing state
   return (
-    <div className="flex flex-col items-center">
-      <div className="relative aspect-square w-[280px] overflow-hidden rounded-xl">
-        <motion.div
-          className="h-full w-full"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Image
-            src={data.albumImageUrl || '/default-album.jpg'}
-            alt={data.album ?? 'Album Cover'}
-            className="aspect-square h-full w-full object-cover"
-            width={300}
-            height={300}
-            priority
-          />
+    <div className="group relative w-full max-w-md overflow-hidden rounded-xl border border-zinc-200 bg-white p-4 shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
+      {/* Glossy Screen Effect */}
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-br from-black/5 to-transparent dark:from-white/5" />
 
-          {/* Overlay on hover */}
+      {/* Background Glow */}
+      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-50 blur-xl" />
+
+      <div className="relative z-20 flex items-center gap-5">
+        {/* Album Art (Spinning Vinyl Style) */}
+        <div className="relative h-24 w-24 shrink-0">
           <motion.div
-            className="absolute inset-0 flex w-full max-w-[280px] items-center justify-center bg-black/40 opacity-0 transition-opacity"
-            whileHover={{ opacity: 1 }}
+            animate={{ rotate: isPlaying ? 360 : 0 }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+            className="relative h-full w-full overflow-hidden rounded-full border-4 border-zinc-100 bg-zinc-100 shadow-lg dark:border-zinc-900 dark:bg-zinc-900"
           >
+            <Image
+              src={data.albumImageUrl || '/default-album.jpg'}
+              alt={data.album ?? 'Album Cover'}
+              className="h-full w-full object-cover opacity-90"
+              width={100}
+              height={100}
+            />
+            {/* Center hole */}
+            <div className="absolute top-1/2 left-1/2 z-10 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950" />
+            {/* Vinyl Grooves Texture */}
+            <div className="pointer-events-none absolute inset-0 rounded-full border-2 border-black/5 dark:border-white/5" />
+            <div className="pointer-events-none absolute inset-2 rounded-full border border-black/5 dark:border-white/5" />
+          </motion.div>
+
+          {/* Tone Arm (Decorative) */}
+          <div className="absolute -top-2 -right-2 z-0 h-12 w-1 origin-top rotate-12 rounded-full bg-zinc-300 shadow-lg dark:bg-zinc-700" />
+        </div>
+
+        {/* Display Info */}
+        <div className="flex min-w-0 flex-1 flex-col justify-center">
+          <div className="mb-2 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div
+                className={cn(
+                  'h-1.5 w-1.5 rounded-full shadow-[0_0_5px_currentColor]',
+                  isPlaying
+                    ? 'animate-pulse bg-green-500 text-green-500'
+                    : 'bg-red-500 text-red-500',
+                )}
+              />
+              <span className="font-mono text-[10px] tracking-wider text-zinc-500 uppercase">
+                {isPlaying ? 'NOW PLAYING' : 'PAUSED'}
+              </span>
+            </div>
             <a
               href={data.songUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-[#1DB954] p-3 shadow-lg transition-transform hover:scale-110"
+              className="text-zinc-500 transition-colors hover:text-[#1DB954] dark:text-zinc-400"
             >
-              <AudioLines className="h-8 w-8 text-white" />
+              <AudioLines size={14} />
             </a>
-          </motion.div>
-        </motion.div>
+          </div>
 
-        <BorderTrail
-          className="from-primary/60 via-primary to-primary/60 bg-gradient-to-l"
-          size={150}
-        />
+          <div className="space-y-0.5 overflow-hidden">
+            <h3 className="truncate text-lg leading-tight font-bold text-zinc-900 dark:text-zinc-200">
+              {data.title || 'Unknown Title'}
+            </h3>
+            <p className="truncate text-sm font-medium text-zinc-600 dark:text-zinc-400">
+              {data.artist || 'Unknown Artist'}
+            </p>
+            <p className="truncate font-mono text-xs text-zinc-500 dark:text-zinc-600">
+              {data.album || 'Unknown Album'}
+            </p>
+          </div>
 
-        {/* Sound wave animation at bottom */}
-        <div className="absolute right-0 bottom-0 left-0 flex h-8 items-end justify-center space-x-0.5 overflow-hidden">
-          {Array.from({ length: 24 }).map((_, i) => (
+          {/* Progress Bar (Fake) */}
+          <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-900">
             <motion.div
-              key={i}
-              className="w-1 rounded-t bg-white/50"
-              animate={{
-                height: [
-                  `${5 + Math.random() * 20}%`,
-                  `${5 + Math.random() * 60}%`,
-                  `${5 + Math.random() * 20}%`,
-                ],
-              }}
+              className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+              initial={{ width: '0%' }}
+              animate={{ width: isPlaying ? '100%' : '30%' }}
               transition={{
-                duration: 0.8 + Math.random() * 0.7,
-                repeat: Infinity,
-                repeatType: 'reverse',
-                ease: 'easeInOut',
+                duration: isPlaying ? data.duration || 180 : 0,
+                ease: 'linear',
+                repeat: isPlaying ? Infinity : 0,
               }}
             />
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-4 flex w-full max-w-[280px] items-center gap-3">
-        {/* Spotify icon */}
-        <svg
-          viewBox="0 0 24 24"
-          className="h-6 w-6 flex-none text-[#1DB954]"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.66.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path>
-        </svg>
-
-        <div className="flex flex-grow flex-col overflow-hidden">
-          <div className="overflow-hidden whitespace-nowrap">
-            {(data.title?.length || 0) > 20 ? (
-              <motion.div
-                className="inline-flex gap-4"
-                initial={{ x: '0%' }}
-                animate={{ x: '-50%' }}
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: 'linear',
-                  repeatType: 'loop',
-                }}
-              >
-                <span className="font-semibold text-zinc-800 dark:text-zinc-100">
-                  {data.title || 'Unknown Title'}
-                </span>
-                <span className="font-semibold text-zinc-800 dark:text-zinc-100">
-                  {data.title || 'Unknown Title'}
-                </span>
-              </motion.div>
-            ) : (
-              <span className="font-semibold text-zinc-800 dark:text-zinc-100">
-                {data.title || 'Unknown Title'}
-              </span>
-            )}
           </div>
-          <p className="truncate text-zinc-600 dark:text-zinc-300">
-            {data.artist || 'Unknown Artist'}
-          </p>
-          <p className="truncate text-xs text-zinc-500">
-            {data.album || 'Unknown Album'}
-          </p>
         </div>
       </div>
     </div>
