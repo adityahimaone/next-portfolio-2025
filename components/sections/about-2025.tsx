@@ -126,10 +126,10 @@ export function AboutSection2025() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-4 flex items-center gap-2 rounded-full bg-zinc-100 px-4 py-1.5 text-sm font-medium text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
+            className="mb-4 flex items-center gap-2 rounded-full bg-zinc-200/50 px-4 py-1.5 text-sm font-medium text-zinc-600 dark:bg-zinc-800/50 dark:text-zinc-400"
           >
             <User className="h-4 w-4" />
-            <span>SIDE A: THE PROFILE</span>
+            <span>LINER NOTES</span>
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

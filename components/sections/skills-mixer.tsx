@@ -12,6 +12,7 @@ const mixerData = [
     label: 'LANGUAGES',
     type: 'fader',
     channels: [
+      { name: 'HTML', level: 95 },
       { name: 'CSS', level: 95 },
       { name: 'JS', level: 95 },
       { name: 'TS', level: 90 },
@@ -242,7 +243,7 @@ export function SkillsMixer() {
             {/* Top Panel: Branding & Power */}
             <div className="mb-12 flex items-center justify-between border-b border-zinc-400/30 pb-6 dark:border-zinc-800">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded border border-zinc-700 bg-zinc-900 shadow-lg">
+                <div className="hidden h-12 w-12 items-center justify-center rounded border border-zinc-700 bg-zinc-900 shadow-lg sm:flex">
                   <Music className="text-primary h-6 w-6" />
                 </div>
                 <div>
@@ -255,10 +256,6 @@ export function SkillsMixer() {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="hidden md:block">
-                  <VUMeter isOn={isOn} />
-                </div>
-
                 <div className="flex items-center gap-3 rounded-xl border border-zinc-500 bg-zinc-400/50 p-2 px-3">
                   {/* LED */}
                   <div className="flex flex-col items-center gap-1">
@@ -314,6 +311,10 @@ export function SkillsMixer() {
                     </div>
                   </button>
                 </div>
+
+                <div className="hidden md:block">
+                  <VUMeter isOn={isOn} />
+                </div>
               </div>
             </div>
 
@@ -327,8 +328,19 @@ export function SkillsMixer() {
                   </h4>
                   <div className="h-1.5 w-1.5 rounded-full bg-red-500" />
                 </div>
-                <div className="flex justify-between gap-2">
+                {/* Desktop */}
+                <div className="hidden flex-wrap justify-between gap-2 sm:flex">
                   {mixerData[0].channels.map((skill) => (
+                    <Fader
+                      key={skill.name}
+                      value={isOn ? skill.level : 0}
+                      label={skill.name}
+                    />
+                  ))}
+                </div>
+                {/* Mobile */}
+                <div className="flex flex-wrap justify-between gap-2 sm:hidden">
+                  {mixerData[0].channels.slice(-4).map((skill) => (
                     <Fader
                       key={skill.name}
                       value={isOn ? skill.level : 0}
