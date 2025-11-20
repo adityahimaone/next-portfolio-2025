@@ -34,12 +34,12 @@ export default function NowPlaying() {
   // Loading state
   if (loading || !data) {
     return (
-      <div className="relative w-full max-w-md overflow-hidden rounded-xl border border-zinc-200 bg-white p-4 shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
-        <div className="flex animate-pulse gap-4">
-          <div className="h-24 w-24 rounded-full bg-zinc-100 dark:bg-zinc-900" />
-          <div className="flex-1 space-y-2 py-2">
-            <div className="h-4 w-3/4 rounded bg-zinc-100 dark:bg-zinc-900" />
-            <div className="h-3 w-1/2 rounded bg-zinc-100 dark:bg-zinc-900" />
+      <div className="relative w-full max-w-md p-4 overflow-hidden bg-white border shadow-xl rounded-xl border-zinc-200 dark:border-zinc-800 dark:bg-zinc-950">
+        <div className="flex gap-4 animate-pulse">
+          <div className="w-24 h-24 rounded-full bg-zinc-100 dark:bg-zinc-900" />
+          <div className="flex-1 py-2 space-y-2">
+            <div className="w-3/4 h-4 rounded bg-zinc-100 dark:bg-zinc-900" />
+            <div className="w-1/2 h-3 rounded bg-zinc-100 dark:bg-zinc-900" />
           </div>
         </div>
       </div>
@@ -49,42 +49,42 @@ export default function NowPlaying() {
   const isPlaying = data.isPlaying
 
   return (
-    <div className="group relative w-full max-w-md overflow-hidden rounded-xl border border-zinc-200 bg-white p-4 shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
+    <div className="relative w-full max-w-md p-4 overflow-hidden bg-white border shadow-xl group rounded-xl border-zinc-200 dark:border-zinc-800 dark:bg-zinc-950">
       {/* Glossy Screen Effect */}
-      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-br from-black/5 to-transparent dark:from-white/5" />
+      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-black/5 to-transparent dark:from-white/5" />
 
       {/* Background Glow */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-50 blur-xl" />
+      <div className="absolute opacity-50 -inset-1 bg-gradient-to-r from-blue-500/10 to-purple-500/10 blur-xl" />
 
       <div className="relative z-20 flex items-center gap-5">
         {/* Album Art (Spinning Vinyl Style) */}
-        <div className="relative h-24 w-24 shrink-0">
+        <div className="relative w-24 h-24 shrink-0">
           <motion.div
             animate={{ rotate: isPlaying ? 360 : 0 }}
             transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-            className="relative h-full w-full overflow-hidden rounded-full border-4 border-zinc-100 bg-zinc-100 shadow-lg dark:border-zinc-900 dark:bg-zinc-900"
+            className="relative w-full h-full overflow-hidden border-4 rounded-full shadow-lg border-zinc-100 bg-zinc-100 dark:border-zinc-900 dark:bg-zinc-900"
           >
             <Image
               src={data.albumImageUrl || '/default-album.jpg'}
               alt={data.album ?? 'Album Cover'}
-              className="h-full w-full object-cover opacity-90"
+              className="object-cover w-full h-full opacity-90"
               width={100}
               height={100}
             />
             {/* Center hole */}
-            <div className="absolute top-1/2 left-1/2 z-10 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950" />
+            <div className="absolute z-10 w-3 h-3 -translate-x-1/2 -translate-y-1/2 bg-white border rounded-full top-1/2 left-1/2 border-zinc-200 dark:border-zinc-800 dark:bg-zinc-950" />
             {/* Vinyl Grooves Texture */}
-            <div className="pointer-events-none absolute inset-0 rounded-full border-2 border-black/5 dark:border-white/5" />
-            <div className="pointer-events-none absolute inset-2 rounded-full border border-black/5 dark:border-white/5" />
+            <div className="absolute inset-0 border-2 rounded-full pointer-events-none border-black/5 dark:border-white/5" />
+            <div className="absolute border rounded-full pointer-events-none inset-2 border-black/5 dark:border-white/5" />
           </motion.div>
 
           {/* Tone Arm (Decorative) */}
-          <div className="absolute -top-2 -right-2 z-0 h-12 w-1 origin-top rotate-12 rounded-full bg-zinc-300 shadow-lg dark:bg-zinc-700" />
+          <div className="absolute z-0 w-1 h-12 origin-top rounded-full shadow-lg -top-2 -right-2 rotate-12 bg-zinc-300 dark:bg-zinc-700" />
         </div>
 
         {/* Display Info */}
-        <div className="flex min-w-0 flex-1 flex-col justify-center">
-          <div className="mb-2 flex items-center justify-between">
+        <div className="flex flex-col justify-center flex-1 min-w-0">
+          <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <div
                 className={cn(
@@ -109,25 +109,25 @@ export default function NowPlaying() {
           </div>
 
           <div className="space-y-0.5 overflow-hidden">
-            <h3 className="truncate text-lg leading-tight font-bold text-zinc-900 dark:text-zinc-200">
+            <h3 className="text-lg font-bold leading-tight truncate text-zinc-900 dark:text-zinc-200">
               {data.title || 'Unknown Title'}
             </h3>
-            <p className="truncate text-sm font-medium text-zinc-600 dark:text-zinc-400">
+            <p className="text-sm font-medium truncate text-zinc-600 dark:text-zinc-400">
               {data.artist || 'Unknown Artist'}
             </p>
-            <p className="truncate font-mono text-xs text-zinc-500 dark:text-zinc-600">
+            <p className="font-mono text-xs truncate text-zinc-500 dark:text-zinc-600">
               {data.album || 'Unknown Album'}
             </p>
           </div>
 
           {/* Progress Bar (Fake) */}
-          <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-900">
+          <div className="w-full h-1 mt-3 overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-900">
             <motion.div
               className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
               initial={{ width: '0%' }}
               animate={{ width: isPlaying ? '100%' : '30%' }}
               transition={{
-                duration: isPlaying ? data.duration || 180 : 0,
+                duration: isPlaying ? 180 : 0,
                 ease: 'linear',
                 repeat: isPlaying ? Infinity : 0,
               }}
