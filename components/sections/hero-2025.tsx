@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'motion/react'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'motion/react'
 import { Play, Pause, SkipForward, Disc } from 'lucide-react'
 import { Magnetic } from '@/components/ui/magnetic'
 import { TextEffect } from '@/components/ui/text-effect'
@@ -9,15 +9,31 @@ import { useAudio } from '@/lib/audio-context'
 
 export function HeroSection2025() {
   const { isPlaying, togglePlay, currentTrack } = useAudio()
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, 150])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9])
 
   return (
-    <div className="relative flex min-h-[80vh] w-full flex-col items-center justify-center py-10">
-      <div className="relative z-10 container mx-auto flex flex-col items-center px-4 text-center md:px-6">
+    <section
+      ref={containerRef}
+      className="overflow-Y-hidden relative flex min-h-[90vh] w-full flex-col items-center justify-center py-10"
+    >
+      <motion.div
+        style={{ y, opacity, scale }}
+        className="relative z-10 container mx-auto flex flex-col items-center px-4 text-center md:px-6"
+      >
         {/* Top Label */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="mb-8 flex items-center gap-3 rounded-full border border-zinc-200/20 bg-zinc-900/5 px-4 py-1 text-sm font-medium text-zinc-500 backdrop-blur-sm dark:border-zinc-800/50 dark:text-zinc-400"
         >
           <span className="relative flex h-2 w-2">
@@ -33,7 +49,7 @@ export function HeroSection2025() {
           <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none">
             {/* Desktop Version */}
             <motion.h1
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.8 }}
               animate={{
                 opacity: [0.03, 0.08, 0.03],
                 scale: [1, 1.05, 1],
@@ -84,17 +100,17 @@ export function HeroSection2025() {
 
           {/* Main Text */}
           <h1 className="relative z-10 bg-linear-to-b from-zinc-900 to-zinc-500 bg-clip-text text-6xl font-black tracking-tighter text-transparent sm:text-8xl md:text-9xl dark:from-white dark:to-zinc-500">
-            <TextEffect per="char" preset="fade-in-blur" delay={0.5}>
+            <TextEffect per="char" preset="fade-in-blur" delay={1.4}>
               adityahimaone
             </TextEffect>
           </h1>
 
           {/* Decorative "Album" details */}
           <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.5, type: 'spring' }}
-            className="bg-primary absolute -top-8 right-8 rotate-12 rounded-full px-3 py-1 text-xs font-bold text-white shadow-lg md:-top-8 md:-right-8 md:px-4 md:py-2 md:text-sm"
+            initial={{ opacity: 0, scale: 0, rotate: 0 }}
+            animate={{ opacity: 1, scale: 1, rotate: 12 }}
+            transition={{ delay: 2.0, type: 'spring', stiffness: 200 }}
+            className="bg-primary absolute -top-8 right-8 rounded-full px-3 py-1 text-xs font-bold text-white shadow-lg md:-top-8 md:-right-8 md:px-4 md:py-2 md:text-sm"
           >
             NEW RELEASE
           </motion.div>
@@ -102,9 +118,9 @@ export function HeroSection2025() {
 
         {/* Subtitle / Description */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1 }}
+          initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12 max-w-2xl text-sm font-light text-zinc-600 sm:text-xl md:text-lg dark:text-zinc-400"
         >
           Orchestrating code and rhythm into immersive digital experiences.
@@ -114,9 +130,9 @@ export function HeroSection2025() {
 
         {/* Player Controls / CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.2 }}
+          initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
           className="flex max-w-[90vw] items-center gap-2 rounded-2xl border border-zinc-200 bg-white/50 p-2 backdrop-blur-md sm:max-w-none sm:gap-6 dark:border-zinc-800 dark:bg-zinc-900/50"
         >
           <Magnetic intensity={0.2}>
@@ -172,7 +188,7 @@ export function HeroSection2025() {
             </a>
           </Magnetic>
         </motion.div>
-      </div>
-    </div>
+      </motion.div>
+    </section>
   )
 }

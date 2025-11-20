@@ -19,7 +19,7 @@ export function Preloader() {
   useEffect(() => {
     const interval = setInterval(() => {
       setStepIndex((prev) => (prev < loadingSteps.length - 1 ? prev + 1 : prev))
-    }, 400) // Change step every 400ms
+    }, 200) // Change step every 200ms
 
     return () => clearInterval(interval)
   }, [])

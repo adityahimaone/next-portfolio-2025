@@ -27,6 +27,8 @@ import { MusicBackground } from '@/components/ui/music-background'
 import { MusicMarquee } from '@/components/ui/music-marquee'
 import { About2Section } from '@/components/sections/about-2'
 import { SkillsMixer } from '@/components/sections/skills-mixer'
+import { KeyboardIllustration } from '@/components/ui/keyboard-illustration'
+import { LaunchpadIllustration } from '@/components/ui/launchpad-illustration'
 
 export default function Home() {
   const { scrollYProgress } = useScroll()
@@ -38,11 +40,17 @@ export default function Home() {
   const isInView = useInView(mainRef, { once: false })
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const heroRef = useRef<HTMLElement>(null)
+  const { scrollYProgress: heroScrollY } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+  const parallaxY = useTransform(heroScrollY, [0, 1], [0, 100])
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 2500)
+    }, 1000)
     return () => clearTimeout(timer)
   }, [])
 
@@ -182,7 +190,10 @@ export default function Home() {
         <main className="relative">
           <div className="snap-y snap-mandatory">
             {/* Hero Section with Beams Background */}
-            <section className="relative h-screen snap-start overflow-hidden">
+            <section
+              ref={heroRef}
+              className="relative h-screen snap-start overflow-hidden"
+            >
               <BeamsBackground
                 intensity="medium"
                 className="absolute inset-0 z-0"
@@ -192,6 +203,35 @@ export default function Home() {
                 <div className="mx-auto w-full max-w-7xl px-4 pt-20">
                   <HeroSection2025 />
                 </div>
+              </div>
+              {/* Corner Illustrations */}
+              <div className="absolute -top-6 -left-16 z-1 scale-50 -rotate-45 xl:top-10 xl:left-10 xl:scale-100 xl:-rotate-55">
+                <motion.div
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 1.2,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  style={{ y: parallaxY }}
+                >
+                  <KeyboardIllustration />
+                </motion.div>
+              </div>
+              <div className="absolute -right-12 -bottom-20 z-1 scale-50 xl:right-0 xl:-bottom-20 xl:scale-100">
+                <motion.div
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 1.2,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  style={{ y: parallaxY }}
+                >
+                  <LaunchpadIllustration />
+                </motion.div>
               </div>
             </section>
             {/* Music-themed marquee divider */}

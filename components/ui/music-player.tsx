@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { Slider } from './slider'
 import { useAudio } from '@/lib/audio-context'
+import useClickOutside from '@/hooks/useClickOutside'
 
 export function MusicPlayer() {
   const { isPlaying, togglePlay, isMuted, toggleMute, volume, setVolume } =
@@ -18,6 +19,11 @@ export function MusicPlayer() {
   const [isVisible, setIsVisible] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useClickOutside(containerRef, () => {
+    setIsHovered(false)
+  })
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -46,6 +52,7 @@ export function MusicPlayer() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
+          ref={containerRef}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
@@ -59,14 +66,56 @@ export function MusicPlayer() {
             whileHover={{ scale: 1.05 }}
             layout
           >
-            <motion.button
-              onClick={togglePlay}
-              className="bg-primary flex h-10 w-10 items-center justify-center rounded-full text-white"
-              whileTap={{ scale: 0.95 }}
-              title={isPlaying ? 'Pause' : 'Play'}
-            >
-              {isPlaying ? <PauseIcon size={18} /> : <PlayIcon size={18} />}
-            </motion.button>
+            <div className="relative">
+              {isPlaying && (
+                <>
+                  {/* Rotating Dashed Ring */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, rotate: 360 }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    }}
+                    className="border-primary/40 dark:border-primary-light/40 absolute -inset-2 -z-10 rounded-full border border-dashed"
+                  />
+
+                  {/* Ripple 1 */}
+                  <motion.div
+                    initial={{ scale: 1, opacity: 0.5 }}
+                    animate={{ scale: 2.5, opacity: 0 }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: 'easeOut',
+                    }}
+                    className="bg-primary/20 dark:bg-primary-light/20 absolute inset-0 -z-20 rounded-full"
+                  />
+
+                  {/* Ripple 2 (Delayed) */}
+                  <motion.div
+                    initial={{ scale: 1, opacity: 0.5 }}
+                    animate={{ scale: 2.5, opacity: 0 }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: 'easeOut',
+                      delay: 1,
+                    }}
+                    className="bg-primary/20 dark:bg-primary-light/20 absolute inset-0 -z-20 rounded-full"
+                  />
+                </>
+              )}
+              <motion.button
+                onClick={togglePlay}
+                className="bg-primary flex h-10 w-10 items-center justify-center rounded-full text-white"
+                whileTap={{ scale: 0.95 }}
+                title={isPlaying ? 'Pause' : 'Play'}
+              >
+                {isPlaying ? <PauseIcon size={18} /> : <PlayIcon size={18} />}
+              </motion.button>
+            </div>
 
             <AnimatePresence>
               {isHovered && (
