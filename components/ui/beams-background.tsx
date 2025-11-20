@@ -75,7 +75,7 @@ export function BeamsBackground({
   useEffect(() => {
     // On first mount, default to dark mode if no theme is set
     if (mounted && !localStorage.getItem('theme')) {
-      setTheme('dark')
+      setTheme('light')
     }
   }, [mounted, setTheme])
 
