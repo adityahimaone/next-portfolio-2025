@@ -30,6 +30,8 @@ import NowPlaying from '@/components/now-playing'
 interface Clip {
   id: string
   name: string
+  subtitle?: string
+  description: string
   start: number // Grid column start
   duration: number // Grid column span
   type: 'bio' | 'stack' | 'stats' | 'spotify'
@@ -129,16 +131,20 @@ const ClipBlock = ({
   color,
   isActive,
   onClick,
+  onHover,
 }: {
   clip: Clip
   color: string
   isActive: boolean
   onClick: () => void
+  onHover: (isHovered: boolean) => void
 }) => {
   return (
     <motion.button
       layoutId={`clip-${clip.id}`}
       onClick={onClick}
+      onMouseEnter={() => onHover(true)}
+      onMouseLeave={() => onHover(false)}
       className={cn(
         'group relative flex h-20 items-center overflow-hidden rounded-md border border-l-4 transition-all hover:brightness-110',
         color.replace('text-', 'border-l-').replace('bg-', 'bg-opacity-20'),
@@ -163,10 +169,15 @@ const ClipBlock = ({
       />
 
       <div className="relative z-10 flex w-full items-center justify-between px-3">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col items-start gap-1 overflow-hidden">
           <span className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-[10px] text-zinc-600 dark:bg-black/30 dark:text-zinc-300">
             {clip.name}
           </span>
+          {clip.subtitle && (
+            <span className="truncate text-xs font-bold text-zinc-700 dark:text-zinc-200">
+              {clip.subtitle}
+            </span>
+          )}
         </div>
         <Maximize2
           size={12}
@@ -249,6 +260,7 @@ const DetailWindow = ({
 export function AboutSection2025v2() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [activeClip, setActiveClip] = useState<Clip | null>(null)
+  const [hoveredClip, setHoveredClip] = useState<Clip | null>(null)
   const [mutedTracks, setMutedTracks] = useState<Set<string>>(new Set())
   const [soloedTrack, setSoloedTrack] = useState<string | null>(null)
 
@@ -318,6 +330,8 @@ export function AboutSection2025v2() {
         {
           id: 'bio-main',
           name: 'profile.tsx',
+          subtitle: 'About Me',
+          description: 'Frontend Engineer based in Jakarta. 3+ Years Exp.',
           start: 1,
           duration: 4,
           type: 'bio',
@@ -396,6 +410,8 @@ export function AboutSection2025v2() {
         {
           id: 'stats-main',
           name: 'metrics.json',
+          subtitle: 'Key Stats',
+          description: '3+ Years Exp, 20+ Projects, 100% Commitment.',
           start: 3,
           duration: 3,
           type: 'stats',
@@ -439,6 +455,8 @@ export function AboutSection2025v2() {
         {
           id: 'audio-main',
           name: 'now_playing.mp3',
+          subtitle: 'Spotify',
+          description: 'Now Playing: Spotify Integration.',
           start: 5,
           duration: 5,
           type: 'spotify',
@@ -600,6 +618,9 @@ export function AboutSection2025v2() {
                             color={track.color}
                             isActive={activeClip?.id === clip.id}
                             onClick={() => setActiveClip(clip)}
+                            onHover={(isHovered) =>
+                              setHoveredClip(isHovered ? clip : null)
+                            }
                           />
                         ))}
                       </div>
@@ -610,6 +631,14 @@ export function AboutSection2025v2() {
             </div>
 
             {/* Detail Overlay (Modal) */}
+          </div>
+
+          {/* Info Bar */}
+          <div className="flex h-8 items-center border-t border-zinc-200 bg-zinc-100 px-4 text-xs text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-400">
+            <span className="mr-2 font-bold text-blue-500">INFO</span>
+            {hoveredClip
+              ? hoveredClip.description
+              : 'Hover over a clip to view details. Click to expand.'}
           </div>
         </div>
       </div>
