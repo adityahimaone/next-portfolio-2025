@@ -6,7 +6,9 @@ import {
   useTransform,
   useInView,
   useSpring,
+  AnimatePresence,
 } from 'motion/react'
+import { Preloader } from '@/components/ui/preloader'
 import { Header2025 } from '@/components/header-2025'
 import { Footer2025 } from '@/components/footer-2025'
 import { HeroSection2025 } from '@/components/sections/hero-2025'
@@ -35,6 +37,14 @@ export default function Home() {
   const mainRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(mainRef, { once: false })
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 2500)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Parallax effect for background elements
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
@@ -75,6 +85,10 @@ export default function Home() {
 
   return (
     <>
+      <AnimatePresence mode="wait">
+        {isLoading && <Preloader />}
+      </AnimatePresence>
+
       {/* Scroll Progress Indicator */}
       <motion.div
         className="from-primary via-secondary to-accent fixed top-0 right-0 left-0 z-100 h-1 bg-linear-to-r"
