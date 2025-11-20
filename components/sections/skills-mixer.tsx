@@ -26,7 +26,7 @@ const mixerData = [
     channels: [
       { name: 'REACT', level: 95 },
       { name: 'NEXT', level: 92 },
-      { name: 'TAILWIND', level: 98 },
+      // { name: 'TAILWIND', level: 98 },
       { name: 'REMIX', level: 70 },
       { name: 'JQUERY', level: 85 },
     ],
@@ -168,7 +168,7 @@ const Fader = ({ value, label }: { value: number; label: string }) => {
   )
 }
 
-const VUMeter = () => {
+const VUMeter = ({ isOn }: { isOn: boolean }) => {
   return (
     <div className="flex h-32 items-end gap-1 rounded border border-zinc-800 bg-zinc-900/80 p-2 shadow-inner">
       {[...Array(2)].map((_, ch) => (
@@ -189,7 +189,7 @@ const VUMeter = () => {
                   'h-1.5 w-full rounded-[1px] opacity-20',
                   colorClass,
                 )}
-                animate={{ opacity: [0.2, 1, 0.2] }}
+                animate={isOn ? { opacity: [0.2, 1, 0.2] } : { opacity: 0.1 }}
                 transition={{
                   duration: 0.5 + Math.random() * 0.5,
                   repeat: Infinity,
@@ -206,6 +206,8 @@ const VUMeter = () => {
 }
 
 export function SkillsMixer() {
+  const [isOn, setIsOn] = useState(true)
+
   return (
     <section id="skills" className="overflow-hidden py-24">
       <div className="container mx-auto px-4">
@@ -254,13 +256,63 @@ export function SkillsMixer() {
               </div>
               <div className="flex items-center gap-4">
                 <div className="hidden md:block">
-                  <VUMeter />
+                  <VUMeter isOn={isOn} />
                 </div>
-                <div className="flex flex-col items-center gap-2">
-                  <div className="h-4 w-4 animate-pulse rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)]" />
-                  <span className="text-[10px] font-bold text-zinc-500 uppercase">
-                    Power
-                  </span>
+
+                <div className="flex items-center gap-3 rounded-xl border border-zinc-500 bg-zinc-400/50 p-2 px-3">
+                  {/* LED */}
+                  <div className="flex flex-col items-center gap-1">
+                    <div
+                      className={cn(
+                        'h-2 w-2 rounded-full transition-all duration-300',
+                        isOn
+                          ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]'
+                          : 'bg-red-900/30',
+                      )}
+                    />
+                    <span className="text-[8px] font-bold tracking-wider text-zinc-600">
+                      PWR
+                    </span>
+                  </div>
+
+                  {/* Separator */}
+                  <div className="h-8 w-px bg-zinc-800" />
+
+                  {/* Switch */}
+                  <button
+                    onClick={() => setIsOn(!isOn)}
+                    className={cn(
+                      'relative flex h-12 w-8 cursor-pointer flex-col items-center justify-between overflow-hidden rounded border border-zinc-800 bg-zinc-950 py-1 shadow-[inset_0_0_5px_rgba(0,0,0,1)] transition-all',
+                    )}
+                  >
+                    {/* ON State (Top) */}
+                    <div
+                      className={cn(
+                        'flex h-4 w-6 items-center justify-center rounded-[1px] transition-all duration-200',
+                        isOn
+                          ? 'translate-y-0.5 bg-zinc-800 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]'
+                          : 'bg-zinc-900 opacity-50 shadow-inner',
+                      )}
+                    >
+                      <span className="text-[8px] font-bold text-zinc-400">
+                        |
+                      </span>
+                    </div>
+
+                    {/* OFF State (Bottom) */}
+                    <div
+                      className={cn(
+                        'flex h-4 w-6 items-center justify-center rounded-[1px] transition-all duration-200',
+                        !isOn
+                          ? '-translate-y-0.5 bg-zinc-800 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]'
+                          : 'bg-zinc-900 opacity-50 shadow-inner',
+                      )}
+                    >
+                      <span className="text-[8px] font-bold text-zinc-400">
+                        O
+                      </span>
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -279,7 +331,7 @@ export function SkillsMixer() {
                   {mixerData[0].channels.map((skill) => (
                     <Fader
                       key={skill.name}
-                      value={skill.level}
+                      value={isOn ? skill.level : 0}
                       label={skill.name}
                     />
                   ))}
@@ -296,11 +348,11 @@ export function SkillsMixer() {
                     </h4>
                     <div className="h-1.5 w-1.5 rounded-full bg-yellow-500" />
                   </div>
-                  <div className="grid grid-cols-3 gap-x-4 gap-y-8">
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-8">
                     {mixerData[1].channels.map((skill) => (
                       <Knob
                         key={skill.name}
-                        value={skill.level}
+                        value={isOn ? skill.level : 0}
                         label={skill.name}
                       />
                     ))}
@@ -319,7 +371,7 @@ export function SkillsMixer() {
                     {mixerData[2].channels.map((skill) => (
                       <Knob
                         key={skill.name}
-                        value={skill.level}
+                        value={isOn ? skill.level : 0}
                         label={skill.name}
                       />
                     ))}
