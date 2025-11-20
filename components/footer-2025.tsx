@@ -11,6 +11,7 @@ import {
   Coffee,
   Disc,
   Rewind,
+  X,
 } from 'lucide-react'
 
 export function Footer2025() {
@@ -22,7 +23,7 @@ export function Footer2025() {
 
   const socialLinks = [
     { name: 'GitHub', href: 'https://github.com/adityahimaone', icon: Github },
-    { name: 'Twitter', href: 'https://x.com/adityahimaone', icon: Twitter },
+    // { name: 'Twitter', href: 'https://x.com/adityahimaone', icon: X },
     {
       name: 'LinkedIn',
       href: 'https://linkedin.com/in/adityahimaone',
