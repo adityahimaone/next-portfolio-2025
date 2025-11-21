@@ -69,7 +69,7 @@ export function HeaderKnob() {
         )}
       >
         {/* Left: Power Switch (Theme Toggle) */}
-        <div className="flex items-center gap-4 md:gap-8">
+        <div className="flex items-start gap-4 md:gap-6">
           <div className="flex flex-col items-center gap-1">
             <button
               onClick={toggleTheme}
@@ -94,7 +94,7 @@ export function HeaderKnob() {
               POWER
             </span>
           </div>
-          <div className="relative h-4 w-4 md:h-5 md:w-5">
+          <div className="relative mt-2 h-4 w-4 md:h-5 md:w-5">
             <div
               className={cn(
                 'absolute inset-0 rounded-full transition-colors duration-500',
