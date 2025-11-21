@@ -108,9 +108,9 @@ export function HeroSection2025() {
           {/* Decorative "Album" details */}
           <motion.div
             initial={{ opacity: 0, scale: 0, rotate: 0 }}
-            animate={{ opacity: 1, scale: 1, rotate: 12 }}
+            animate={{ opacity: 1, scale: 1, rotate: 21 }}
             transition={{ delay: 2.0, type: 'spring', stiffness: 200 }}
-            className="bg-primary absolute -top-8 right-8 rounded-full px-3 py-1 text-xs font-bold text-white shadow-lg md:-top-8 md:-right-8 md:px-4 md:py-2 md:text-sm"
+            className="bg-primary absolute -top-10 right-0 rounded-full px-3 py-1 text-xs font-bold text-white shadow-lg md:-top-12 md:right-12 md:px-4 md:py-2 md:text-sm"
           >
             NEW RELEASE
           </motion.div>
