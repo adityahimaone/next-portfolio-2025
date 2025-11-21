@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { LazyMotion, domMax, m, AnimatePresence } from 'motion/react'
 import { cn } from '@/lib/utils'
 import {
   Play,
@@ -140,7 +140,7 @@ const ClipBlock = ({
   onHover: (isHovered: boolean) => void
 }) => {
   return (
-    <motion.button
+    <m.button
       layoutId={`clip-${clip.id}`}
       onClick={onClick}
       onMouseEnter={() => onHover(true)}
@@ -184,7 +184,7 @@ const ClipBlock = ({
           className="text-zinc-400 opacity-0 transition-opacity group-hover:opacity-100"
         />
       </div>
-    </motion.button>
+    </m.button>
   )
 }
 
@@ -195,14 +195,14 @@ const DetailWindow = ({
   clip: Clip
   onClose: () => void
 }) => (
-  <motion.div
+  <m.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
     className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm md:p-8"
     onClick={onClose}
   >
-    <motion.div
+    <m.div
       initial={{ scale: 0.95, y: 20 }}
       animate={{ scale: 1, y: 0 }}
       exit={{ scale: 0.95, y: 20 }}
@@ -253,8 +253,8 @@ const DetailWindow = ({
       <div className="scrollbar-thin scrollbar-track-zinc-100 scrollbar-thumb-zinc-300 dark:scrollbar-track-zinc-900 dark:scrollbar-thumb-zinc-700 flex-1 overflow-y-auto bg-zinc-50 p-6 text-zinc-900 dark:bg-zinc-900/50 dark:text-zinc-300">
         {clip.content}
       </div>
-    </motion.div>
-  </motion.div>
+    </m.div>
+  </m.div>
 )
 
 export function AboutSection2025v2() {
@@ -483,171 +483,177 @@ export function AboutSection2025v2() {
   ]
 
   return (
-    <section id="about" className="bg-white py-24 dark:bg-zinc-950">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="mb-12 flex flex-col items-center text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-4 flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-100 px-4 py-1.5 text-sm font-medium text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400"
-          >
-            <Layers className="h-4 w-4" />
-            <span>ARRANGEMENT VIEW</span>
-          </motion.div>
-          <h2 className="text-4xl font-bold tracking-tighter text-zinc-900 sm:text-5xl dark:text-white">
-            The Workflow
-          </h2>
-        </div>
+    <LazyMotion features={domMax}>
+      <section id="about" className="bg-white py-24 dark:bg-zinc-950">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="mb-12 flex flex-col items-center text-center">
+            <m.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-4 flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-100 px-4 py-1.5 text-sm font-medium text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400"
+            >
+              <Layers className="h-4 w-4" />
+              <span>ARRANGEMENT VIEW</span>
+            </m.div>
+            <h2 className="text-4xl font-bold tracking-tighter text-zinc-900 sm:text-5xl dark:text-white">
+              The Workflow
+            </h2>
+          </div>
 
-        {/* DAW Interface */}
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-950">
-          {/* Toolbar */}
-          <div className="flex items-center justify-between border-b border-zinc-200 bg-zinc-50 px-4 py-2 dark:border-zinc-800 dark:bg-zinc-900">
-            <div className="flex items-center gap-4">
+          {/* DAW Interface */}
+          <div className="relative mx-auto max-w-6xl overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-950">
+            {/* Toolbar */}
+            <div className="flex items-center justify-between border-b border-zinc-200 bg-zinc-50 px-4 py-2 dark:border-zinc-800 dark:bg-zinc-900">
+              <div className="flex items-center gap-4">
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setIsPlaying(!isPlaying)}
+                    className={cn(
+                      'flex h-8 w-8 items-center justify-center rounded transition-colors',
+                      isPlaying
+                        ? 'bg-green-500 text-black'
+                        : 'bg-zinc-200 text-zinc-600 hover:bg-zinc-300 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700',
+                    )}
+                  >
+                    {isPlaying ? (
+                      <Pause size={16} fill="currentColor" />
+                    ) : (
+                      <Play size={16} fill="currentColor" />
+                    )}
+                  </button>
+                  <button
+                    onClick={handleStop}
+                    className="flex h-8 w-8 items-center justify-center rounded bg-zinc-200 text-zinc-600 hover:bg-zinc-300 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
+                  >
+                    <Square size={16} fill="currentColor" />
+                  </button>
+                </div>
+
+                <div className="hidden items-center gap-4 rounded bg-white px-3 py-1 font-mono text-xs text-green-600 md:flex dark:bg-zinc-950 dark:text-green-500">
+                  <span>
+                    00:0{isPlaying ? Math.floor(Date.now() / 1000) % 10 : '0'}
+                    :00
+                  </span>
+                  <span className="text-zinc-400 dark:text-zinc-600">|</span>
+                  <span>120 BPM</span>
+                  <span className="text-zinc-400 dark:text-zinc-600">|</span>
+                  <span>4/4</span>
+                </div>
+              </div>
+
               <div className="flex gap-2">
-                <button
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className={cn(
-                    'flex h-8 w-8 items-center justify-center rounded transition-colors',
-                    isPlaying
-                      ? 'bg-green-500 text-black'
-                      : 'bg-zinc-200 text-zinc-600 hover:bg-zinc-300 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700',
-                  )}
-                >
-                  {isPlaying ? (
-                    <Pause size={16} fill="currentColor" />
-                  ) : (
-                    <Play size={16} fill="currentColor" />
-                  )}
-                </button>
-                <button
-                  onClick={handleStop}
-                  className="flex h-8 w-8 items-center justify-center rounded bg-zinc-200 text-zinc-600 hover:bg-zinc-300 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
-                >
-                  <Square size={16} fill="currentColor" />
-                </button>
-              </div>
-
-              <div className="hidden items-center gap-4 rounded bg-white px-3 py-1 font-mono text-xs text-green-600 md:flex dark:bg-zinc-950 dark:text-green-500">
-                <span>
-                  00:0{isPlaying ? Math.floor(Date.now() / 1000) % 10 : '0'}:00
-                </span>
-                <span className="text-zinc-400 dark:text-zinc-600">|</span>
-                <span>120 BPM</span>
-                <span className="text-zinc-400 dark:text-zinc-600">|</span>
-                <span>4/4</span>
+                <div className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+                <span className="text-xs font-bold text-zinc-500">REC</span>
               </div>
             </div>
 
-            <div className="flex gap-2">
-              <div className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
-              <span className="text-xs font-bold text-zinc-500">REC</span>
-            </div>
-          </div>
+            {/* Main Workspace */}
+            <div className="relative flex h-[400px]">
+              {/* Track Headers (Left) */}
+              <div className="relative z-20 flex flex-col border-r border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
+                <div className="h-8 border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900" />{' '}
+                {/* Ruler Spacer */}
+                {tracks.map((track) => (
+                  <TrackHeader
+                    key={track.id}
+                    track={track}
+                    muted={mutedTracks.has(track.id)}
+                    soloed={soloedTrack === track.id}
+                    onMute={() => toggleMute(track.id)}
+                    onSolo={() => toggleSolo(track.id)}
+                  />
+                ))}
+              </div>
 
-          {/* Main Workspace */}
-          <div className="relative flex h-[400px]">
-            {/* Track Headers (Left) */}
-            <div className="relative z-20 flex flex-col border-r border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
-              <div className="h-8 border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900" />{' '}
-              {/* Ruler Spacer */}
-              {tracks.map((track) => (
-                <TrackHeader
-                  key={track.id}
-                  track={track}
-                  muted={mutedTracks.has(track.id)}
-                  soloed={soloedTrack === track.id}
-                  onMute={() => toggleMute(track.id)}
-                  onSolo={() => toggleSolo(track.id)}
-                />
-              ))}
-            </div>
+              {/* Timeline (Right) */}
+              <div className="relative flex-1 overflow-x-auto overflow-y-hidden bg-zinc-50 dark:bg-zinc-950">
+                <div className="relative h-full min-w-[800px]">
+                  <TimeRuler />
 
-            {/* Timeline (Right) */}
-            <div className="relative flex-1 overflow-x-auto overflow-y-hidden bg-zinc-50 dark:bg-zinc-950">
-              <div className="relative h-full min-w-[800px]">
-                <TimeRuler />
+                  {/* Grid Background */}
+                  <div
+                    className="pointer-events-none absolute inset-0 top-8"
+                    style={{
+                      backgroundImage:
+                        'linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)',
+                      backgroundSize: '8.33% 100%',
+                    }}
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 top-8 hidden dark:block"
+                    style={{
+                      backgroundImage:
+                        'linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
+                      backgroundSize: '8.33% 100%',
+                    }}
+                  />
 
-                {/* Grid Background */}
-                <div
-                  className="pointer-events-none absolute inset-0 top-8"
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)',
-                    backgroundSize: '8.33% 100%',
-                  }}
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 top-8 hidden dark:block"
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
-                    backgroundSize: '8.33% 100%',
-                  }}
-                />
+                  {/* Playhead */}
+                  <div
+                    ref={playheadRef}
+                    className="pointer-events-none absolute top-0 bottom-0 z-30 w-px bg-red-500 transition-all duration-75 ease-linear"
+                    style={{ left: '0%' }}
+                  >
+                    <div className="absolute -top-1 -left-1.5 h-0 w-0 border-x-[6px] border-t-[8px] border-x-transparent border-t-red-500" />
+                  </div>
 
-                {/* Playhead */}
-                <div
-                  ref={playheadRef}
-                  className="pointer-events-none absolute top-0 bottom-0 z-30 w-px bg-red-500 transition-all duration-75 ease-linear"
-                  style={{ left: '0%' }}
-                >
-                  <div className="absolute -top-1 -left-1.5 h-0 w-0 border-x-[6px] border-t-[8px] border-x-transparent border-t-red-500" />
-                </div>
+                  {/* Tracks & Clips */}
+                  <div className="relative grid grid-rows-[repeat(3,6rem)]">
+                    {tracks.map((track) => {
+                      const isVisible =
+                        !mutedTracks.has(track.id) &&
+                        (!soloedTrack || soloedTrack === track.id)
 
-                {/* Tracks & Clips */}
-                <div className="relative grid grid-rows-[repeat(3,6rem)]">
-                  {tracks.map((track) => {
-                    const isVisible =
-                      !mutedTracks.has(track.id) &&
-                      (!soloedTrack || soloedTrack === track.id)
-
-                    return (
-                      <div
-                        key={track.id}
-                        className={cn(
-                          'relative grid grid-cols-12 gap-1 border-b border-zinc-200/50 p-1 transition-opacity dark:border-zinc-800/50',
-                          isVisible ? 'opacity-100' : 'opacity-20 grayscale',
-                        )}
-                      >
-                        {track.clips.map((clip) => (
-                          <ClipBlock
-                            key={clip.id}
-                            clip={clip}
-                            color={track.color}
-                            isActive={activeClip?.id === clip.id}
-                            onClick={() => setActiveClip(clip)}
-                            onHover={(isHovered) =>
-                              setHoveredClip(isHovered ? clip : null)
-                            }
-                          />
-                        ))}
-                      </div>
-                    )
-                  })}
+                      return (
+                        <div
+                          key={track.id}
+                          className={cn(
+                            'relative grid grid-cols-12 gap-1 border-b border-zinc-200/50 p-1 transition-opacity dark:border-zinc-800/50',
+                            isVisible ? 'opacity-100' : 'opacity-20 grayscale',
+                          )}
+                        >
+                          {track.clips.map((clip) => (
+                            <ClipBlock
+                              key={clip.id}
+                              clip={clip}
+                              color={track.color}
+                              isActive={activeClip?.id === clip.id}
+                              onClick={() => setActiveClip(clip)}
+                              onHover={(isHovered) =>
+                                setHoveredClip(isHovered ? clip : null)
+                              }
+                            />
+                          ))}
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
+
+              {/* Detail Overlay (Modal) */}
             </div>
 
-            {/* Detail Overlay (Modal) */}
-          </div>
-
-          {/* Info Bar */}
-          <div className="flex h-8 items-center border-t border-zinc-200 bg-zinc-100 px-4 text-xs text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-400">
-            <span className="mr-2 font-bold text-blue-500">INFO</span>
-            {hoveredClip
-              ? hoveredClip.description
-              : 'Hover over a clip to view details. Click to expand.'}
+            {/* Info Bar */}
+            <div className="flex h-8 items-center border-t border-zinc-200 bg-zinc-100 px-4 text-xs text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-400">
+              <span className="mr-2 font-bold text-blue-500">INFO</span>
+              {hoveredClip
+                ? hoveredClip.description
+                : 'Hover over a clip to view details. Click to expand.'}
+            </div>
           </div>
         </div>
-      </div>
 
-      <AnimatePresence>
-        {activeClip && (
-          <DetailWindow clip={activeClip} onClose={() => setActiveClip(null)} />
-        )}
-      </AnimatePresence>
-    </section>
+        <AnimatePresence>
+          {activeClip && (
+            <DetailWindow
+              clip={activeClip}
+              onClose={() => setActiveClip(null)}
+            />
+          )}
+        </AnimatePresence>
+      </section>
+    </LazyMotion>
   )
 }

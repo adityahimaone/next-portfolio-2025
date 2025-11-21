@@ -1,7 +1,9 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import {
-  motion,
+  LazyMotion,
+  domMax,
+  m,
   useScroll,
   useTransform,
   useInView,
@@ -92,207 +94,208 @@ export default function Home() {
   }, [])
 
   return (
-    <>
-      <AnimatePresence mode="wait">
-        {isLoading && <Preloader />}
-      </AnimatePresence>
+    <LazyMotion features={domMax}>
+      <>
+        <AnimatePresence mode="wait">
+          {isLoading && <Preloader />}
+        </AnimatePresence>
 
-      {/* Scroll Progress Indicator */}
-      <motion.div
-        className="from-primary via-secondary to-accent fixed top-0 right-0 left-0 z-100 h-1 bg-linear-to-r"
-        style={{ scaleX: smoothProgress, transformOrigin: '0%' }}
-      />
+        {/* Scroll Progress Indicator */}
+        <m.div
+          className="from-primary via-secondary to-accent fixed top-0 right-0 left-0 z-100 h-1 bg-linear-to-r"
+          style={{ scaleX: smoothProgress, transformOrigin: '0%' }}
+        />
 
-      <motion.div
-        ref={mainRef}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="relative"
-      >
-        {/* Background elements with parallax effect */}
-        <motion.div className="fixed inset-0 -z-10" style={{ y: backgroundY }}>
-          <div className="bg-gradient-radial to-background/50 dark:to-background/80 absolute inset-0 from-transparent" />
-          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] dark:opacity-[0.03]" />
-        </motion.div>
-
-        {/* Music notes scattered in background with better positioning */}
-        <motion.div
-          className="pointer-events-none fixed top-1/4 left-[10%] text-4xl"
-          style={{ opacity: floatingOpacity }}
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 10, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            repeatType: 'reverse',
-          }}
+        <m.div
+          ref={mainRef}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="relative"
         >
-          <span className="text-primary opacity-20 drop-shadow-md">♪</span>
-        </motion.div>
+          {/* Background elements with parallax effect */}
+          <m.div className="fixed inset-0 -z-10" style={{ y: backgroundY }}>
+            <div className="bg-gradient-radial to-background/50 dark:to-background/80 absolute inset-0 from-transparent" />
+            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] dark:opacity-[0.03]" />
+          </m.div>
 
-        <motion.div
-          className="pointer-events-none fixed top-1/3 right-[15%] text-5xl"
-          style={{ opacity: floatingOpacity }}
-          animate={{
-            y: [0, -30, 0],
-            rotate: [0, -15, 0],
-          }}
-          transition={{
-            duration: 7,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            delay: 1,
-          }}
-        >
-          <span className="text-secondary opacity-20 drop-shadow-md">♫</span>
-        </motion.div>
+          {/* Music notes scattered in background with better positioning */}
+          <m.div
+            className="pointer-events-none fixed top-1/4 left-[10%] text-4xl"
+            style={{ opacity: floatingOpacity }}
+            animate={{
+              y: [0, -20, 0],
+              rotate: [0, 10, 0],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          >
+            <span className="text-primary opacity-20 drop-shadow-md">♪</span>
+          </m.div>
 
-        <motion.div
-          className="pointer-events-none fixed bottom-1/4 left-1/4 text-6xl"
-          style={{ opacity: floatingOpacity }}
-          animate={{
-            y: [0, -25, 0],
-            rotate: [0, 20, 0],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            delay: 2,
-          }}
-        >
-          <span className="text-primary-light opacity-20 drop-shadow-md">
-            ♩
-          </span>
-        </motion.div>
+          <m.div
+            className="pointer-events-none fixed top-1/3 right-[15%] text-5xl"
+            style={{ opacity: floatingOpacity }}
+            animate={{
+              y: [0, -30, 0],
+              rotate: [0, -15, 0],
+            }}
+            transition={{
+              duration: 7,
+              repeat: Infinity,
+              repeatType: 'reverse',
+              delay: 1,
+            }}
+          >
+            <span className="text-secondary opacity-20 drop-shadow-md">♫</span>
+          </m.div>
 
-        <motion.div
-          className="pointer-events-none fixed right-1/4 bottom-1/3 text-5xl"
-          style={{ opacity: floatingOpacity }}
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, -10, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            delay: 3,
-          }}
-        >
-          <span className="text-accent opacity-20 drop-shadow-md">♬</span>
-        </motion.div>
+          <m.div
+            className="pointer-events-none fixed bottom-1/4 left-1/4 text-6xl"
+            style={{ opacity: floatingOpacity }}
+            animate={{
+              y: [0, -25, 0],
+              rotate: [0, 20, 0],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              repeatType: 'reverse',
+              delay: 2,
+            }}
+          >
+            <span className="text-primary-light opacity-20 drop-shadow-md">
+              ♩
+            </span>
+          </m.div>
 
-        {/* Main content */}
-        <main className="relative">
-          <div className="snap-y snap-mandatory">
-            {/* Hero Section with Beams Background */}
-            <section
-              ref={heroRef}
-              className="relative h-screen snap-start overflow-hidden"
-            >
-              <BeamsBackground
-                intensity="medium"
-                className="absolute inset-0 z-0"
-              />
-              <div className="relative">
-                <Header2025 />
-                <div className="mx-auto w-full max-w-7xl px-4 pt-20">
-                  <HeroSection2025 />
+          <m.div
+            className="pointer-events-none fixed right-1/4 bottom-1/3 text-5xl"
+            style={{ opacity: floatingOpacity }}
+            animate={{
+              y: [0, -20, 0],
+              rotate: [0, -10, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              repeatType: 'reverse',
+              delay: 3,
+            }}
+          >
+            <span className="text-accent opacity-20 drop-shadow-md">♬</span>
+          </m.div>
+
+          {/* Main content */}
+          <main className="relative">
+            <div className="snap-y snap-mandatory">
+              {/* Hero Section with Beams Background */}
+              <section
+                ref={heroRef}
+                className="relative h-screen snap-start overflow-hidden"
+              >
+                <BeamsBackground
+                  intensity="medium"
+                  className="absolute inset-0 z-0"
+                />
+                <div className="relative">
+                  <Header2025 />
+                  <div className="mx-auto w-full max-w-7xl px-4 pt-20">
+                    <HeroSection2025 />
+                  </div>
                 </div>
-              </div>
-              {/* Corner Illustrations */}
-              <div className="absolute -top-6 -left-16 z-1 scale-50 -rotate-45 xl:top-10 xl:left-10 xl:scale-100 xl:-rotate-55">
-                <motion.div
-                  initial={{ opacity: 0, x: -100 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 1.2,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  style={{ y: parallaxY }}
-                >
-                  <KeyboardIllustration />
-                </motion.div>
-              </div>
-              <div className="absolute -right-12 -bottom-20 z-1 scale-50 xl:right-0 xl:-bottom-20 xl:scale-100">
-                <motion.div
-                  initial={{ opacity: 0, x: 100 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 1.2,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  style={{ y: parallaxY }}
-                >
-                  <LaunchpadIllustration />
-                </motion.div>
-              </div>
-            </section>
-            {/* Music-themed marquee divider */}
-            <MusicMarquee speed="normal" direction="left" />
-            {/* Main Content Sections */}
-            <div className="mx-auto w-full max-w-7xl space-y-2 py-20">
-              <SectionDivider />
-              <section id="about" className="snap-start scroll-mt-0">
-                <AboutSection2025v2 />
+                {/* Corner Illustrations */}
+                <div className="absolute -top-6 -left-16 z-1 scale-50 -rotate-45 xl:top-10 xl:left-10 xl:scale-100 xl:-rotate-55">
+                  <m.div
+                    initial={{ opacity: 0, x: -100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: 1.2,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    style={{ y: parallaxY }}
+                  >
+                    <KeyboardIllustration />
+                  </m.div>
+                </div>
+                <div className="absolute -right-12 -bottom-20 z-1 scale-50 xl:right-0 xl:-bottom-20 xl:scale-100">
+                  <m.div
+                    initial={{ opacity: 0, x: 100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: 1.2,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    style={{ y: parallaxY }}
+                  >
+                    <LaunchpadIllustration />
+                  </m.div>
+                </div>
               </section>
+              {/* Music-themed marquee divider */}
+              <MusicMarquee speed="normal" direction="left" />
+              {/* Main Content Sections */}
+              <div className="mx-auto w-full max-w-7xl space-y-2 py-20">
+                <SectionDivider />
+                <section id="about" className="snap-start scroll-mt-0">
+                  <AboutSection2025v2 />
+                </section>
 
-              <SectionDivider />
-              <section id="skills" className="snap-start scroll-mt-0">
-                <SkillsMixer />
+                <SectionDivider />
+                <section id="skills" className="snap-start scroll-mt-0">
+                  <SkillsMixer />
+                </section>
+
+                <SectionDivider />
+                <section id="experience" className="snap-start scroll-mt-0">
+                  <ExperienceSection2025 />
+                </section>
+
+                <SectionDivider />
+              </div>
+              <section
+                id="projects"
+                className="dark:bg-accent snap-start scroll-mt-0"
+              >
+                <ProjectsSection2025 />
               </section>
-
-              <SectionDivider />
-              <section id="experience" className="snap-start scroll-mt-0">
-                <ExperienceSection2025 />
+              <div className="mb-5">
+                <SectionDivider />
+              </div>
+              <section id="contact" className="snap-start">
+                <ContactLaunchpad />
               </section>
-
-              <SectionDivider />
             </div>
-            <section
-              id="projects"
-              className="dark:bg-accent snap-start scroll-mt-0"
-            >
-              <ProjectsSection2025 />
-            </section>
-            <div className="mb-5">
-              <SectionDivider />
-            </div>
-            <section id="contact" className="snap-start">
-              <ContactLaunchpad />
-            </section>
-          </div>
-        </main>
-      </motion.div>
+          </main>
+        </m.div>
 
-      {/* Footer */}
-      <Footer2025V2 />
+        {/* Footer */}
+        <Footer2025V2 />
 
-      {/* Scroll to top button */}
-      <motion.button
-        onClick={handleScrollToTop}
-        className="from-primary to-secondary fixed right-7 bottom-24 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br text-white shadow-lg transition-transform"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{
-          opacity: showScrollTop ? 1 : 0,
-          scale: showScrollTop ? 1 : 0.8,
-          y: showScrollTop ? 0 : 20,
-        }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        transition={{ duration: 0.2 }}
-      >
-        <ChevronUp size={24} />
-      </motion.button>
+        {/* Scroll to top button */}
+        <m.button
+          onClick={handleScrollToTop}
+          className="from-primary to-secondary fixed right-7 bottom-24 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br text-white shadow-lg transition-transform"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: showScrollTop ? 1 : 0,
+            scale: showScrollTop ? 1 : 0.8,
+            y: showScrollTop ? 0 : 20,
+          }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ duration: 0.2 }}
+        >
+          <ChevronUp size={24} />
+        </m.button>
 
-      {/* Cursor follower effect for musical theme */}
-      {/* <div
+        {/* Cursor follower effect for musical theme */}
+        {/* <div
         id="cursor-glow"
         className="fixed top-0 left-0 z-50 w-16 h-16 transition-all duration-200 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 pointer-events-none bg-gradient-radial from-primary/30 to-transparent blur-md"
         style={{
@@ -301,8 +304,9 @@ export default function Home() {
         }}
       /> */}
 
-      {/* Music */}
-      <MusicPlayer />
-    </>
+        {/* Music */}
+        <MusicPlayer />
+      </>
+    </LazyMotion>
   )
 }
