@@ -336,62 +336,111 @@ export function AboutSection2025v2() {
           duration: 4,
           type: 'bio',
           content: (
-            <div className="mx-auto max-w-2xl space-y-6">
-              <div className="mb-8 flex items-center gap-4">
-                {/* <div className="flex items-center justify-center w-20 h-20 text-2xl font-bold text-white rounded-full bg-gradient-to-br from-blue-500 to-purple-600">
-                  AH
-                </div> */}
-                <div>
-                  <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">
-                    Aditya Himawan
-                  </h3>
-                  <p className="font-mono text-blue-500 dark:text-blue-400">
-                    Frontend Developer
-                  </p>
+            <div className="mx-auto max-w-3xl font-mono text-sm">
+              {/* Header Plate */}
+              <div className="mb-8 border-b-2 border-zinc-200 pb-4 dark:border-zinc-800">
+                <div className="flex items-end justify-between">
+                  <div>
+                    <h1 className="text-3xl font-black tracking-tighter text-zinc-900 dark:text-white">
+                      ADITYA HIMAONE
+                    </h1>
+                    <p className="text-xs tracking-widest text-zinc-500 uppercase">
+                      Frontend Engineer / Audio Enthusiast
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs font-bold text-zinc-400">
+                      MODEL NO.
+                    </div>
+                    <div className="text-xl font-bold text-zinc-700 dark:text-zinc-300">
+                      AH-2025-MKII
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="prose prose-zinc dark:prose-invert">
-                <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  I'm a passionate developer who bridges the gap between{' '}
-                  <span className="text-blue-500 dark:text-blue-400">
-                    engineering logic
-                  </span>{' '}
-                  and{' '}
-                  <span className="text-purple-500 dark:text-purple-400">
-                    creative design
-                  </span>
-                  . Just as a producer layers sounds to create a song, I layer
-                  code to build immersive digital experiences.
-                </p>
+              <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+                {/* Left Column: Specs */}
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="mb-2 border-b border-zinc-200 pb-1 text-xs font-bold text-zinc-400 uppercase dark:border-zinc-800">
+                      Technical Specifications
+                    </h3>
+                    <dl className="space-y-2">
+                      <div className="flex justify-between">
+                        <dt className="text-zinc-500">Role</dt>
+                        <dd className="font-bold text-zinc-900 dark:text-zinc-200">
+                          Frontend Developer
+                        </dd>
+                      </div>
+                      <div className="flex justify-between">
+                        <dt className="text-zinc-500">Location</dt>
+                        <dd className="font-bold text-zinc-900 dark:text-zinc-200">
+                          Jakarta, ID (GMT+7)
+                        </dd>
+                      </div>
+                      <div className="flex justify-between">
+                        <dt className="text-zinc-500">Experience</dt>
+                        <dd className="font-bold text-zinc-900 dark:text-zinc-200">
+                          3+ Years
+                        </dd>
+                      </div>
+                      <div className="flex justify-between">
+                        <dt className="text-zinc-500">Architecture</dt>
+                        <dd className="font-bold text-zinc-900 dark:text-zinc-200">
+                          React / Next.js
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
 
-                <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-800/50">
-                    <h4 className="mb-2 flex items-center gap-2 text-sm font-bold text-zinc-500 dark:text-zinc-400">
-                      <Code2 size={16} /> CORE STACK
-                    </h4>
+                  <div>
+                    <h3 className="mb-2 border-b border-zinc-200 pb-1 text-xs font-bold text-zinc-400 uppercase dark:border-zinc-800">
+                      Core Modules
+                    </h3>
                     <div className="flex flex-wrap gap-2">
-                      {['React', 'Next.js', 'TypeScript', 'Tailwind'].map(
-                        (t) => (
-                          <span
-                            key={t}
-                            className="rounded border border-blue-500/20 bg-blue-500/10 px-2 py-1 text-xs text-blue-600 dark:text-blue-400"
-                          >
-                            {t}
-                          </span>
-                        ),
-                      )}
+                      {[
+                        'React',
+                        'TypeScript',
+                        'Next.js',
+                        'Tailwind',
+                        'Framer Motion',
+                        'Node.js',
+                      ].map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded bg-zinc-100 px-2 py-1 text-xs font-bold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                  <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-800/50">
-                    <h4 className="mb-2 flex items-center gap-2 text-sm font-bold text-zinc-500 dark:text-zinc-400">
-                      <Globe size={16} /> LOCATION
-                    </h4>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-300">
-                      Jakarta, Indonesia (GMT+7)
-                    </p>
-                    <p className="mt-1 text-xs text-zinc-500">
-                      Available for remote work
+                </div>
+
+                {/* Right Column: Description */}
+                <div>
+                  <h3 className="mb-2 border-b border-zinc-200 pb-1 text-xs font-bold text-zinc-400 uppercase dark:border-zinc-800">
+                    Description
+                  </h3>
+                  <p className="leading-relaxed text-zinc-600 dark:text-zinc-300">
+                    Passionate developer bridging the gap between engineering
+                    logic and creative design. Just as a producer layers sounds
+                    to create a song, I layer code to build immersive digital
+                    experiences.
+                    <br />
+                    <br />
+                    Specialized in building high-performance web applications
+                    with a focus on interaction design and accessibility.
+                  </p>
+
+                  <div className="mt-8 rounded border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
+                    <div className="mb-2 flex items-center gap-2 text-xs font-bold text-green-600 dark:text-green-400">
+                      <div className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
+                      SYSTEM OPERATIONAL
+                    </div>
+                    <p className="text-xs text-zinc-500">
+                      Currently available for new projects and collaborations.
                     </p>
                   </div>
                 </div>
@@ -416,30 +465,61 @@ export function AboutSection2025v2() {
           duration: 3,
           type: 'stats',
           content: (
-            <div className="grid h-full grid-cols-1 items-center gap-6 md:grid-cols-3">
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-zinc-200 bg-zinc-50 p-8 dark:border-zinc-700 dark:bg-zinc-800/30">
-                <span className="mb-2 text-4xl font-black text-zinc-900 dark:text-white">
-                  3+
-                </span>
-                <span className="font-mono text-sm tracking-widest text-zinc-500 uppercase">
-                  Years Exp
-                </span>
-              </div>
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-zinc-200 bg-zinc-50 p-8 dark:border-zinc-700 dark:bg-zinc-800/30">
-                <span className="mb-2 text-4xl font-black text-zinc-900 dark:text-white">
-                  20+
-                </span>
-                <span className="font-mono text-sm tracking-widest text-zinc-500 uppercase">
-                  Projects
-                </span>
-              </div>
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-zinc-200 bg-zinc-50 p-8 dark:border-zinc-700 dark:bg-zinc-800/30">
-                <span className="mb-2 text-4xl font-black text-zinc-900 dark:text-white">
-                  100%
-                </span>
-                <span className="font-mono text-sm tracking-widest text-zinc-500 uppercase">
-                  Commitment
-                </span>
+            <div className="flex h-full flex-col items-center justify-center gap-12 py-8">
+              <div className="grid w-full max-w-4xl grid-cols-1 gap-8 md:grid-cols-3">
+                {/* Gauge 1 */}
+                <div className="flex flex-col items-center gap-4">
+                  <div className="relative flex h-40 w-40 items-center justify-center rounded-full border-4 border-zinc-300 bg-zinc-100 shadow-inner dark:border-zinc-700 dark:bg-zinc-800">
+                    <div className="absolute bottom-4 text-xs font-bold text-zinc-400">
+                      YEARS
+                    </div>
+                    <div className="text-4xl font-black text-zinc-800 dark:text-zinc-100">
+                      3+
+                    </div>
+                    {/* Decorative Needle */}
+                    <div className="absolute bottom-1/2 left-1/2 h-16 w-1 origin-bottom -translate-x-1/2 rotate-45 rounded-full bg-red-500 shadow-md" />
+                    <div className="absolute bottom-1/2 left-1/2 h-4 w-4 -translate-x-1/2 translate-y-1/2 rounded-full bg-zinc-400 shadow-md" />
+                  </div>
+                  <span className="text-sm font-bold tracking-widest text-zinc-500 uppercase">
+                    Experience
+                  </span>
+                </div>
+
+                {/* Gauge 2 */}
+                <div className="flex flex-col items-center gap-4">
+                  <div className="relative flex h-40 w-40 items-center justify-center rounded-full border-4 border-zinc-300 bg-zinc-100 shadow-inner dark:border-zinc-700 dark:bg-zinc-800">
+                    <div className="absolute bottom-4 text-xs font-bold text-zinc-400">
+                      COUNT
+                    </div>
+                    <div className="text-4xl font-black text-zinc-800 dark:text-zinc-100">
+                      20+
+                    </div>
+                    {/* Decorative Needle */}
+                    <div className="absolute bottom-1/2 left-1/2 h-16 w-1 origin-bottom -translate-x-1/2 rotate-[60deg] rounded-full bg-red-500 shadow-md" />
+                    <div className="absolute bottom-1/2 left-1/2 h-4 w-4 -translate-x-1/2 translate-y-1/2 rounded-full bg-zinc-400 shadow-md" />
+                  </div>
+                  <span className="text-sm font-bold tracking-widest text-zinc-500 uppercase">
+                    Projects
+                  </span>
+                </div>
+
+                {/* Gauge 3 */}
+                <div className="flex flex-col items-center gap-4">
+                  <div className="relative flex h-40 w-40 items-center justify-center rounded-full border-4 border-zinc-300 bg-zinc-100 shadow-inner dark:border-zinc-700 dark:bg-zinc-800">
+                    <div className="absolute bottom-4 text-xs font-bold text-zinc-400">
+                      EFFORT
+                    </div>
+                    <div className="text-4xl font-black text-zinc-800 dark:text-zinc-100">
+                      100%
+                    </div>
+                    {/* Decorative Needle */}
+                    <div className="absolute bottom-1/2 left-1/2 h-16 w-1 origin-bottom -translate-x-1/2 rotate-[120deg] rounded-full bg-red-500 shadow-md" />
+                    <div className="absolute bottom-1/2 left-1/2 h-4 w-4 -translate-x-1/2 translate-y-1/2 rounded-full bg-zinc-400 shadow-md" />
+                  </div>
+                  <span className="text-sm font-bold tracking-widest text-zinc-500 uppercase">
+                    Commitment
+                  </span>
+                </div>
               </div>
             </div>
           ),
@@ -461,15 +541,29 @@ export function AboutSection2025v2() {
           duration: 5,
           type: 'spotify',
           content: (
-            <div className="mx-auto flex h-full max-w-md flex-col items-center justify-center">
-              <div className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-700 dark:bg-zinc-800/50">
-                <div className="mb-6 flex items-center gap-3 text-green-500">
-                  <Zap className="animate-pulse" size={20} />
-                  <span className="font-mono font-bold">LIVE SIGNAL</span>
+            <div className="flex h-full flex-col items-center justify-center">
+              <div className="relative w-full rounded-lg bg-zinc-900 p-8 shadow-2xl">
+                {/* Rack Ears */}
+                <div className="absolute top-0 bottom-0 -left-4 flex w-4 flex-col items-center justify-between rounded-l border-r border-black/50 bg-zinc-800 py-4">
+                  <div className="h-3 w-2 rounded-full bg-zinc-950 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]" />
+                  <div className="h-3 w-2 rounded-full bg-zinc-950 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]" />
                 </div>
+                <div className="absolute top-0 -right-4 bottom-0 flex w-4 flex-col items-center justify-between rounded-r border-l border-black/50 bg-zinc-800 py-4">
+                  <div className="h-3 w-2 rounded-full bg-zinc-950 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]" />
+                  <div className="h-3 w-2 rounded-full bg-zinc-950 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]" />
+                </div>
+
+                <div className="mb-6 flex items-center justify-center gap-3 text-amber-500">
+                  <Zap className="animate-pulse" size={20} />
+                  <span className="font-mono font-bold tracking-widest">
+                    SIGNAL PROCESSING
+                  </span>
+                </div>
+
                 <NowPlaying />
-                <div className="mt-6 border-t border-zinc-200 pt-6 text-center dark:border-zinc-700">
-                  <p className="text-sm text-zinc-500 italic dark:text-zinc-400">
+
+                <div className="mt-8 border-t border-white/10 pt-6 text-center">
+                  <p className="font-mono text-xs text-zinc-500">
                     "Music is the hidden arithmetic of the soul, which does not
                     know that it is counting."
                   </p>
