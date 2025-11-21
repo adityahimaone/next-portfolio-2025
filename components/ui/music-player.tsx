@@ -52,7 +52,7 @@ export function MusicPlayer() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
-          className="fixed right-8 bottom-8 z-50"
+          className="fixed right-2 bottom-8 z-50 md:right-8"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
