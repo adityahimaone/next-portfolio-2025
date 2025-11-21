@@ -11,9 +11,9 @@ import {
   AnimatePresence,
 } from 'motion/react'
 import { Preloader } from '@/components/ui/preloader'
-import { Header2025 } from '@/components/header-2025'
+import { HeaderKnob } from '@/components/header-knob'
 import { Footer2025V2 } from '@/components/footer-2025-v2'
-import { HeroSection2025 } from '@/components/sections/hero-2025'
+import { HeroSection2025v2 } from '@/components/sections/hero-2025-v2'
 import { AboutSection2025v2 } from '@/components/sections/about-2025-v2'
 import { SkillsSection } from '@/components/sections/skills'
 import { ExperienceSection2025 } from '@/components/sections/experience-2025'
@@ -23,7 +23,14 @@ import { SectionDivider } from '@/components/ui/section-divider'
 import { AuroraBackground } from '@/components/ui/aurora-background'
 import { ChevronUp } from 'lucide-react'
 import { initCursorGlow } from '@/lib/utils'
-import { BeamsBackground } from '@/components/ui/beams-background'
+import { FlowingLinesBackground } from '@/components/ui/flowing-lines-background'
+// import { RetroGridBackground } from '@/components/ui/retro-grid-background'
+// import { HexagonWaveBackground } from '@/components/ui/hexagon-wave-background'
+// import { CircularEqualizerBackground } from '@/components/ui/circular-equalizer-background'
+// import { OscilloscopeBackground } from '@/components/ui/oscilloscope-background'
+// import { GridDistortionBackground } from '@/components/ui/grid-distortion-background'
+// import { RhythmBackground } from '@/components/ui/rhythm-background'
+// import { EqualizerBackground } from '@/components/ui/equalizer-background'
 import { MusicPlayer } from '@/components/ui/music-player'
 import { MusicBackground } from '@/components/ui/music-background'
 import { MusicMarquee } from '@/components/ui/music-marquee'
@@ -31,6 +38,7 @@ import { About2Section } from '@/components/sections/about-2'
 import { SkillsMixer } from '@/components/sections/skills-mixer'
 import { KeyboardIllustration } from '@/components/ui/keyboard-illustration'
 import { LaunchpadIllustration } from '@/components/ui/launchpad-illustration'
+import { RhythmBackground } from '@/components/ui/rhythm-background'
 
 export default function Home() {
   const { scrollYProgress } = useScroll()
@@ -101,10 +109,10 @@ export default function Home() {
         </AnimatePresence>
 
         {/* Scroll Progress Indicator */}
-        <m.div
-          className="from-primary via-secondary to-accent fixed top-0 right-0 left-0 z-100 h-1 bg-linear-to-r"
+        {/* <m.div
+          className="fixed top-0 left-0 right-0 h-1 from-primary via-secondary to-accent z-100 bg-linear-to-r"
           style={{ scaleX: smoothProgress, transformOrigin: '0%' }}
-        />
+        /> */}
 
         <m.div
           ref={mainRef}
@@ -114,13 +122,13 @@ export default function Home() {
           className="relative"
         >
           {/* Background elements with parallax effect */}
-          <m.div className="fixed inset-0 -z-10" style={{ y: backgroundY }}>
-            <div className="bg-gradient-radial to-background/50 dark:to-background/80 absolute inset-0 from-transparent" />
+          {/* <m.div className="fixed inset-0 -z-10" style={{ y: backgroundY }}>
+            <div className="absolute inset-0 bg-gradient-radial to-background/50 dark:to-background/80 from-transparent" />
             <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] dark:opacity-[0.03]" />
-          </m.div>
+          </m.div> */}
 
           {/* Music notes scattered in background with better positioning */}
-          <m.div
+          {/* <m.div
             className="pointer-events-none fixed top-1/4 left-[10%] text-4xl"
             style={{ opacity: floatingOpacity }}
             animate={{
@@ -134,7 +142,7 @@ export default function Home() {
             }}
           >
             <span className="text-primary opacity-20 drop-shadow-md">♪</span>
-          </m.div>
+          </m.div> */}
 
           <m.div
             className="pointer-events-none fixed top-1/3 right-[15%] text-5xl"
@@ -197,18 +205,12 @@ export default function Home() {
                 ref={heroRef}
                 className="relative h-screen snap-start overflow-hidden"
               >
-                <BeamsBackground
-                  intensity="medium"
-                  className="absolute inset-0 z-0"
-                />
                 <div className="relative">
-                  <Header2025 />
-                  <div className="mx-auto w-full max-w-7xl px-4 pt-20">
-                    <HeroSection2025 />
-                  </div>
+                  <HeaderKnob />
+                  <HeroSection2025v2 />
                 </div>
                 {/* Corner Illustrations */}
-                <div className="absolute -top-6 -left-16 z-1 scale-50 -rotate-45 xl:top-10 xl:left-10 xl:scale-100 xl:-rotate-55">
+                {/* <div className="absolute scale-50 -rotate-45 -top-6 -left-16 z-1 xl:top-10 xl:left-10 xl:scale-100 xl:-rotate-55">
                   <m.div
                     initial={{ opacity: 0, x: -100 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -222,7 +224,7 @@ export default function Home() {
                     <KeyboardIllustration />
                   </m.div>
                 </div>
-                <div className="absolute -right-12 -bottom-20 z-1 scale-50 xl:right-0 xl:-bottom-20 xl:scale-100">
+                <div className="absolute scale-50 -right-12 -bottom-20 z-1 xl:right-0 xl:-bottom-20 xl:scale-100">
                   <m.div
                     initial={{ opacity: 0, x: 100 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -235,7 +237,7 @@ export default function Home() {
                   >
                     <LaunchpadIllustration />
                   </m.div>
-                </div>
+                </div> */}
               </section>
               {/* Music-themed marquee divider */}
               <MusicMarquee speed="normal" direction="left" />
