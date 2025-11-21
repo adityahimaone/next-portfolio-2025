@@ -2,16 +2,11 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import {
-  PlayIcon,
-  PauseIcon,
-  VolumeIcon,
-  Volume2Icon,
-  Disc3,
-} from 'lucide-react'
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react'
 import { Slider } from './slider'
 import { useAudio } from '@/lib/audio-context'
 import useClickOutside from '@/hooks/useClickOutside'
+import { cn } from '@/lib/utils'
 
 export function MusicPlayer() {
   const { isPlaying, togglePlay, isMuted, toggleMute, volume, setVolume } =
@@ -57,116 +52,91 @@ export function MusicPlayer() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
-          className="fixed right-5 bottom-5 z-50"
+          className="fixed right-8 bottom-8 z-50"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <motion.div
-            className="flex items-center space-x-2 rounded-full bg-zinc-100/80 p-2 backdrop-blur-md dark:bg-zinc-800/80"
-            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-2 rounded-lg border border-zinc-300 bg-zinc-200 p-1 shadow-[0_4px_0_rgb(161,161,170),0_5px_10px_rgba(0,0,0,0.2)] transition-all dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-[0_4px_0_rgb(39,39,42),0_5px_10px_rgba(0,0,0,0.5)]"
             layout
           >
+            {/* Play/Pause Button */}
             <div className="relative">
-              {isPlaying && (
-                <>
-                  {/* Rotating Dashed Ring */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1, rotate: 360 }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: 'linear',
-                    }}
-                    className="border-primary/40 dark:border-primary-light/40 absolute -inset-2 -z-10 rounded-full border border-dashed"
-                  />
-
-                  {/* Ripple 1 */}
-                  <motion.div
-                    initial={{ scale: 1, opacity: 0.5 }}
-                    animate={{ scale: 2.5, opacity: 0 }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: 'easeOut',
-                    }}
-                    className="bg-primary/20 dark:bg-primary-light/20 absolute inset-0 -z-20 rounded-full"
-                  />
-
-                  {/* Ripple 2 (Delayed) */}
-                  <motion.div
-                    initial={{ scale: 1, opacity: 0.5 }}
-                    animate={{ scale: 2.5, opacity: 0 }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: 'easeOut',
-                      delay: 1,
-                    }}
-                    className="bg-primary/20 dark:bg-primary-light/20 absolute inset-0 -z-20 rounded-full"
-                  />
-                </>
-              )}
-              <motion.button
+              <button
                 onClick={togglePlay}
-                className="bg-primary flex h-10 w-10 items-center justify-center rounded-full text-white"
-                whileTap={{ scale: 0.95 }}
-                title={isPlaying ? 'Pause' : 'Play'}
+                className={cn(
+                  'flex h-10 w-10 items-center justify-center rounded-md border-2 transition-all active:scale-95',
+                  isPlaying
+                    ? 'border-amber-500/50 bg-amber-500/10 text-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.3)]'
+                    : 'border-zinc-400/50 bg-zinc-300/50 text-zinc-600 dark:border-zinc-600/50 dark:bg-zinc-800/50 dark:text-zinc-400',
+                )}
               >
-                {isPlaying ? <PauseIcon size={18} /> : <PlayIcon size={18} />}
-              </motion.button>
+                {isPlaying ? (
+                  <Pause size={18} fill="currentColor" />
+                ) : (
+                  <Play size={18} fill="currentColor" className="ml-0.5" />
+                )}
+              </button>
+              {/* Status LED */}
+              <div
+                className={cn(
+                  'absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full border border-zinc-200 transition-colors dark:border-zinc-900',
+                  isPlaying
+                    ? 'bg-green-500 shadow-[0_0_5px_#22c55e]'
+                    : 'bg-red-900',
+                )}
+              />
             </div>
 
             <AnimatePresence>
               {isHovered && (
                 <motion.div
-                  className="flex items-center space-x-3"
+                  className="flex items-center gap-3 overflow-hidden"
                   initial={{ width: 0, opacity: 0 }}
                   animate={{ width: 'auto', opacity: 1 }}
                   exit={{ width: 0, opacity: 0 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
-                  <motion.div
-                    className="flex items-center space-x-2 px-2"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    <motion.button
-                      onClick={toggleMute}
-                      whileTap={{ scale: 0.95 }}
-                      className="text-zinc-700 dark:text-zinc-300"
-                    >
-                      {isMuted ? (
-                        <VolumeIcon size={18} />
-                      ) : (
-                        <Volume2Icon size={18} />
-                      )}
-                    </motion.button>
+                  {/* Divider */}
+                  <div className="h-8 w-px bg-zinc-400 dark:bg-zinc-700" />
 
+                  {/* Volume Controls */}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={toggleMute}
+                      className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
+                    >
+                      {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                    </button>
                     <Slider
                       defaultValue={[0.5]}
                       value={[volume]}
                       onValueChange={handleVolumeChange}
                       max={1}
                       step={0.01}
-                      className="w-24"
+                      className="w-20"
                     />
-                  </motion.div>
+                  </div>
 
-                  <motion.div
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-200 dark:bg-zinc-700"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 0 }}
-                  >
-                    <div
-                      className={`vinyl-record flex h-6 w-6 items-center justify-center overflow-hidden rounded-full ${isPlaying ? 'animate-spin' : ''}`}
-                      style={{ animationDuration: '4s' }}
-                    >
-                      <Disc3 size={24} className="text-primary" />
-                    </div>
-                  </motion.div>
+                  {/* Signal Indicator */}
+                  <div className="flex h-4 items-end gap-0.5">
+                    {[...Array(4)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="w-1 rounded-sm bg-amber-500/50"
+                        animate={{
+                          height: isPlaying ? [4, 12, 6, 10, 4] : 4,
+                          opacity: isPlaying ? 1 : 0.3,
+                        }}
+                        transition={{
+                          duration: 0.4,
+                          repeat: Infinity,
+                          delay: i * 0.1,
+                          repeatType: 'reverse',
+                        }}
+                      />
+                    ))}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

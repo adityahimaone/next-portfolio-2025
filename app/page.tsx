@@ -282,18 +282,17 @@ export default function Home() {
         {/* Scroll to top button */}
         <m.button
           onClick={handleScrollToTop}
-          className="from-primary to-secondary fixed right-7 bottom-24 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br text-white shadow-lg transition-transform"
+          className="fixed right-8 bottom-24 z-50 flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-300 bg-zinc-200 shadow-[0_4px_0_rgb(161,161,170),0_5px_10px_rgba(0,0,0,0.2)] transition-all hover:bg-zinc-100 active:translate-y-1 active:shadow-none dark:border-zinc-700 dark:bg-zinc-800 dark:shadow-[0_4px_0_rgb(39,39,42),0_5px_10px_rgba(0,0,0,0.5)] dark:hover:bg-zinc-700"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{
             opacity: showScrollTop ? 1 : 0,
             scale: showScrollTop ? 1 : 0.8,
-            y: showScrollTop ? 0 : 20,
+            y: showScrollTop ? 0 : 50,
           }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ duration: 0.2 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          <ChevronUp size={24} />
+          <ChevronUp size={24} className="text-zinc-600 dark:text-zinc-400" />
         </m.button>
 
         {/* Cursor follower effect for musical theme */}
