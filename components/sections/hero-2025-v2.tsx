@@ -86,7 +86,7 @@ export function HeroSection2025v2() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.4 }}
-            className="mb-10 max-w-2xl text-center text-base font-medium text-zinc-600 sm:text-lg md:text-xl dark:text-zinc-400"
+            className="mb-10 max-w-2xl text-center text-base font-light text-zinc-600 sm:text-lg md:text-xl dark:text-zinc-400"
           >
             Orchestrating code and rhythm into immersive digital experiences.
             <br className="hidden sm:block" /> Frontend Developer & Audio
@@ -94,62 +94,101 @@ export function HeroSection2025v2() {
           </motion.p>
 
           {/* Player Controls / CTA */}
+          {/* Player Controls / CTA - Hardware Style */}
           <motion.div
             initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 0.8, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex max-w-[90vw] items-center gap-2 rounded-2xl border border-zinc-200 bg-white/50 p-2 backdrop-blur-md sm:max-w-none sm:gap-6 dark:border-zinc-800 dark:bg-zinc-900/50"
+            className="relative flex w-full max-w-[90vw] items-center gap-4 rounded-lg border-t border-white/20 bg-zinc-200 p-2 shadow-2xl sm:max-w-lg sm:gap-6 sm:p-3 dark:border-white/5 dark:bg-zinc-900"
           >
+            {/* Inset Shadow for depth */}
+            <div className="pointer-events-none absolute inset-0 rounded-lg shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),inset_0_4px_10px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),inset_0_4px_10px_rgba(0,0,0,0.5)]" />
+
             <Magnetic intensity={0.2}>
               <button
                 onClick={togglePlay}
-                className="bg-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-white shadow-lg transition-transform hover:scale-105 active:scale-95 sm:h-14 sm:w-14"
+                className="group relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-linear-to-b from-zinc-100 to-zinc-300 shadow-[0_2px_5px_rgba(0,0,0,0.2),0_0_0_1px_rgba(0,0,0,0.1)] transition-all active:scale-95 active:shadow-inner sm:h-14 sm:w-14 dark:from-zinc-700 dark:to-zinc-800 dark:shadow-[0_2px_5px_rgba(0,0,0,0.5),0_0_0_1px_rgba(0,0,0,0.5)]"
               >
+                <div className="bg-primary/5 absolute inset-0 rounded-full opacity-0 transition-opacity group-hover:opacity-100" />
                 {isPlaying ? (
-                  <Pause fill="currentColor" />
+                  <Pause
+                    fill="currentColor"
+                    className="text-zinc-700 dark:text-zinc-200"
+                  />
                 ) : (
-                  <Play fill="currentColor" className="ml-1" />
+                  <Play
+                    fill="currentColor"
+                    className="ml-1 text-zinc-700 dark:text-zinc-200"
+                  />
                 )}
+                {/* LED Indicator on button */}
+                <div
+                  className={`absolute top-2 right-2 h-1.5 w-1.5 rounded-full transition-colors ${isPlaying ? 'bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.8)]' : 'bg-zinc-400 dark:bg-zinc-600'}`}
+                />
               </button>
             </Magnetic>
 
-            <div className="flex min-w-0 flex-1 flex-col items-start gap-1 px-2">
-              <span className="text-[10px] font-bold tracking-wider text-zinc-400 uppercase">
-                Now Playing
-              </span>
-              <div className="flex w-full items-center gap-3">
-                <span className="truncate text-sm font-medium">
-                  {currentTrack}
+            {/* LCD Display */}
+            <div className="flex min-w-0 flex-1 flex-col items-start gap-1 rounded border-b border-white/10 bg-zinc-800 p-2 shadow-[inset_0_2px_6px_rgba(0,0,0,0.8)] dark:bg-black">
+              <div className="flex w-full items-center justify-between px-1">
+                <span className="text-[7px] font-bold tracking-widest text-zinc-500 uppercase">
+                  STATUS: {isPlaying ? 'PLAYING' : 'STANDBY'}
                 </span>
-                <div className="flex h-4 shrink-0 items-end gap-0.5">
+                <div className="flex gap-0.5">
+                  {[...Array(3)].map((_, i) => (
+                    <div
+                      key={i}
+                      className={`h-1 w-1 rounded-full ${isPlaying ? 'animate-pulse bg-red-500' : 'bg-zinc-700'}`}
+                      style={{ animationDelay: `${i * 0.2}s` }}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="flex w-full items-center gap-3 overflow-hidden px-1">
+                <div className="flex h-3 shrink-0 items-end gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <motion.div
                       key={i}
-                      className="w-1 rounded-full bg-zinc-900 dark:bg-white"
+                      className="w-1 rounded-[1px] bg-amber-500/80"
                       animate={{
-                        height: isPlaying ? [4, 16, 8, 12, 4] : 4,
+                        height: isPlaying ? [2, 10, 5, 8, 2] : 2,
+                        opacity: isPlaying ? 1 : 0.5,
                       }}
                       transition={{
-                        duration: 0.5,
+                        duration: 0.4,
                         repeat: Infinity,
-                        delay: i * 0.1,
+                        delay: i * 0.05,
                         ease: 'easeInOut',
                       }}
                     />
                   ))}
                 </div>
+                <div className="relative flex-1 overflow-hidden">
+                  <motion.div
+                    className="flex w-fit font-mono text-xs whitespace-nowrap text-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.4)] sm:text-sm"
+                    animate={{ x: ['0%', '-50%'] }}
+                    transition={{
+                      repeat: Infinity,
+                      ease: 'linear',
+                      duration: Math.max(8, currentTrack.length * 0.2),
+                    }}
+                  >
+                    <span className="mr-8">{currentTrack}</span>
+                    <span className="mr-8">{currentTrack}</span>
+                  </motion.div>
+                </div>
               </div>
             </div>
 
-            <div className="h-8 w-px shrink-0 bg-zinc-200 dark:bg-zinc-800" />
+            <div className="h-8 w-px shrink-0 bg-zinc-300 dark:bg-zinc-800" />
 
             <Magnetic intensity={0.2}>
               <a
                 href="#projects"
-                className="flex h-10 shrink-0 items-center gap-2 rounded-lg px-3 text-sm font-medium transition-colors hover:bg-zinc-100 sm:px-4 dark:hover:bg-zinc-800"
+                className="flex h-10 shrink-0 items-center gap-2 rounded bg-zinc-300 px-3 text-xs font-bold text-zinc-700 shadow-[0_1px_0_rgba(255,255,255,0.5),0_2px_4px_rgba(0,0,0,0.1)] transition-transform hover:-translate-y-0.5 active:translate-y-0 active:shadow-inner sm:px-4 dark:bg-zinc-800 dark:text-zinc-300 dark:shadow-[0_1px_0_rgba(255,255,255,0.1),0_2px_4px_rgba(0,0,0,0.3)]"
               >
-                <span className="hidden sm:inline">Tracks</span>
-                <SkipForward size={16} />
+                <span className="hidden sm:inline">TRACKS</span>
+                <SkipForward size={14} />
               </a>
             </Magnetic>
           </motion.div>
