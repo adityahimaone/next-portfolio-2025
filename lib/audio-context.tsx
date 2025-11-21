@@ -64,7 +64,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         playPromise
           .then(() => {
             setIsPlaying(true)
-            setCurrentTrack('Jonas Blue & Malive - Edge Of Desire')
+            setCurrentTrack(
+              'Jonas Blue & Malive - Edge Of Desire (Sunrise Mix)',
+            )
           })
           .catch((error) => {
             console.error('Playback failed:', error)
