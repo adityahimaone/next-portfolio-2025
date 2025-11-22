@@ -28,6 +28,7 @@ export function HeaderKnob() {
   const [activeKnob, setActiveKnob] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isPlugged, setIsPlugged] = useState(false)
   const { scrollY } = useScroll()
   const mobileMenuRef = useRef<HTMLDivElement>(null)
   const toggleButtonRef = useRef<HTMLButtonElement>(null)
@@ -166,20 +167,69 @@ export function HeaderKnob() {
           </span>
         </div>
 
-        {/* Right: Input Jack (Logo/Brand?) */}
+        {/* Right: Input Jack */}
         <div className="hidden flex-col items-center gap-1.5 md:flex">
-          <div
-            className={cn(
-              'flex items-center justify-center rounded-full border-4 border-zinc-300 bg-zinc-200 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] dark:border-zinc-700 dark:bg-zinc-800',
-              isScrolled ? 'h-8 w-8 border-2' : 'h-10 w-10',
-            )}
-          >
-            <div
+          <div className="relative z-50">
+            <button
+              onClick={() => setIsPlugged(!isPlugged)}
               className={cn(
-                'rounded-full bg-black/80',
-                isScrolled ? 'h-3 w-3' : 'h-4 w-4',
+                'flex cursor-pointer items-center justify-center rounded-full border-4 border-zinc-300 bg-zinc-200 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] transition-all active:scale-95 dark:border-zinc-700 dark:bg-zinc-800',
+                isScrolled ? 'h-8 w-8 border-2' : 'h-10 w-10',
+                isPlugged && 'shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)]',
               )}
-            />
+              aria-label="Input Jack"
+            >
+              <div
+                className={cn(
+                  'rounded-full bg-black/90 shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)]',
+                  isScrolled ? 'h-3 w-3' : 'h-4 w-4',
+                )}
+              />
+            </button>
+
+            {/* Cable Animation */}
+            <AnimatePresence>
+              {isPlugged && (
+                <motion.div
+                  initial={{ y: 100, opacity: 0 }}
+                  animate={{ y: 10, opacity: 1 }}
+                  exit={{ y: 100, opacity: 0 }}
+                  transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+                  className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2"
+                >
+                  <div className="flex flex-col items-center">
+                    {/* Gold Connector Body (Sleeve) */}
+                    <div className="h-4 w-3 rounded-t-sm border-b border-amber-700/30 bg-linear-to-r from-amber-200 via-amber-400 to-amber-600 shadow-sm" />
+
+                    {/* Insulator Ring */}
+                    <div className="h-0.5 w-3 bg-black" />
+
+                    {/* Handle / Grip */}
+                    <div className="flex h-10 w-4 flex-col items-center justify-between rounded-b-md border-t border-white/10 bg-linear-to-r from-zinc-700 via-zinc-800 to-zinc-900 py-1 shadow-xl">
+                      <div className="h-px w-full bg-black/30" />
+                      <div className="h-px w-full bg-black/30" />
+                      <div className="h-px w-full bg-black/30" />
+                    </div>
+
+                    {/* Strain Relief */}
+                    <div className="-mt-1 h-4 w-2.5 rounded-b-full bg-zinc-900" />
+
+                    {/* Cable */}
+                    <div className="relative h-0 w-0">
+                      <svg className="pointer-events-none absolute top-0 left-0 h-[500px] w-[500px] overflow-visible drop-shadow-2xl">
+                        <path
+                          d="M 0 0 C 0 80, 40 150, 500 300"
+                          fill="none"
+                          stroke="#18181b"
+                          strokeWidth="6"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           <span className="text-[8px] font-bold tracking-widest text-zinc-600 md:text-[10px] dark:text-zinc-400">
             INPUT
